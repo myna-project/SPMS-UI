@@ -1,0 +1,91 @@
+{
+  "DIALOG": {
+    "BACK": "Indietro",
+    "CANCEL": "Annulla",
+    "CONFIRM": "Conferma",
+    "DELETEMSG": "Sei sicuro di voler eliminare questo elemento?",
+    "ERROR": "Errore",
+    "GENERICERROR": "Si è verificato un errore! Per favore riprovare e se l'errore persiste contattare l'assistenza",
+    "NO": "No",
+    "NOTSAVEDMSG": "I dati di questa pagina non sono stati salvati, vuoi davvero abbandonare la pagina?",
+    "YES": "Sì"
+  },
+  "ERROR": {
+    "400": "Richiesta non corretta! Se l'errore persiste contattare l'assistenza",
+    "404": "Risorsa non trovata!",
+    "405": "Operazione non consentita!",
+    "1001": "Username non disponibile!",
+    "1002": "Esiste già un utente per questo indirizzo e-mail!",
+    "1004": "La nuova password deve essere diversa da quella vecchia!",
+    "1005": "La password non è corretta!"
+  },
+  "LANGUAGE": {
+    "LONG": "Italiano",
+    "SHORT": "it"
+  },
+  "LOGIN": {
+    "INVALID": "Username e password non riconosciute",
+    "LANG": "Lingua",
+    "MISSINGPWD": "Inserire una password",
+    "MISSINGUSER": "Inserire uno username",
+    "PROFILE": "Profilo",
+    "TITLE": "Login"
+  },
+  "MENU": {
+    "USERS": "Utenti"
+  },
+  "PROFILE": {
+    "CANCEL": "Annulla",
+    "CHANGEIMAGE": "Cambia",
+    "CHANGEPASSWORD": "Cambia password",
+    "CONFIRMPASSWORD": "Conferma password",
+    "DELETE": "Elimina utente",
+    "EMAIL": "Indirizzo e-mail",
+    "IMAGE": "Immagine",
+    "INTERFACESTYLE": "Stile interfaccia",
+    "LANGUAGE": "Lingua",
+    "MISSINGPASSWORD": "Inserire la password",
+    "MISSINGNEWPASSWORD": "Inserire una nuova password",
+    "NAME": "Nome",
+    "NEWPASSWORD": "Nuova password",
+    "PASSWORD": "Password",
+    "PASSWORDMISMATCH": "Le password non coincidono!",
+    "PASSWORDNOTCHANGED": "La password deve essere diversa!",
+    "PROFILE": "Profilo",
+    "SAVE": "Salva profilo",
+    "SAVED": "Profilo salvato!",
+    "SURNAME": "Cognome",
+    "USERNAME": "Nome utente",
+    "WELCOME": "Ciao"
+  },
+  "USER": {
+    "CONFIRMLOGOUT": "Sei sicuro di voler fare il logout?",
+    "CREATE": "Crea utente",
+    "CREATETITLE": "Crea nuovo utente",
+    "DELETE": "Elimina utente",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questo utente?",
+    "DELETED": "Utente eliminato!",
+    "DELETEERROR": "Impossibile eliminare questo utente!",
+    "EDIT": "Modifica utente",
+    "EDITTITLE": "Modifica utente",
+    "EMAIL": "Indirizzo e-mail",
+    "ENABLED": "Utente abilitato",
+    "INVALIDEMAIL": "Indirizzo e-mail non valido",
+    "MISSINGEMAIL": "Inserire un indirizzo e-mail",
+    "MISSINGNAME": "Inserire un nome",
+    "MISSINGPWD": "Inserire una password",
+    "MISSINGROLE": "Selezionare almeno un ruolo",
+    "MISSINGSURNAME": "Inserire un cognome",
+    "MISSINGUSERNAME": "Inserire uno username",
+    "NAME": "Nome",
+    "NEW": "Nuovo utente",
+    "PASSWORD": "Password",
+    "ROLES": "Ruoli",
+    "SAVE": "Salva",
+    "SAVED": "Utente salvato!",
+    "SEARCH": "Ricerca utente",
+    "SURNAME": "Cognome",
+    "USERNAME": "Username",
+    "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
+  }
+}

@@ -1,0 +1,142 @@
+import { MediaMatcher } from '@angular/cdk/layout';
+import { DOCUMENT } from "@angular/common";
+import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
+import { DateAdapter } from '@angular/material/core';
+import { MatSidenavContent } from '@angular/material/sidenav';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
+import { User } from './_models/user';
+
+import { AuthenticationService } from './_services/authentication.service';
+
+import { HttpUtils } from './_utils/http.utils';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit, OnDestroy {
+
+  @ViewChild('snav', { static : false }) snav: any;
+  @ViewChild('content') content: MatSidenavContent;
+
+  isReturnToTopShow: boolean;
+  topPosToStartShowing = 100;
+  style: string = 'purple';
+  mobileQuery: MediaQueryList;
+  opened: boolean;
+  langName: {[key: string]: string} = {
+    en: 'English',
+    it: 'Italiano'
+  };
+  selectedLang: string;
+  currentUser: User;
+  user_avatar;
+
+  @HostListener('window:scroll')
+  checkScroll() {
+    this.isReturnToTopShow = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) >= this.topPosToStartShowing ? true : false;
+  }
+
+  private _mobileQueryListener: () => void;
+
+  constructor(private dateAdapter: DateAdapter<any>, private ngxMatDateAdapter: NgxMatDateAdapter<any>, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher, private sanitizer: DomSanitizer, private httpUtils: HttpUtils, public translate: TranslateService) {
+    translate.addLangs(['en', 'it']);
+
+    const browserLang = translate.getBrowserLang();
+    this.selectedLang = browserLang.match(/en|it/) ? browserLang : 'en';
+    translate.use(this.selectedLang);
+    this.dateAdapter.setLocale(this.selectedLang);
+    this.ngxMatDateAdapter.setLocale(this.selectedLang);
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit() {
+    this.currentUser = this.authService.getCurrentUser();
+    if (this.currentUser === null) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.style = this.currentUser.style;
+    if (this.currentUser.lang) {
+      this.selectedLang = this.currentUser.lang;
+      this.translate.use(this.selectedLang);
+      this.dateAdapter.setLocale(this.selectedLang);
+      this.ngxMatDateAdapter.setLocale(this.selectedLang);
+    }
+    this.user_avatar = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.currentUser.avatar);
+  }
+
+  ngOnDestroy() {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  closeSideNav() {
+    if (this.snav._mode == 'over') {
+      this.snav.close();
+    }
+  }
+
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+    this.selectedLang = lang;
+    this.currentUser.lang = lang;
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    this.dateAdapter.setLocale(lang);
+    this.ngxMatDateAdapter.setLocale(lang);
+  }
+
+  changeAvatar(avatar: string) {
+    this.user_avatar = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + avatar);
+    this.currentUser.avatar = avatar;
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+  }
+
+  changeStyle(newStyle: string) {
+    this.style = newStyle;
+    this.currentUser.style = newStyle;
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+  }
+
+  scrollToTop() {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  }
+
+  logout() {
+    const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('USER.CONFIRMLOGOUT'));
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.snav.close();
+        this.authService.logout();
+        this.currentUser = this.authService.getCurrentUser();
+        const browserLang = this.translate.getBrowserLang();
+        this.selectedLang = browserLang.match(/en|it/) ? browserLang : 'en';
+        this.translate.use(this.selectedLang);
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  onActivate(event) {
+    this.currentUser = this.authService.getCurrentUser();
+    if (this.currentUser === null) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.style = this.currentUser.style;
+    if (this.currentUser.lang) {
+      this.selectedLang = this.currentUser.lang;
+      this.translate.use(this.selectedLang);
+      this.dateAdapter.setLocale(this.selectedLang);
+      this.ngxMatDateAdapter.setLocale(this.selectedLang);
+    }
+    this.user_avatar = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.currentUser.avatar);
+    window.scrollTo(0, 0);
+  }
+}

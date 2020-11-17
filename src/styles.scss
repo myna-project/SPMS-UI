@@ -1,0 +1,345 @@
+@import "custom-theme";
+
+html, body {
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.main-container {
+  margin-top: 1%;
+  margin-right: 2.5%;
+  margin-bottom: 2.5%;
+  margin-left: 2.5%;
+}
+
+.mat-dialog-title > .mat-icon {
+  vertical-align: sub;
+}
+
+.mat-chip-list .mat-chip-list-wrapper {
+  display: inline;
+}
+
+.breadcrumb-left {
+  justify-content: flex-start;
+  display: inline;
+}
+
+.breadcrumb-right {
+  display: inline;
+  justify-content: flex-end;
+}
+
+.search-box {
+  margin-top: 6px;
+  margin-right: 6px;
+}
+
+mat-list.spms-list {
+ padding-top: 10px;
+ margin-bottom: 20px;
+}
+
+mat-list.spms-list .mat-list-item {
+  height: auto;
+  margin-top: 5px;
+}
+
+.mat-list-item-bold-title {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.mat-list-item-content {
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.mat-list-title {
+  align-self: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.mat-list-item-right {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-list-item-right-buttons {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-list-item-right-buttons .mat-list-item-right-button {
+  margin: 2px 3px 2px auto;
+}
+
+.mat-list-item-divider {
+  flex-basis: 100%;
+  height: 0;
+  float: right;
+  margin-bottom: 8px;
+}
+
+.spms-tree {
+  margin-top: 20px;
+}
+
+.spms-tree-invisible {
+  display: none;
+}
+
+.mat-tree-node-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.mat-tree-node-title {
+  align-self: center;
+}
+
+.mat-tree-node-bold-title {
+  font-weight: bold;
+}
+
+.mat-tree-node-underlined-title {
+  text-decoration: underline;
+}
+
+.mat-tree-node-italic-title {
+  font-style: italic;
+}
+
+.mat-tree-node-title-icon {
+  position: relative;
+  top: 5px;
+  right: 6px;
+}
+
+.mat-tree-node-buttons {
+  display: flex;
+  margin-left: auto;
+}
+
+.mat-tree-node-divider {
+  flex-basis: 100%;
+  height: 0;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.spms-fieldset {
+  border-width: 1px;
+  height: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.spms-form .spms-form-fieldset,
+.spms-list-fieldset {
+  border-style: dotted;
+  border-color: #999999;
+  border-width: 1px;
+  height: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.spms-form .spms-form-field-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+  position: relative;
+  width: 100%;
+}
+
+.spms-form .spms-form-fieldset .short-form-field,
+.spms-form .spms-form-fieldset .spms-form-field-group .short-form-field,
+.spms-form .spms-form-field-group .short-form-field {
+  min-width: 25%;
+  margin-right: 12px;
+}
+
+.spms-form .spms-form-fieldset .medium-form-field,
+.spms-form .spms-form-fieldset .spms-form-field-group .medium-form-field,
+.spms-form .spms-form-field-group .medium-form-field {
+  min-width: 40%;
+  margin-right: 12px;
+}
+
+.spms-form .spms-form-fieldset .long-form-field,
+.spms-form .spms-form-fieldset .spms-form-field-group .long-form-field,
+.spms-form .spms-form-field-group .long-form-field {
+  min-width: 75%;
+  margin-right: 12px;
+}
+
+.spms-form .spms-form-fieldset .spms-form-field,
+.spms-form .spms-form-fieldset .spms-form-field-group .spms-form-field,
+.spms-form .spms-form-field-group .spms-form-field {
+  margin-right: 12px;
+}
+
+.spms-form .spms-form-field {
+  margin-bottom: 4px;
+  display: flex;
+  position: relative;
+}
+
+.spms-form .spms-form-field.short-form-field .mat-form-field-wrapper {
+  min-width: 25%;
+}
+
+.spms-form .spms-form-field.medium-form-field .mat-form-field-wrapper {
+  min-width: 50%;
+}
+
+.spms-form .spms-form-field.long-form-field .mat-form-field-wrapper {
+  min-width: 75%;
+}
+
+.db-form-field {
+  color: #009900;
+}
+
+.db-form-field .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #009900;
+}
+
+.db-form-field .mat-form-field-wrapper .mat-form-field-underline {
+  background-color: #009900;
+}
+
+.db-form-field.mat-focused .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #006600;
+}
+
+.db-form-field.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #006600;
+}
+
+.formula-form-field {
+  color: #3333FF;
+}
+
+.formula-form-field .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #3333FF;
+}
+
+.formula-form-field .mat-form-field-wrapper .mat-form-field-underline {
+  background-color: #3333FF;
+}
+
+.formula-form-field.mat-focused .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #0000CC;
+}
+
+.formula-form-field.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #0000CC;
+}
+
+.input-form-field {
+  color: #404040;
+}
+
+.input-form-field .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #404040;
+}
+
+.input-form-field .mat-form-field-wrapper .mat-form-field-underline {
+  background-color: #404040;
+}
+
+.input-form-field.mat-focused .mat-form-field-label-wrapper .mat-form-field-label {
+  color: #202020;
+}
+
+.input-form-field.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #202020;
+}
+
+.created {
+  font-size: small;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+.updated {
+  font-size: small;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.summary_title {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.button-row-right button,
+.button-row-right a {
+  margin-right: 1%;
+  display: inline;
+  float: right;
+}
+
+.right {
+  float: right;
+}
+
+.notify-success {
+  color: #155724;
+  background-color: #8ae234;
+  border-color: #155724;
+}
+
+.confirm {
+  background-color: #8ae234;
+}
+
+.info {
+  color: blue;
+}
+
+.error {
+  color: red;
+}
+
+.warning {
+  color:  #ff9900;
+}
+
+.warning-text {
+  vertical-align: super;
+  margin-left: 10px;
+}
+
+.project {
+  color: green;
+}
+
+.analysis {
+  color: red;
+}
+
+.material {
+  color: blue;
+}
+
+.process {
+  color: yellow;
+}
+
+.clickable {
+  cursor: pointer;
+}

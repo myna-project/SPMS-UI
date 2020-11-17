@@ -1,0 +1,101 @@
+.my-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.my-toolbar {
+  position: fixed;
+  z-index: 2;
+  min-height: 80px;
+}
+
+h1.my-app-name {
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+h1.small-screen-text {
+  font-size: 20px;
+}
+
+h1.my-is-mobile {
+  display: none;
+}
+
+h1.my-is-large-screen {
+  display: none;
+}
+
+.my-sidenav-container {
+  flex: 1 0 auto;
+  margin-top: 80px;
+}
+
+.my-sidenav {
+  position: fixed;
+  margin-top: 80px;
+}
+
+.expanded-toolbar {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar-button {
+  background-color: grey;
+}
+
+.search-form {
+  min-width: 100px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.search-full-width {
+  width: 100%;
+}
+
+.toolbar-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.user-avatar {
+  width: 100%;
+}
+
+.user-menu-title {
+  display: block;
+  padding: 30px;
+}
+
+.mat-menu-item.user-menu-item {
+  padding-left: 33px;
+  text-align: left;
+}
+
+.selected-lang-flag {
+  padding-left: 10px;
+}
+
+.available-lang-flag {
+  padding-right: 10px;
+}
+
+.sidenav-icon {
+  margin-right: 6px;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 2%;
+  right: 0.3%;
+  border-radius: 2px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  cursor: hand;
+  border-radius: 50%;
+}

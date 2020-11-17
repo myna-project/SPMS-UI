@@ -1,0 +1,46 @@
+<div class="my-container" [ngClass]="style" [class.my-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="my-toolbar">
+    <button mat-icon-button (click)="snav.toggle()" *ngIf="this.currentUser && this.currentUser.isLogged"><mat-icon>menu</mat-icon></button>
+    <h1 class="my-app-name" [class.my-is-mobile]="mobileQuery.matches">Simple Production Mananagement System</h1>
+    <h1 class="my-app-name small-screen-text" [class.my-is-large-screen]="!mobileQuery.matches">SPMS</h1>
+    <span class="toolbar-fill-remaining-space"></span>
+    <button mat-icon-button [class.avatar-button]="this.currentUser && !this.currentUser.avatar" *ngIf="this.currentUser && this.currentUser.isLogged" [matMenuTriggerFor]="user" dir="rtl">
+      <span *ngIf="!this.currentUser.avatar">{{ this.currentUser.username.charAt(0).toUpperCase() }}</span>
+      <img *ngIf="this.currentUser.avatar" id="user-avatar" class="user-avatar" [src]="user_avatar" />
+    </button>
+  </mat-toolbar>
+
+  <mat-menu #user="matMenu">
+    <mat-card-title class="user-menu-title">{{ (this.currentUser && this.currentUser.isLogged) ? this.currentUser.username : ''}}</mat-card-title>
+    <mat-divider></mat-divider>
+    <button mat-menu-item class="user-menu-item" routerLink="/profile">{{ 'LOGIN.PROFILE' | translate }}</button>
+    <button mat-menu-item class="user-menu-item" [matMenuTriggerFor]="lang"><img class="selected-lang-flag" src="assets/img/{{selectedLang}}-flag-icon-16.png"/>:{{ 'LOGIN.LANG' | translate }}</button>
+    <button mat-menu-item class="user-menu-item" (click)="snav.toggle(); logout()">Logout</button>
+  </mat-menu>
+
+  <mat-menu #lang="matMenu">
+    <button mat-menu-item *ngFor="let lang of translate.getLangs()" (click)="changeLanguage(lang)"><img class="available-lang-flag" src="assets/img/{{lang}}-flag-icon-16.png"/>{{langName[lang]}}</button>
+  </mat-menu>
+
+  <mat-sidenav-container class="my-sidenav-container">
+    <mat-sidenav #snav class="my-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
+      <mat-nav-list>
+        <a mat-list-item routerLink="dashboard" routerLinkActive="active" (click)="closeSideNav()">
+          <mat-icon class="sidenav-icon">home</mat-icon> <span class="nav-caption">Home</span>
+        </a>
+        <a mat-list-item routerLink="users" *ngIf="this.currentUser && this.currentUser.isSuperAdmin" routerLinkActive="active" (click)="closeSideNav()">
+          <mat-icon class="sidenav-icon">security</mat-icon><span class="nav-caption">{{ 'MENU.USERS' | translate }}</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content #content>
+      <main>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <button mat-icon-button color="primary" class="scroll-to-top" *ngIf="isReturnToTopShow" (click)="scrollToTop();">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,91 @@
+{
+  "DIALOG": {
+    "BACK": "Back",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "DELETEMSG": "Are you sure you want to delete this element?",
+    "ERROR": "Error",
+    "GENERICERROR": "An error occured! Please retry, if error persist contact our assistance",
+    "NO": "No",
+    "NOTSAVEDMSG": "Data in this page are not saved, do you really want to abandon this page?",
+    "YES": "Yes"
+  },
+  "ERROR": {
+    "400": "Bad request! If error persist please contact our assistance",
+    "404": "Resource not found!",
+    "405": "Operation not allowed!",
+    "1001": "Username not available!",
+    "1002": "An user is already registered for this e-mail address!",
+    "1004": "Old and new password must be different!",
+    "1005": "Password not correct!"
+  },
+  "LANGUAGE": {
+    "LONG": "English",
+    "SHORT": "en"
+  },
+  "LOGIN": {
+    "INVALID": "The username and password were not recognised",
+    "LANG": "Language",
+    "MISSINGPWD": "Please provide a password",
+    "MISSINGUSER": "Please provide a username",
+    "PROFILE": "Profile",
+    "TITLE": "Log In"
+  },
+  "MENU": {
+    "USERS": "Users"
+  },
+  "PROFILE": {
+    "CANCEL": "Cancel",
+    "CHANGEIMAGE": "Change",
+    "CHANGEPASSWORD": "Change password",
+    "CONFIRMPASSWORD": "Confirm password",
+    "DELETE": "Delete user",
+    "EMAIL": "E-mail address",
+    "IMAGE": "Image",
+    "INTERFACESTYLE": "Interface style",
+    "LANGUAGE": "Language",
+    "MISSINGPASSWORD": "Please provide the password",
+    "MISSINGNEWPASSWORD": "Please provide a new password",
+    "NAME": "Name",
+    "NEWPASSWORD": "New password",
+    "PASSWORD": "Password",
+    "PASSWORDMISMATCH": "Password doesn't match!",
+    "PASSWORDNOTCHANGED": "Password must be different!",
+    "PROFILE": "Profile",
+    "SAVE": "Save profile",
+    "SAVED": "Profile saved successfully!",
+    "SURNAME": "Surname",
+    "USERNAME": "Username",
+    "WELCOME": "Hello"
+  },
+  "USER": {
+    "CONFIRMLOGOUT": "Are you sure you want to logout?",
+    "CREATE": "Create user",
+    "CREATETITLE": "Create new user",
+    "DELETE": "Delete user",
+    "DELETECONFIRM": "Are you sure you want to delete this user?",
+    "DELETED": "User deleted!",
+    "DELETEERROR": "Cannot delete this user!",
+    "EDIT": "Edit user",
+    "EDITTITLE": "Edit user",
+    "EMAIL": "E-mail address",
+    "ENABLED": "Enabled user",
+    "INVALIDEMAIL": "E-mail address not valid",
+    "MISSINGEMAIL": "Provide an e-mail address",
+    "MISSINGNAME": "Provide a name",
+    "MISSINGPWD": "Provide a password",
+    "MISSINGROLE": "Select at least a role",
+    "MISSINGSURNAME": "Provide a surname",
+    "MISSINGUSERNAME": "Provide a username",
+    "NAME": "Name",
+    "NEW": "New user",
+    "PASSWORD": "Password",
+    "ROLES": "Roles",
+    "SAVE": "Save",
+    "SAVED": "User saved successfully!",
+    "SEARCH": "Search user",
+    "SURNAME": "Surname",
+    "USERNAME": "Username",
+    "USERNAMELENGTH": "Username must be at least 4 characters long"
+  }
+}
