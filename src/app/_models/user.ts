@@ -13,5 +13,4 @@ export class User {
   roles: number[];
   isLogged?: boolean;
   isAdmin?: boolean;
-  isSuperAdmin?: boolean;
 }

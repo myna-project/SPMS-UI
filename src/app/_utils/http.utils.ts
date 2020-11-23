@@ -25,7 +25,7 @@ export class HttpUtils {
     if (currentUser === null || currentUser === undefined) {
       return '';
     } else {
-      return currentUser.isSuperAdmin ? 'superadmin/' : (currentUser.isAdmin ? 'admin/' : '');
+      return currentUser.isAdmin ? 'admin/' : '';
     }
   }
 

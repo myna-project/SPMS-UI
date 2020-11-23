@@ -28,7 +28,7 @@
         <a mat-list-item routerLink="dashboard" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">home</mat-icon> <span class="nav-caption">Home</span>
         </a>
-        <a mat-list-item routerLink="users" *ngIf="this.currentUser && this.currentUser.isSuperAdmin" routerLinkActive="active" (click)="closeSideNav()">
+        <a mat-list-item routerLink="users" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">security</mat-icon><span class="nav-caption">{{ 'MENU.USERS' | translate }}</span>
         </a>
       </mat-nav-list>
