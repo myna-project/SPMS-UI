@@ -47,6 +47,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { AdditiveComponent } from './additives/additive-detail/additive-detail.component';
+import { AdditivesComponent } from './additives/additives-list/additives-list.component';
 import { CustomerComponent } from './customers/customer-detail/customer-detail.component';
 import { CustomersComponent } from './customers/customers-list/customers-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -69,6 +71,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    AdditiveComponent,
+    AdditivesComponent,
     ConfirmDialogComponent,
     CustomerComponent,
     CustomersComponent,

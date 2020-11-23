@@ -1,4 +1,20 @@
 {
+  "ADDITIVE": {
+    "CREATE": "Crea additivo",
+    "CREATETITLE": "Crea nuovo additivo",
+    "DELETE": "Elimina additivo",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questo additivo?",
+    "DELETED": "Additivo eliminato!",
+    "DELETEERROR": "Impossibile eliminare questo additivo!",
+    "EDIT": "Modifica additivo",
+    "EDITTITLE": "Modifica additivo",
+    "MISSINGNAME": "Inserire un nome",
+    "NAME": "Nome",
+    "NEW": "Nuovo additivo",
+    "SAVE": "Salva",
+    "SAVED": "Additivo salvato!",
+    "SEARCH": "Ricerca additivo"
+  },
   "CUSTOMER": {
     "CREATE": "Crea cliente",
     "CREATETITLE": "Crea nuovo cliente",
@@ -48,6 +64,7 @@
     "TITLE": "Login"
   },
   "MENU": {
+    "ADDITIVES": "Additivi",
     "CUSTOMERS": "Clienti",
     "USERS": "Utenti"
   },

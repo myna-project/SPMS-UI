@@ -1,0 +1,23 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="additive">
+  <mat-chip-list>
+    <mat-chip routerLink="/additives" routerLinkActive="active">{{ 'MENU.ADDITIVES' | translate }}</mat-chip>
+    <mat-chip disabled>{{ additive.id ? additive.name : ('ADDITIVE.NEW' | translate) }}</mat-chip>
+    <button *ngIf="additive.id" mat-raised-button class="right" color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'ADDITIVE.DELETE' | translate }}</button>
+  </mat-chip-list>
+  <h4>
+    {{ (additive.id ? 'ADDITIVE.EDITTITLE' : 'ADDITIVE.CREATETITLE') | translate }}
+  </h4>
+  <form class="spms-form" [formGroup]="additiveForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'ADDITIVE.NAME' | translate }}" [formControl]="name">
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required">{{ 'ADDITIVE.MISSINGNAME' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || additiveForm.invalid">{{ 'ADDITIVE.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="goBack()" tabindex="-1">{{ 'DIALOG.BACK' | translate }}</button>
+  </div>
+</div>

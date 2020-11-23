@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdditiveComponent } from './additives/additive-detail/additive-detail.component';
+import { AdditivesComponent } from './additives/additives-list/additives-list.component';
 import { CustomerComponent } from './customers/customer-detail/customer-detail.component';
 import { CustomersComponent } from './customers/customers-list/customers-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -33,6 +35,23 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'additives',
+    component: AdditivesComponent,
+    canActivate: [ AdminAuthGuard ]
+  },
+  {
+    path: 'additive/:id',
+    component: AdditiveComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'additive',
+    component: AdditiveComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'customers',
