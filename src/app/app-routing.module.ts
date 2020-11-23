@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CustomerComponent } from './customers/customer-detail/customer-detail.component';
+import { CustomersComponent } from './customers/customers-list/customers-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -31,6 +33,23 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'customers',
+    component: CustomersComponent,
+    canActivate: [ AdminAuthGuard ]
+  },
+  {
+    path: 'customer/:id',
+    component: CustomerComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'customer',
+    component: CustomerComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'users',

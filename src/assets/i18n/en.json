@@ -1,4 +1,19 @@
 {
+  "CUSTOMER": {
+    "CREATE": "Create customer",
+    "CREATETITLE": "Create new customer",
+    "DELETE": "Delete customer",
+    "DELETECONFIRM": "Are you sure you want to delete this customer?",
+    "DELETED": "Customer deleted!",
+    "DELETEERROR": "Cannot delete this customer!",
+    "EDIT": "Edit customer",
+    "EDITTITLE": "Edit customer",
+    "MISSINGNAME": "Provide a name",
+    "NAME": "Name",
+    "SAVE": "Save",
+    "SAVED": "Customer saved successfully!",
+    "SEARCH": "Search customer"
+  },
   "DIALOG": {
     "BACK": "Back",
     "CANCEL": "Cancel",
@@ -32,6 +47,7 @@
     "TITLE": "Log In"
   },
   "MENU": {
+    "CUSTOMERS": "Customers",
     "USERS": "Users"
   },
   "PROFILE": {

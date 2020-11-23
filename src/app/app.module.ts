@@ -47,6 +47,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { CustomerComponent } from './customers/customer-detail/customer-detail.component';
+import { CustomersComponent } from './customers/customers-list/customers-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -68,6 +70,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [
     AppComponent,
     ConfirmDialogComponent,
+    CustomerComponent,
+    CustomersComponent,
     DashboardComponent,
     LoginComponent,
     MessageDialogComponent,

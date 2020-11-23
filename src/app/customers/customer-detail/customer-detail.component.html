@@ -1,0 +1,23 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="customer">
+  <mat-chip-list>
+    <mat-chip routerLink="/customers" routerLinkActive="active">{{ 'MENU.CUSTOMERS' | translate }}</mat-chip>
+    <mat-chip disabled>{{ customer.id ? customer.name : ('CUSTOMER.NEW' | translate) }}</mat-chip>
+    <button *ngIf="customer.id" mat-raised-button class="right" color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'CUSTOMER.DELETE' | translate }}</button>
+  </mat-chip-list>
+  <h4>
+    {{ (customer.id ? 'CUSTOMER.EDITTITLE' : 'CUSTOMER.CREATETITLE') | translate }}
+  </h4>
+  <form class="spms-form" [formGroup]="customerForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'CUSTOMER.NAME' | translate }}" [formControl]="name">
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required">{{ 'CUSTOMER.MISSINGNAME' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || customerForm.invalid">{{ 'CUSTOMER.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="goBack()" tabindex="-1">{{ 'DIALOG.BACK' | translate }}</button>
+  </div>
+</div>
