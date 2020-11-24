@@ -65,6 +65,7 @@
     "ADDITIVES": "Additives",
     "CUSTOMERS": "Customers",
     "MIXTUREMODES": "Mixture modes",
+    "PACKAGING": "Packaging",
     "USERS": "Users"
   },
   "MIXTUREMODE": {
@@ -81,6 +82,21 @@
     "SAVE": "Save",
     "SAVED": "Mixture mode saved successfully!",
     "SEARCH": "Search mixture mode"
+  },
+  "PACKAGING": {
+    "CREATE": "Create packaging",
+    "CREATETITLE": "Create new packaging",
+    "DELETE": "Delete packaging",
+    "DELETECONFIRM": "Are you sure you want to delete this packaging?",
+    "DELETED": "Packaging deleted!",
+    "DELETEERROR": "Cannot delete this packaging!",
+    "EDIT": "Edit packaging",
+    "EDITTITLE": "Edit packaging",
+    "MISSINGPACKAGINGMODE": "Provide a packaging mode",
+    "PACKAGINGMODE": "Packaging mode",
+    "SAVE": "Save",
+    "SAVED": "Packaging saved successfully!",
+    "SEARCH": "Search packaging"
   },
   "PROFILE": {
     "CANCEL": "Cancel",

@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MixtureModeComponent } from './mixturemodes/mixturemode-detail/mixturemode-detail.component';
 import { MixtureModesComponent } from './mixturemodes/mixturemodes-list/mixturemodes-list.component';
+import { PackagingComponent } from './packagings/packaging-detail/packaging-detail.component';
+import { PackagingsComponent } from './packagings/packagings-list/packagings-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './users/user-detail/user-detail.component';
 import { UsersComponent } from './users/users-list/users-list.component';
@@ -86,6 +88,23 @@ const routes: Routes = [
   {
     path: 'mixturemode',
     component: MixtureModeComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'packagings',
+    component: PackagingsComponent,
+    canActivate: [ AdminAuthGuard ]
+  },
+  {
+    path: 'packaging/:id',
+    component: PackagingComponent,
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'packaging',
+    component: PackagingComponent,
     canActivate: [ AdminAuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },

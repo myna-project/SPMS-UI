@@ -34,6 +34,9 @@
         <a mat-list-item routerLink="mixturemodes" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">autorenew</mat-icon><span class="nav-caption">{{ 'MENU.MIXTUREMODES' | translate }}</span>
         </a>
+        <a mat-list-item routerLink="packagings" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
+          <mat-icon class="sidenav-icon">pages</mat-icon><span class="nav-caption">{{ 'MENU.PACKAGING' | translate }}</span>
+        </a>
         <a mat-list-item routerLink="additives" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">queue</mat-icon><span class="nav-caption">{{ 'MENU.ADDITIVES' | translate }}</span>
         </a>

@@ -1,0 +1,23 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="packaging">
+  <mat-chip-list>
+    <mat-chip routerLink="/packagings" routerLinkActive="active">{{ 'MENU.PACKAGING' | translate }}</mat-chip>
+    <mat-chip disabled>{{ packaging.id ? packaging.packaging_mode : ('PACKAGING.NEW' | translate) }}</mat-chip>
+    <button *ngIf="packaging.id" mat-raised-button class="right" color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'PACKAGING.DELETE' | translate }}</button>
+  </mat-chip-list>
+  <h4>
+    {{ (packaging.id ? 'PACKAGING.EDITTITLE' : 'PACKAGING.CREATETITLE') | translate }}
+  </h4>
+  <form class="spms-form" [formGroup]="packagingForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PACKAGING.PACKAGINGMODE' | translate }}" [formControl]="packaging_mode">
+        <mat-error *ngIf="packaging_mode.invalid && (packaging_mode.dirty || packaging_mode.touched) && packaging_mode.errors.required">{{ 'PACKAGING.MISSINGPACKAGINGMODE' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || packagingForm.invalid">{{ 'PACKAGING.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="goBack()" tabindex="-1">{{ 'DIALOG.BACK' | translate }}</button>
+  </div>
+</div>

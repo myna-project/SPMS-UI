@@ -67,6 +67,7 @@
     "ADDITIVES": "Additivi",
     "CUSTOMERS": "Clienti",
     "MIXTUREMODES": "Miscelazioni",
+    "PACKAGING": "Packaging",
     "USERS": "Utenti"
   },
   "MIXTUREMODE": {
@@ -84,6 +85,22 @@
     "SAVE": "Salva",
     "SAVED": "Modalità di miscelazione salvata!",
     "SEARCH": "Ricerca modalità di miscelazione"
+  },
+  "PACKAGING": {
+    "CREATE": "Crea packaging",
+    "CREATETITLE": "Crea nuovo packaging",
+    "DELETE": "Elimina packaging",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questo packaging?",
+    "DELETED": "Packaging eliminato!",
+    "DELETEERROR": "Impossibile eliminare questo packaging!",
+    "EDIT": "Modifica packaging",
+    "EDITTITLE": "Modifica packaging",
+    "MISSINGPACKAGINGMODE": "Inserire una modalità di packaging",
+    "PACKAGINGMODE": "Modalità di packaging",
+    "NEW": "Nuovo packaging",
+    "SAVE": "Salva",
+    "SAVED": "Packaging salvato!",
+    "SEARCH": "Ricerca packaging"
   },
   "PROFILE": {
     "CANCEL": "Annulla",
