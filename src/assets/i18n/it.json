@@ -66,7 +66,24 @@
   "MENU": {
     "ADDITIVES": "Additivi",
     "CUSTOMERS": "Clienti",
+    "MIXTUREMODES": "Miscelazioni",
     "USERS": "Utenti"
+  },
+  "MIXTUREMODE": {
+    "CREATE": "Crea modalità di miscelazione",
+    "CREATETITLE": "Crea nuova modalità di miscelazione",
+    "DELETE": "Elimina modalità di miscelazione",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questa modalità di miscelazione?",
+    "DELETED": "Modalità di miscelazione eliminata!",
+    "DELETEERROR": "Impossibile eliminare questa modalità di miscelazione!",
+    "EDIT": "Modifica modalità di miscelazione",
+    "EDITTITLE": "Modifica modalità di miscelazione",
+    "MISSINGNAME": "Inserire un nome",
+    "NAME": "Nome",
+    "NEW": "Nuova modalità di miscelazione",
+    "SAVE": "Salva",
+    "SAVED": "Modalità di miscelazione salvata!",
+    "SEARCH": "Ricerca modalità di miscelazione"
   },
   "PROFILE": {
     "CANCEL": "Annulla",

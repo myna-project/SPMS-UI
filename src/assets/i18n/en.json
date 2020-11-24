@@ -64,7 +64,23 @@
   "MENU": {
     "ADDITIVES": "Additives",
     "CUSTOMERS": "Customers",
+    "MIXTUREMODES": "Mixture modes",
     "USERS": "Users"
+  },
+  "MIXTUREMODE": {
+    "CREATE": "Create mixture mode",
+    "CREATETITLE": "Create new mixture mode",
+    "DELETE": "Delete mixture mode",
+    "DELETECONFIRM": "Are you sure you want to delete this mixture mode?",
+    "DELETED": "Mixture mode deleted!",
+    "DELETEERROR": "Cannot delete this mixture mode!",
+    "EDIT": "Edit mixture mode",
+    "EDITTITLE": "Edit mixture mode",
+    "MISSINGNAME": "Provide a name",
+    "NAME": "Name",
+    "SAVE": "Save",
+    "SAVED": "Mixture mode saved successfully!",
+    "SEARCH": "Search mixture mode"
   },
   "PROFILE": {
     "CANCEL": "Cancel",

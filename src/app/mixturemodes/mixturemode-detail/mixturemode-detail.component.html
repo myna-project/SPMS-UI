@@ -1,0 +1,23 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="mixtureMode">
+  <mat-chip-list>
+    <mat-chip routerLink="/mixturemodes" routerLinkActive="active">{{ 'MENU.MIXTUREMODES' | translate }}</mat-chip>
+    <mat-chip disabled>{{ mixtureMode.id ? mixtureMode.name : ('MIXTUREMODE.NEW' | translate) }}</mat-chip>
+    <button *ngIf="mixtureMode.id" mat-raised-button class="right" color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'MIXTUREMODE.DELETE' | translate }}</button>
+  </mat-chip-list>
+  <h4>
+    {{ (mixtureMode.id ? 'MIXTUREMODE.EDITTITLE' : 'MIXTUREMODE.CREATETITLE') | translate }}
+  </h4>
+  <form class="spms-form" [formGroup]="mixtureModeForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'MIXTUREMODE.NAME' | translate }}" [formControl]="name">
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required">{{ 'MIXTUREMODE.MISSINGNAME' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || mixtureModeForm.invalid">{{ 'MIXTUREMODE.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="goBack()" tabindex="-1">{{ 'DIALOG.BACK' | translate }}</button>
+  </div>
+</div>
