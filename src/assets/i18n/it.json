@@ -68,6 +68,7 @@
     "CUSTOMERS": "Clienti",
     "MIXTUREMODES": "Miscelazioni",
     "PACKAGING": "Packaging",
+    "RAWMATERIALS": "Materie prime",
     "USERS": "Utenti"
   },
   "MIXTUREMODE": {
@@ -125,6 +126,22 @@
     "SURNAME": "Cognome",
     "USERNAME": "Nome utente",
     "WELCOME": "Ciao"
+  },
+  "RAWMATERIAL": {
+    "CREATE": "Crea materia prima",
+    "CREATETITLE": "Crea nuova materia prima",
+    "DELETE": "Elimina materia prima",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questa materia prima?",
+    "DELETED": "Materia prima eliminata!",
+    "DELETEERROR": "Impossibile eliminare questa materia prima!",
+    "EDIT": "Modifica materia prima",
+    "EDITTITLE": "Modifica materia prima",
+    "MISSINGNAME": "Inserire un nome",
+    "NAME": "Nome",
+    "NEW": "Nuova materia prima",
+    "SAVE": "Salva",
+    "SAVED": "Materia prima salvata!",
+    "SEARCH": "Ricerca materia prima"
   },
   "USER": {
     "CONFIRMLOGOUT": "Sei sicuro di voler fare il logout?",

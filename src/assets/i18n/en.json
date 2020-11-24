@@ -66,6 +66,7 @@
     "CUSTOMERS": "Customers",
     "MIXTUREMODES": "Mixture modes",
     "PACKAGING": "Packaging",
+    "RAWMATERIALS": "Raw materials",
     "USERS": "Users"
   },
   "MIXTUREMODE": {
@@ -121,6 +122,21 @@
     "SURNAME": "Surname",
     "USERNAME": "Username",
     "WELCOME": "Hello"
+  },
+  "RAWMATERIAL": {
+    "CREATE": "Create raw material",
+    "CREATETITLE": "Create new raw material",
+    "DELETE": "Delete raw material",
+    "DELETECONFIRM": "Are you sure you want to delete this raw material?",
+    "DELETED": "Raw material deleted!",
+    "DELETEERROR": "Cannot delete this raw material!",
+    "EDIT": "Edit raw material",
+    "EDITTITLE": "Edit raw material",
+    "MISSINGNAME": "Provide a name",
+    "NAME": "Name",
+    "SAVE": "Save",
+    "SAVED": "Raw material saved successfully!",
+    "SEARCH": "Search raw material"
   },
   "USER": {
     "CONFIRMLOGOUT": "Are you sure you want to logout?",

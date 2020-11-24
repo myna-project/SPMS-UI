@@ -31,6 +31,9 @@
         <a mat-list-item routerLink="customers" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">people</mat-icon><span class="nav-caption">{{ 'MENU.CUSTOMERS' | translate }}</span>
         </a>
+        <a mat-list-item routerLink="rawmaterials" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
+          <mat-icon class="sidenav-icon">spa</mat-icon><span class="nav-caption">{{ 'MENU.RAWMATERIALS' | translate }}</span>
+        </a>
         <a mat-list-item routerLink="mixturemodes" *ngIf="this.currentUser && this.currentUser.isAdmin" routerLinkActive="active" (click)="closeSideNav()">
           <mat-icon class="sidenav-icon">autorenew</mat-icon><span class="nav-caption">{{ 'MENU.MIXTUREMODES' | translate }}</span>
         </a>
