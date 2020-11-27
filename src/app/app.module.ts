@@ -57,6 +57,8 @@ import { MixtureModeComponent } from './mixturemodes/mixturemode-detail/mixturem
 import { MixtureModesComponent } from './mixturemodes/mixturemodes-list/mixturemodes-list.component';
 import { PackagingComponent } from './packagings/packaging-detail/packaging-detail.component';
 import { PackagingsComponent } from './packagings/packagings-list/packagings-list.component';
+import { ProductionOrderComponent } from './productionorders/productionorder-detail/productionorder-detail.component';
+import { ProductionOrdersComponent } from './productionorders/productionorders-list/productionorders-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RawMaterialComponent } from './rawmaterials/rawmaterial-detail/rawmaterial-detail.component';
 import { RawMaterialsComponent } from './rawmaterials/rawmaterials-list/rawmaterials-list.component';
@@ -89,6 +91,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MixtureModesComponent,
     PackagingComponent,
     PackagingsComponent,
+    ProductionOrderComponent,
+    ProductionOrdersComponent,
     ProfileComponent,
     RawMaterialComponent,
     RawMaterialsComponent,

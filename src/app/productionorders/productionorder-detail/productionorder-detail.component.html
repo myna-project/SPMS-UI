@@ -1,0 +1,127 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="productionOrder">
+  <mat-chip-list>
+    <mat-chip routerLink="/productionOrders" routerLinkActive="active">{{ 'MENU.PRODUCTIONORDERS' | translate }}</mat-chip>
+    <mat-chip disabled>{{ productionOrder.id ? productionOrder.production_order_code : ('PRODUCTIONORDER.NEW' | translate) }}</mat-chip>
+    <button *ngIf="productionOrder.id" mat-raised-button class="right" color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'PRODUCTIONORDER.DELETE' | translate }}</button>
+  </mat-chip-list>
+  <h4>
+    {{ (productionOrder.id ? 'PRODUCTIONORDER.EDITTITLE' : 'PRODUCTIONORDER.CREATETITLE') | translate }}
+  </h4>
+  <form class="spms-form" [formGroup]="productionOrderForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'PRODUCTIONORDER.CUSTOMER' | translate }}</mat-label>
+        <mat-select [formControl]="customer" [compareWith]="compareObjects" required>
+          <mat-option *ngFor="let c of allCustomers" [value]="c">{{c.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="customer.invalid && (customer.dirty || customer.touched) && customer.errors.required">{{ 'PRODUCTIONORDER.MISSINGCUSTOMER' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.CODE' | translate }}" [formControl]="production_order_code" required>
+        <mat-error *ngIf="production_order_code.invalid && (production_order_code.dirty || production_order_code.touched) && production_order_code.errors.required">{{ 'PRODUCTIONORDER.MISSINGCODE' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.LOT' | translate }}" [formControl]="production_order_lot" required>
+        <mat-error *ngIf="production_order_lot.invalid && (production_order_lot.dirty || production_order_lot.touched) && production_order_lot.errors.required">{{ 'PRODUCTIONORDER.MISSINGLOT' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'PRODUCTIONORDER.RAWMATERIAL' | translate }}</mat-label>
+        <mat-select [formControl]="raw_material" [compareWith]="compareObjects" required>
+          <mat-option *ngFor="let rm of allRawMaterials" [value]="rm">{{rm.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="raw_material.invalid && (raw_material.dirty || raw_material.touched) && raw_material.errors.required">{{ 'PRODUCTIONORDER.MISSINGRAWMATERIAL' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.RAWMATERIALDENSITY' | translate }}" [formControl]="density_raw_material">
+        <mat-error *ngIf="density_raw_material.invalid && (density_raw_material.dirty || density_raw_material.touched) && density_raw_material.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDRAWMATERIALDENSITY' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.RAWMATERIALWEIGHT' | translate }}" [formControl]="weight_raw_material" required>
+        <mat-error *ngIf="weight_raw_material.invalid && (weight_raw_material.dirty || weight_raw_material.touched) && weight_raw_material.errors.required">{{ 'PRODUCTIONORDER.MISSINGRAWMATERIALWEIGHT' | translate }}</mat-error>
+        <mat-error *ngIf="weight_raw_material.invalid && (weight_raw_material.dirty || weight_raw_material.touched) && weight_raw_material.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDRAWMATERIALWEIGHT' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <input matInput type="number" placeholder="{{ 'PRODUCTIONORDER.RAWMATERIALTONS' | translate }}" [formControl]="tons_raw_material" required>
+        <mat-error *ngIf="tons_raw_material.invalid && (tons_raw_material.dirty || tons_raw_material.touched) && tons_raw_material.errors.required">{{ 'PRODUCTIONORDER.MISSINGRAWMATERIALTONS' | translate }}</mat-error>
+        <mat-error *ngIf="tons_raw_material.invalid && (tons_raw_material.dirty || tons_raw_material.touched) && tons_raw_material.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDRAWMATERIALTONS' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.DRYRESIDUE' | translate }}" [formControl]="dry_residue">
+        <mat-error *ngIf="dry_residue.invalid && (dry_residue.dirty || dry_residue.touched) && dry_residue.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDDRYRESIDUE' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <fieldset class="spms-fieldset">
+      <legend>{{ 'PRODUCTIONORDER.ADDITIVES' | translate }}</legend>
+      <div class="spms-form-field-group" *ngFor='let count of additivesCounter'>
+        <mat-form-field class="medium-form-field">
+          <mat-label>{{ 'PRODUCTIONORDER.ADDITIVE' | translate }}</mat-label>
+          <mat-select [formControlName]="'additive_' + count" [compareWith]="compareObjects">
+            <mat-option *ngFor="let a of allAdditives" [value]="a">{{a.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="short-form-field">
+          <input matInput placeholder="{{ 'PRODUCTIONORDER.ADDITIVEWEIGHT' | translate }}" [formControlName]="'weight_additive_' + count">
+          <mat-error *ngIf="productionOrderForm.get('weight_additive_' + count).invalid && (productionOrderForm.get('weight_additive_' + count).dirty || productionOrderForm.get('weight_additive_' + count).touched) && productionOrderForm.get('weight_additive_' + count).errors.pattern">{{ 'PRODUCTIONORDER.INVALIDADDITIVEWEIGHT' | translate }}</mat-error>
+        </mat-form-field>
+        <button mat-raised-button *ngIf="count === (additivesCounter.length - 1)" class="spms-form-field" color="primary" (click)="addAdditive(undefined)">{{ 'PRODUCTIONORDER.ADDADDITIVE' | translate }}</button>
+      </div>
+    </fieldset>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'PRODUCTIONORDER.EXPECTEDMIXTUREMODE' | translate }}</mat-label>
+        <mat-select [formControl]="expected_mixture_mode" [compareWith]="compareObjects">
+          <mat-option *ngFor="let mm of allMixtureModes" [value]="mm">{{mm.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.EXPECTEDMIXTURETEMPERATURE' | translate }}" [formControl]="expected_mixture_temperature">
+        <mat-error *ngIf="expected_mixture_temperature.invalid && (expected_mixture_temperature.dirty || expected_mixture_temperature.touched) && expected_mixture_temperature.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDEXPECTEDMIXTURETEMPERATURE' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.EXPECTEDQUANTITY' | translate }}" [formControl]="expected_quantity_finished_product">
+        <mat-error *ngIf="expected_quantity_finished_product.invalid && (expected_quantity_finished_product.dirty || expected_quantity_finished_product.touched) && expected_quantity_finished_product.errors.pattern">{{ 'PRODUCTIONORDER.INVALIDEXPECTEDQUANTITY' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="short-form-field">
+        <input matInput [matDatepicker]="delivery_date_picker" placeholder="{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}" [formControl]="delivery_date">
+        <mat-datepicker-toggle matSuffix [for]="delivery_date_picker"></mat-datepicker-toggle>
+        <mat-datepicker #delivery_date_picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'PRODUCTIONORDER.PACKAGING' | translate }}</mat-label>
+        <mat-select [formControl]="packaging" [compareWith]="compareObjects">
+          <mat-option *ngFor="let p of allPackagings" [value]="p">{{p.packaging_mode}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="short-form-field">
+        <input matInput [matDatepicker]="production_order_date_picker" placeholder="{{ 'PRODUCTIONORDER.PRODUCTIONORDERDATE' | translate }}" [formControl]="production_order_date">
+        <mat-datepicker-toggle matSuffix [for]="production_order_date_picker"></mat-datepicker-toggle>
+        <mat-datepicker #production_order_date_picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.DDTNUMBER' | translate }}" [formControl]="ddt_number">
+      </mat-form-field>
+      <mat-form-field class="short-form-field">
+        <input matInput [matDatepicker]="ddt_date_picker" placeholder="{{ 'PRODUCTIONORDER.DDTDATE' | translate }}" [formControl]="ddt_date">
+        <mat-datepicker-toggle matSuffix [for]="ddt_date_picker"></mat-datepicker-toggle>
+        <mat-datepicker #ddt_date_picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || productionOrderForm.invalid">{{ 'PRODUCTIONORDER.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="goBack()" tabindex="-1">{{ 'DIALOG.BACK' | translate }}</button>
+  </div>
+</div>
