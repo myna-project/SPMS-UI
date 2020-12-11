@@ -37,7 +37,7 @@ export class ProductionOrdersComponent implements OnInit {
 
   search(term: string): void {
     this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
-      return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+      return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
     });
   }
 

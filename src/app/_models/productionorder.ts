@@ -8,7 +8,7 @@ export class ProductionOrder {
   id: number;
   customer: Customer;
   production_order_code: string;
-  production_order_lot: string;
+  production_number_lot: string;
   raw_material: RawMaterial;
   weight_raw_material: number;
   tons_raw_material: number;

@@ -24,8 +24,8 @@
         <mat-error *ngIf="production_order_code.invalid && (production_order_code.dirty || production_order_code.touched) && production_order_code.errors.required">{{ 'PRODUCTIONORDER.MISSINGCODE' | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field class="medium-form-field">
-        <input matInput placeholder="{{ 'PRODUCTIONORDER.LOT' | translate }}" [formControl]="production_order_lot" required>
-        <mat-error *ngIf="production_order_lot.invalid && (production_order_lot.dirty || production_order_lot.touched) && production_order_lot.errors.required">{{ 'PRODUCTIONORDER.MISSINGLOT' | translate }}</mat-error>
+        <input matInput placeholder="{{ 'PRODUCTIONORDER.LOT' | translate }}" [formControl]="production_number_lot" required>
+        <mat-error *ngIf="production_number_lot.invalid && (production_number_lot.dirty || production_number_lot.touched) && production_number_lot.errors.required">{{ 'PRODUCTIONORDER.MISSINGLOT' | translate }}</mat-error>
       </mat-form-field>
     </div>
     <div class="spms-form-field-group">

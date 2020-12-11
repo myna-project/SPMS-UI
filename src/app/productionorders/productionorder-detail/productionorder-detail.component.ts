@@ -131,7 +131,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
 
   get customer() { return this.productionOrderForm.get('customer'); }
   get production_order_code() { return this.productionOrderForm.get('production_order_code'); }
-  get production_order_lot() { return this.productionOrderForm.get('production_order_lot'); }
+  get production_number_lot() { return this.productionOrderForm.get('production_number_lot'); }
   get raw_material() { return this.productionOrderForm.get('raw_material'); }
   get weight_raw_material() { return this.productionOrderForm.get('weight_raw_material'); }
   get tons_raw_material() { return this.productionOrderForm.get('tons_raw_material'); }
@@ -151,7 +151,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
     this.productionOrderForm = new FormGroup({
       'customer': new FormControl(this.productionOrder.customer, [ Validators.required ]),
       'production_order_code': new FormControl(this.productionOrder.production_order_code, [ Validators.required ]),
-      'production_order_lot': new FormControl(this.productionOrder.production_order_lot, [ Validators.required ]),
+      'production_number_lot': new FormControl(this.productionOrder.production_number_lot, [ Validators.required ]),
       'raw_material': new FormControl(this.productionOrder.raw_material, [ Validators.required ]),
       'weight_raw_material': new FormControl(this.httpUtils.convertFromNumber(this.productionOrder.weight_raw_material), [ Validators.required, Validators.pattern(patterns.positiveFloat) ]),
       'tons_raw_material': new FormControl(this.productionOrder.tons_raw_material, [ Validators.required, Validators.pattern(patterns.positiveFloat) ]),
@@ -193,7 +193,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
   getDataFromForm(po: ProductionOrder): ProductionOrder {
     po.customer = this.customer.value;
     po.production_order_code = this.production_order_code.value;
-    po.production_order_lot = this.production_order_lot.value;
+    po.production_number_lot = this.production_number_lot.value;
     po.raw_material = this.raw_material.value;
     po.weight_raw_material = this.httpUtils.convertToNumber(this.weight_raw_material.value);
     po.tons_raw_material = this.tons_raw_material.value;
@@ -214,7 +214,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
       if (this.productionOrderForm.get('additive_' + count).value) {
         let apo: AdditiveProductionOrder = new AdditiveProductionOrder();
         apo.additive = this.productionOrderForm.get('additive_' + count).value;
-        apo.weight_additive = this.productionOrderForm.get('weight_additive_' + count).value;
+          apo.weight_additive = this.httpUtils.convertToNumber(this.productionOrderForm.get('weight_additive_' + count).value);
         if (po.additives && po.additives.length > 0) {
           po.additives.push(apo);
         } else {
