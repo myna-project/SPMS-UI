@@ -149,7 +149,8 @@
     "RAWMATERIALWEIGHT": "Peso materia prima",
     "SAVE": "Salva",
     "SAVED": "Ordine di produzione salvato!",
-    "SEARCH": "Ricerca ordine di produzione"
+    "SEARCH": "Ricerca ordine di produzione",
+    "START": "Inizio lavorazione"
   },
   "PROFILE": {
     "CANCEL": "Annulla",
@@ -220,5 +221,19 @@
     "SURNAME": "Cognome",
     "USERNAME": "Username",
     "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
+  },
+
+  "SETTINGPHASE": {
+    "START": "Inizio setting impianto",
+    "END": "Termine setting impianto",
+    "NEW": "Nuova fase di setting impianto",
+      "ONGOING": "Setting impianto in corso",
+      "SAVE": "Salva",
+      "SAVED": "Setting impianto completato",
+      "SEARCH": "Ricerca fase di setting impianto",
+      "EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione",
+      "EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione",
+      "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione mancante",
+      "MISSING_EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione mancante"
   }
 }

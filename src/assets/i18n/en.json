@@ -149,7 +149,8 @@
     "RAWMATERIALWEIGHT": "Raw material weight",
     "SAVE": "Save",
     "SAVED": "Production order saved successfully!",
-    "SEARCH": "Search production order"
+      "SEARCH": "Search production order",
+      "START": "Start production"
   },
   "PROFILE": {
     "CANCEL": "Cancel",
@@ -219,5 +220,19 @@
     "SURNAME": "Surname",
     "USERNAME": "Username",
     "USERNAMELENGTH": "Username must be at least 4 characters long"
+  },
+
+  "SETTINGPHASE": {
+    "START": "Begin setting phase",
+    "END": "End setting phase",
+    "NEW": "New setting phase",
+      "ONGOING": "Ongoing setting phase",
+      "SAVE": "Save",
+      "SAVED": "Setting phase complete",
+      "SEARCH": "Search setting phase",
+      "EFFECTIVE_MIXTURE_MODE": "Mixture Mode",
+      "EFFECTIVE_MIXTURE_TEMPERATURE": "Mixture temperature",
+      "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Missing mixture temperature",
+      "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode"
   }
 }

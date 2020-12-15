@@ -1,0 +1,22 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="settingPhase">
+  <h4>{{ (settingPhase.id ? 'SETTINGPHASE.ONGOING' : 'SETTINGPHASE.NEW') | translate }}</h4>
+  <form class="spms-form" [formGroup]="settingPhaseForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+	<mat-label>{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_MODE' | translate }}</mat-label>
+	<mat-select [formControl]="effective_mixture_mode" [compareWith]="compareObjects" required>
+	  <mat-option *ngFor="let mm of allMixtureModes" [value]="mm">{{mm.name}}</mat-option>
+	</mat-select>
+	<mat-error *ngIf="effective_mixture_mode.invalid && (effective_mixture_mode.dirty || effective_mixture_mode.touched) && effective_mixture_mode.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_MODE' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+	<input matInput placeholder="{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}" [formControl]="effective_mixture_temperature">
+	<mat-error *ngIf="effective_mixture_temperature.invalid && (effective_mixture_temperature.dirty || effective_mixture_temperature.touched) && effective_mixture_temperature.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || settingPhaseForm.invalid">{{ 'SETTINGPHASE.END' | translate }}</button>
+  </div>
+</div>

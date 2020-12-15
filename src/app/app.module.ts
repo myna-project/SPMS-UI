@@ -64,6 +64,7 @@ import { RawMaterialComponent } from './rawmaterials/rawmaterial-detail/rawmater
 import { RawMaterialsComponent } from './rawmaterials/rawmaterials-list/rawmaterials-list.component';
 import { UserComponent } from './users/user-detail/user-detail.component';
 import { UsersComponent } from './users/users-list/users-list.component';
+import { SettingPhaseComponent } from './settingPhase/settingPhase.component';
 
 import { PendingChangesGuard } from './_guards/pending-changes.guard';
 
@@ -97,7 +98,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     RawMaterialComponent,
     RawMaterialsComponent,
     UserComponent,
-    UsersComponent
+    UsersComponent,
+    SettingPhaseComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
