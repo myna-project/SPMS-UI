@@ -234,5 +234,35 @@
       "EFFECTIVE_MIXTURE_TEMPERATURE": "Mixture temperature",
       "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Missing mixture temperature",
       "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode"
+  },
+
+  "SYSTEMPREPARATIONPHASE": {
+    "START": "Begin system preparation phase",
+    "END": "End system preparation phase",
+    "NEW": "New system preparation phase",
+      "ONGOING": "Ongoing system preparation phase",
+      "SAVE": "Save",
+      "SAVED": "System Preparation phase complete",
+      "SEARCH": "Search system preparation phase"
+  },
+
+  "CLEANINGPHASE": {
+    "START": "Begin cleaning phase",
+    "END": "End cleaning phase",
+    "NEW": "New cleaning phase",
+      "ONGOING": "Ongoing cleaning phase",
+      "SAVE": "Save",
+      "SAVED": "Cleaning phase complete",
+      "SEARCH": "Search cleaning phase"
+  },
+
+  "WORKINGPHASE": {
+    "START": "Begin working phase",
+    "END": "End working phase",
+    "NEW": "New working phase",
+      "ONGOING": "Ongoing working phase",
+      "SAVE": "Save",
+      "SAVED": "Working phase complete",
+      "SEARCH": "Search working phase"
   }
 }

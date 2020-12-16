@@ -19,6 +19,7 @@ import { RawMaterialsComponent } from './rawmaterials/rawmaterials-list/rawmater
 import { UserComponent } from './users/user-detail/user-detail.component';
 import { UsersComponent } from './users/users-list/users-list.component';
 import { SettingPhaseComponent } from './settingPhase/settingPhase.component';
+import { SystemPreparationPhaseComponent } from './systemPreparationPhase/systemPreparationPhase.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { PendingChangesGuard } from './_guards/pending-changes.guard';
@@ -167,6 +168,12 @@ const routes: Routes = [
   {
     path: 'settingPhases/:id',
     component: SettingPhaseComponent, // TODO
+    canActivate: [ AdminAuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'systemPreparationPhases/:id',
+    component: SystemPreparationPhaseComponent, // TODO
     canActivate: [ AdminAuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },

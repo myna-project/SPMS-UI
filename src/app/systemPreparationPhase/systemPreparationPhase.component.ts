@@ -1,19 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { ComponentCanDeactivate } from '../_guards/pending-changes.guard';
 
-import { SettingPhase } from '../_models/settingPhase';
+import { SystemPreparationPhase } from '../_models/systemPreparationPhase';
 import { User } from '../_models/user';
-import { MixtureMode } from '../_models/mixturemode';
 import { ProductionOrder } from '../_models/productionorder';
-import { SettingPhaseService } from '../_services/settingPhase.service';
+import { SystemPreparationPhaseService } from '../_services/systemPreparationPhase.service';
 import { UsersService } from '../_services/users.service';
-import { MixtureModesService } from '../_services/mixturemodes.service';
 import { ProductionOrdersService } from '../_services/productionorders.service';
 
 import { HttpUtils } from '../_utils/http.utils';
@@ -26,38 +23,35 @@ import { AuthenticationService } from '../_services/authentication.service'
 * - JSON payloads: there's no need to serialize the whole ProductionOrder / User, yet we are forced to mantain backend consistency
 */
 @Component({
-  templateUrl: './settingPhase.component.html',
+  templateUrl: './systemPreparationPhase.component.html',
 })
-export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
+export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,OnInit {
 
     @HostListener('window:beforeunload')
     canDeactivate(): Observable<boolean> | boolean {
-	return !this.settingPhaseForm.touched;
+	return true;
     }
 
+    saved: boolean = false;
     isSaving: boolean = false;
     isLoading: boolean = true;
-    settingPhase: SettingPhase = new SettingPhase();
+    systemPreparationPhase: SystemPreparationPhase = new SystemPreparationPhase();
     backRoute = 'dashboard';
-    settingPhaseForm: FormGroup;
-    allMixtureModes: MixtureMode[];
     productionOrder: ProductionOrder;
     start_time: Date;
     currentUser: User;
 
-    constructor(private settingPhaseService: SettingPhaseService,
+    constructor(private systemPreparationPhaseService: SystemPreparationPhaseService,
 		private route: ActivatedRoute,
 		private router: Router,
 		private location: Location,
 		private httpUtils: HttpUtils,
-		private mixtureModesService: MixtureModesService,
 		private productionOrderService: ProductionOrdersService,
 		private authService: AuthenticationService,
 		private userService: UsersService,
 		private translate: TranslateService) {}
 
     ngOnInit(): void {
-	this.createForm();
 	this.start_time = new Date();
 	var cUser = this.authService.getCurrentUser();
 	if (cUser === null) {
@@ -75,30 +69,19 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		});
 	    }
 	);
-	this.mixtureModesService.getMixtureModes().subscribe(
-	    (response) => {
-		this.allMixtureModes = response;
-	    },
-	    (error) => {
-		const dialogRef = this.httpUtils.errorDialog(error);
-		dialogRef.afterClosed().subscribe(value => {
-		    this.router.navigate([this.backRoute]);
-		});
-	    }
-	);
 	this.route.paramMap.subscribe(params => {
 	    this.productionOrderService
 		.getProductionOrder(params.get('id'))
 		.subscribe(
 		(po_response) => {
 		    this.productionOrder = po_response;
-		    this.settingPhaseService
-			.getSettingPhases(this.productionOrder.id)
+		    this.systemPreparationPhaseService
+			.getSystemPreparationPhases(this.productionOrder.id)
 			.subscribe(
 			(response) => {
 			    this.isLoading = false;
 			    if(response.length > 0) {
-				this.settingPhase = response[0];
+				this.systemPreparationPhase = response[0];
 			    }
 			},
 			(error) => {
@@ -119,51 +102,25 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 	});
     }
 
-    compareObjects(o1: any, o2: any): boolean {
-	return (o2 != null) && (o1.id === o2.id);
-    }
-
-    createForm() {
-	// let patterns = this.httpUtils.getPatterns();
-	this.settingPhaseForm = new FormGroup({
-	    'effective_mixture_mode': new FormControl(
-		this.settingPhase.effective_mixture_mode,
-		[ Validators.required ]),
-	    'effective_mixture_temperature': new FormControl(
-		this.settingPhase.effective_mixture_temperature,
-		[ Validators.required ])
-	});
-    }
-
-    getDataFromForm(s: SettingPhase): SettingPhase {
-	s.effective_mixture_mode = this.effective_mixture_mode.value;
-	s.effective_mixture_temperature = this.effective_mixture_temperature.value; // form entry type is number
-	return s;
-    }
-
     save(): void {
 	this.isSaving = true;
-	let newSettingPhase: SettingPhase = this.getDataFromForm(new SettingPhase());
-	newSettingPhase.start_time = Math.floor(this.start_time.getTime()/1000);
-	newSettingPhase.end_time = Math.floor(new Date().getTime()/1000);
-	newSettingPhase.productionOrder = this.productionOrder;
-	newSettingPhase.user = this.currentUser;
-	if (this.settingPhase.id !== undefined) {
-	    newSettingPhase.id = this.settingPhase.id;
-	    this.settingPhaseService
-		.updateSettingPhase(newSettingPhase)
+	var newSystemPreparationPhase = new SystemPreparationPhase();
+	newSystemPreparationPhase.start_time = Math.floor(this.start_time.getTime()/1000);
+	newSystemPreparationPhase.end_time = Math.floor(new Date().getTime()/1000);
+	newSystemPreparationPhase.productionOrder = this.productionOrder;
+	newSystemPreparationPhase.user = this.currentUser;
+	if (this.systemPreparationPhase.id !== undefined) {
+	    newSystemPreparationPhase.id = this.systemPreparationPhase.id;
+	    this.systemPreparationPhaseService
+		.updateSystemPreparationPhase(newSystemPreparationPhase)
 		.subscribe(
 		(response) => {
-		    this.settingPhase = response;
+		    this.systemPreparationPhase = response;
 		    this.isSaving = false;
-		    this.settingPhaseForm.markAsUntouched();
+		    this.saved = true;
 		    this.httpUtils
 			.successSnackbar(
-			    this.translate.instant('SETTINGPHASE.SAVED'));
-		    this.router
-			.navigate(
-			    ['systemPreparationPhases/'
-				+ this.settingPhase.productionOrder.id]);
+			    this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -171,20 +128,16 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		}
 	    );
 	} else {
-	    this.settingPhaseService
-		.createSettingPhase(newSettingPhase)
+	    this.systemPreparationPhaseService
+		.createSystemPreparationPhase(newSystemPreparationPhase)
 		.subscribe(
 		(response) => {
-		    this.settingPhase = response;
+		    this.systemPreparationPhase = response;
 		    this.isSaving = false;
-		    this.settingPhaseForm.markAsUntouched();
+		    this.saved = true;
 		    this.httpUtils
 			.successSnackbar(
-			    this.translate.instant('SETTINGPHASE.SAVED'));
-		    this.router
-			.navigate(
-			    ['systemPreparationPhases/'
-				+ this.settingPhase.productionOrder.id]);
+			    this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -194,10 +147,18 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 	}
     }
 
-    get effective_mixture_temperature() {
-	return this.settingPhaseForm.get('effective_mixture_temperature');
+    cleaning(): void {
+	this.router
+	    .navigate(
+		['cleaningPhases/'
+		    + this.systemPreparationPhase.productionOrder.id]);
     }
-    get effective_mixture_mode() {
-	return this.settingPhaseForm.get('effective_mixture_mode');
+
+    working(): void {
+	this.router
+	    .navigate(
+		['workingPhases/'
+		    + this.systemPreparationPhase.productionOrder.id]);
     }
+
 }

@@ -235,5 +235,36 @@
       "EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione",
       "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione mancante",
       "MISSING_EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione mancante"
+  },
+
+  "SYSTEMPREPARATIONPHASE": {
+    "START": "Inizio preparazione impianto",
+    "END": "Termine preparazione impianto",
+    "NEW": "Nuova fase di preparazione impianto",
+      "ONGOING": "Preparazione impianto in corso",
+      "SAVE": "Salva",
+      "SAVED": "Preparazione impianto completata",
+      "SEARCH": "Ricerca fase di preparazione impianto"
+  },
+
+  "CLEANINGPHASE": {
+    "START": "Inizio pulizia impianto",
+    "END": "Termine pulizia impianto",
+    "NEW": "Nuova fase di pulizia impianto",
+      "ONGOING": "Pulizia impianto in corso",
+      "SAVE": "Salva",
+      "SAVED": "Pulizia impianto completata",
+      "SEARCH": "Ricerca fase di pulizia impianto"
+  },
+
+  "WORKINGPHASE": {
+    "START": "Inizio lavorazione",
+    "END": "Termine lavorazione",
+    "NEW": "Nuova fase di lavorazione",
+      "ONGOING": "Lavorazione in corso",
+      "SAVE": "Salva",
+      "SAVED": "Lavorazione completata",
+      "SEARCH": "Ricerca fase di lavorazione"
   }
+
 }

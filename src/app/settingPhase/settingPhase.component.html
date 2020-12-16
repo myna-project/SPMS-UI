@@ -11,7 +11,7 @@
 	<mat-error *ngIf="effective_mixture_mode.invalid && (effective_mixture_mode.dirty || effective_mixture_mode.touched) && effective_mixture_mode.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_MODE' | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field class="medium-form-field">
-	<input matInput placeholder="{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}" [formControl]="effective_mixture_temperature">
+	<input matInput type="number" placeholder="{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}" [formControl]="effective_mixture_temperature">
 	<mat-error *ngIf="effective_mixture_temperature.invalid && (effective_mixture_temperature.dirty || effective_mixture_temperature.touched) && effective_mixture_temperature.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}</mat-error>
       </mat-form-field>
     </div>
