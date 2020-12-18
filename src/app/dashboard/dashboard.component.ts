@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     start(id: number): void {
 	// start a new Phase view (setting phase)
-	var phaseRoute = 'settingPhases/' + id;
+	var phaseRoute = 'productionOrder/' + id + '/settingPhase';
 	this.router.navigate([phaseRoute]);
     }
 }

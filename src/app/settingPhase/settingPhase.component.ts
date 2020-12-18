@@ -86,38 +86,45 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		});
 	    }
 	);
-	this.route.paramMap.subscribe(params => {
-	    this.productionOrderService
-		.getProductionOrder(params.get('id'))
-		.subscribe(
-		(po_response) => {
-		    this.productionOrder = po_response;
-		    this.settingPhaseService
-			.getSettingPhases(this.productionOrder.id)
+	this.route.paramMap
+	    .subscribe(params => {
+		var id = params.get('id');
+		if(id) {
+		    this.productionOrderService
+			.getProductionOrder(id)
 			.subscribe(
-			(response) => {
-			    this.isLoading = false;
-			    if(response.length > 0) {
-				this.settingPhase = response[0];
-			    }
-			},
-			(error) => {
-			    const dialogRef = this.httpUtils.errorDialog(error);
-			    dialogRef.afterClosed().subscribe(value => {
-				this.router.navigate([this.backRoute]);
+			    (po_response) => {
+				this.productionOrder = po_response;
+				var sid = params.get('sid');
+				if(sid) {
+				    this.settingPhaseService
+					.getSettingPhase(id, sid)
+					.subscribe(
+					(response) => {
+						this.isLoading = false;
+						this.settingPhase = response;
+					    },
+					    (error) => {
+						const dialogRef = this.httpUtils.errorDialog(error);
+						dialogRef.afterClosed().subscribe(value => {
+						    this.router.navigate([this.backRoute]);
+						});
+					    }
+					);
+				} else {
+				    this.isLoading = false;
+				}
+			    },
+			    (error) => {
+				const dialogRef = this.httpUtils.errorDialog(error);
+				dialogRef.afterClosed().subscribe(value => {
+				    this.router.navigate([this.backRoute]);
+				});
 			    });
-			}
-		    );
-		},
-		(error) => {
-		    const dialogRef = this.httpUtils.errorDialog(error);
-		    dialogRef.afterClosed().subscribe(value => {
-			this.router.navigate([this.backRoute]);
-		    });
 		}
-	    );
-	});
+	    });
     }
+
 
     compareObjects(o1: any, o2: any): boolean {
 	return (o2 != null) && (o1.id === o2.id);
@@ -148,7 +155,7 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 	newSettingPhase.end_time = Math.floor(new Date().getTime()/1000);
 	newSettingPhase.productionOrder = this.productionOrder;
 	newSettingPhase.user = this.currentUser;
-	if (this.settingPhase.id !== undefined) {
+	if (this.settingPhase != undefined && this.settingPhase.id !== undefined) {
 	    newSettingPhase.id = this.settingPhase.id;
 	    this.settingPhaseService
 		.updateSettingPhase(newSettingPhase)
@@ -162,8 +169,9 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 			    this.translate.instant('SETTINGPHASE.SAVED'));
 		    this.router
 			.navigate(
-			    ['systemPreparationPhases/'
-				+ this.settingPhase.productionOrder.id]);
+			    ['productionOrder/'
+				+ this.settingPhase.productionOrder.id
+				+ '/systemPreparationPhase']);
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -183,8 +191,9 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 			    this.translate.instant('SETTINGPHASE.SAVED'));
 		    this.router
 			.navigate(
-			    ['systemPreparationPhases/'
-				+ this.settingPhase.productionOrder.id]);
+			    ['productionOrder/'
+				+ this.settingPhase.productionOrder.id
+				+ '/systemPreparationPhase']);
 		},
 		(error) => {
 		    this.isSaving = false;

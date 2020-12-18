@@ -69,37 +69,43 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
 		});
 	    }
 	);
-	this.route.paramMap.subscribe(params => {
-	    this.productionOrderService
-		.getProductionOrder(params.get('id'))
-		.subscribe(
-		(po_response) => {
-		    this.productionOrder = po_response;
-		    this.systemPreparationPhaseService
-			.getSystemPreparationPhases(this.productionOrder.id)
+	this.route.paramMap
+	    .subscribe(params => {
+		var id = params.get('id');
+		if(id) {
+		    this.productionOrderService
+			.getProductionOrder(id)
 			.subscribe(
-			(response) => {
-			    this.isLoading = false;
-			    if(response.length > 0) {
-				this.systemPreparationPhase = response[0];
-			    }
-			},
-			(error) => {
-			    const dialogRef = this.httpUtils.errorDialog(error);
-			    dialogRef.afterClosed().subscribe(value => {
-				this.router.navigate([this.backRoute]);
+			    (po_response) => {
+				this.productionOrder = po_response;
+				var sid = params.get('sid');
+				if(sid) {
+				    this.systemPreparationPhaseService
+					.getSystemPreparationPhase(id, sid)
+					.subscribe(
+					(response) => {
+						this.isLoading = false;
+						this.systemPreparationPhase = response;
+					    },
+					    (error) => {
+						const dialogRef = this.httpUtils.errorDialog(error);
+						dialogRef.afterClosed().subscribe(value => {
+						    this.router.navigate([this.backRoute]);
+						});
+					    }
+					);
+				} else {
+				    this.isLoading = false;
+				}
+			    },
+			    (error) => {
+				const dialogRef = this.httpUtils.errorDialog(error);
+				dialogRef.afterClosed().subscribe(value => {
+				    this.router.navigate([this.backRoute]);
+				});
 			    });
-			}
-		    );
-		},
-		(error) => {
-		    const dialogRef = this.httpUtils.errorDialog(error);
-		    dialogRef.afterClosed().subscribe(value => {
-			this.router.navigate([this.backRoute]);
-		    });
 		}
-	    );
-	});
+	    });
     }
 
     save(): void {
