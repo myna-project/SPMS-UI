@@ -16,7 +16,7 @@ import { HttpUtils } from '../../_utils/http.utils';
 export class ProductionOrdersComponent implements OnInit {
 
   isLoading: boolean = true;
-  productionorders: ProductionOrder[];
+  productionorders: ProductionOrder[] = [];
   filteredProductionOrders: ProductionOrder[];
 
   constructor(private productionordersService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
@@ -25,9 +25,14 @@ export class ProductionOrdersComponent implements OnInit {
     this.productionordersService.getProductionOrders().subscribe(
       (productionorders) => {
         productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
-        this.productionorders = productionorders;
-        this.filteredProductionOrders = productionorders;
+        var pos = productionorders;
         this.isLoading = false;
+	  pos.forEach((po) => {
+	      po.production_order_date_string = this.httpUtils
+		  .getLocaleDateTimeString(po.production_order_date);
+	      this.productionorders.push(po);
+	  });
+	  this.filteredProductionOrders = this.productionorders;
       },
       (error) => {
         this.httpUtils.errorDialog(error);
@@ -35,11 +40,11 @@ export class ProductionOrdersComponent implements OnInit {
     );
   }
 
-  search(term: string): void {
-    this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
-      return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
-    });
-  }
+    search(term: string): void {
+	this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
+	    return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+	});
+    }
 
   edit(id: number): void {
     this.router.navigate(['productionorder/' + id]);

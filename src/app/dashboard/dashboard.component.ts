@@ -21,15 +21,20 @@ export class DashboardComponent implements OnInit {
 		private translate: TranslateService) {}
 
     isLoading: boolean = true;
-    productionorders: ProductionOrder[];
+    productionorders: ProductionOrder[] = [];
     filteredProductionOrders: ProductionOrder[];
 
     ngOnInit(): void {
 	this.productionordersService.getProductionOrders().subscribe(
 	    (productionorders) => {
 		productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
-		this.productionorders = productionorders;
-		this.filteredProductionOrders = productionorders;
+		var pos = productionorders;
+		pos.forEach((po) => {
+		    po.production_order_date_string = this.httpUtils
+			.getLocaleDateTimeString(po.production_order_date);
+		    this.productionorders.push(po);
+		});
+		this.filteredProductionOrders = this.productionorders;
 		this.isLoading = false;
 	    },
 	    (error) => {
