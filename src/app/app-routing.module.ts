@@ -166,15 +166,27 @@ const routes: Routes = [
     canDeactivate: [ PendingChangesGuard ]
   },
   {
-    path: 'settingPhases/:id',
+    path: 'productionOrder/:id/settingPhase',
     component: SettingPhaseComponent, // TODO
-    canActivate: [ AdminAuthGuard ],
+    canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
-    path: 'systemPreparationPhases/:id',
+    path: 'productionOrder/:id/settingPhases/:sid',
+    component: SettingPhaseComponent, // TODO
+    canActivate: [ AuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'productionOrder/:id/systemPreparationPhase',
     component: SystemPreparationPhaseComponent, // TODO
-    canActivate: [ AdminAuthGuard ],
+    canActivate: [ AuthGuard ],
+    canDeactivate: [ PendingChangesGuard ]
+  },
+  {
+    path: 'productionOrder/:id/systemPreparationPhases/:sid',
+    component: SystemPreparationPhaseComponent, // TODO
+    canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
