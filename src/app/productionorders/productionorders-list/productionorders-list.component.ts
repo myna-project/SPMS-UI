@@ -29,7 +29,7 @@ export class ProductionOrdersComponent implements OnInit {
         this.isLoading = false;
 	  pos.forEach((po) => {
 	      po.production_order_date_string = this.httpUtils
-		  .getLocaleDateTimeString(po.production_order_date);
+		  .getLocaleDateString(po.production_order_date);
 	      this.productionorders.push(po);
 	  });
 	  this.filteredProductionOrders = this.productionorders;

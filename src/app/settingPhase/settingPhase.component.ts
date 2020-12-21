@@ -22,7 +22,6 @@ import { AuthenticationService } from '../_services/authentication.service'
 
 /**
 * TODO NOTEs:
-* - why is authService.getCurrentUser() stored without the associated ID?
 * - JSON payloads: there's no need to serialize the whole ProductionOrder / User, yet we are forced to mantain backend consistency
 */
 @Component({
@@ -43,7 +42,6 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     allMixtureModes: MixtureMode[];
     productionOrder: ProductionOrder;
     start_time: Date;
-    currentUser: User;
 
     constructor(private settingPhaseService: SettingPhaseService,
 		private route: ActivatedRoute,
@@ -59,22 +57,6 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     ngOnInit(): void {
 	this.createForm();
 	this.start_time = new Date();
-	var cUser = this.authService.getCurrentUser();
-	if (cUser === null) {
-	    this.router.navigate(['/login']);
-	    return;
-	}
-	this.userService.getUsersByUsername(cUser.username).subscribe(
-	    (response) => {
-		this.currentUser = response[0]; // TODO FIX why is the user ID not stored as currentUser?
-	    },
-	    (error) => {
-		const dialogRef = this.httpUtils.errorDialog(error);
-		dialogRef.afterClosed().subscribe(value => {
-		    this.router.navigate([this.backRoute]);
-		});
-	    }
-	);
 	this.mixtureModesService.getMixtureModes().subscribe(
 	    (response) => {
 		this.allMixtureModes = response;
@@ -154,7 +136,6 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 	newSettingPhase.start_time = Math.floor(this.start_time.getTime()/1000);
 	newSettingPhase.end_time = Math.floor(new Date().getTime()/1000);
 	newSettingPhase.productionOrder = this.productionOrder;
-	newSettingPhase.user = this.currentUser;
 	if (this.settingPhase != undefined && this.settingPhase.id !== undefined) {
 	    newSettingPhase.id = this.settingPhase.id;
 	    this.settingPhaseService

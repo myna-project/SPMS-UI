@@ -19,7 +19,6 @@ import { AuthenticationService } from '../_services/authentication.service'
 
 /**
 * TODO NOTEs:
-* - why is authService.getCurrentUser() stored without the associated ID?
 * - JSON payloads: there's no need to serialize the whole ProductionOrder / User, yet we are forced to mantain backend consistency
 */
 @Component({
@@ -39,7 +38,6 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
     backRoute = 'dashboard';
     productionOrder: ProductionOrder;
     start_time: Date;
-    currentUser: User;
 
     constructor(private systemPreparationPhaseService: SystemPreparationPhaseService,
 		private route: ActivatedRoute,
@@ -53,22 +51,6 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
 
     ngOnInit(): void {
 	this.start_time = new Date();
-	var cUser = this.authService.getCurrentUser();
-	if (cUser === null) {
-	    this.router.navigate(['/login']);
-	    return;
-	}
-	this.userService.getUsersByUsername(cUser.username).subscribe(
-	    (response) => {
-		this.currentUser = response[0]; // TODO FIX why is the user ID not stored as currentUser?
-	    },
-	    (error) => {
-		const dialogRef = this.httpUtils.errorDialog(error);
-		dialogRef.afterClosed().subscribe(value => {
-		    this.router.navigate([this.backRoute]);
-		});
-	    }
-	);
 	this.route.paramMap
 	    .subscribe(params => {
 		var id = params.get('id');
@@ -114,7 +96,6 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
 	newSystemPreparationPhase.start_time = Math.floor(this.start_time.getTime()/1000);
 	newSystemPreparationPhase.end_time = Math.floor(new Date().getTime()/1000);
 	newSystemPreparationPhase.productionOrder = this.productionOrder;
-	newSystemPreparationPhase.user = this.currentUser;
 	if (this.systemPreparationPhase.id !== undefined) {
 	    newSystemPreparationPhase.id = this.systemPreparationPhase.id;
 	    this.systemPreparationPhaseService
