@@ -104,7 +104,8 @@
     "SAVED": "Packaging salvato!",
     "SEARCH": "Ricerca packaging"
   },
-  "PRODUCTIONORDER": {
+    "PRODUCTIONORDER": {
+    "TITLE": "Ordine di produzione",
     "ADDADDITIVE": "Aggiungi additivo",
     "ADDITIVE": "Additivo",
     "ADDITIVES": "Additivi",
@@ -222,8 +223,12 @@
     "USERNAME": "Username",
     "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
   },
+    "PHASES": {
+        "TITLE": "Fasi di produzione"
+    },
 
-  "SETTINGPHASE": {
+    "SETTINGPHASE": {
+    "TITLE": "Fase di setting impianto",
     "START": "Inizio setting impianto",
     "END": "Termine setting impianto",
     "NEW": "Nuova fase di setting impianto",

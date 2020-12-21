@@ -133,8 +133,8 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     save(): void {
 	this.isSaving = true;
 	let newSettingPhase: SettingPhase = this.getDataFromForm(new SettingPhase());
-	newSettingPhase.start_time = Math.floor(this.start_time.getTime()/1000);
-	newSettingPhase.end_time = Math.floor(new Date().getTime()/1000);
+	newSettingPhase.start_time = this.start_time;
+	newSettingPhase.end_time = new Date();
 	newSettingPhase.productionOrder = this.productionOrder;
 	if (this.settingPhase != undefined && this.settingPhase.id !== undefined) {
 	    newSettingPhase.id = this.settingPhase.id;

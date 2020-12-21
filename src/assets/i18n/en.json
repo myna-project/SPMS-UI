@@ -105,6 +105,7 @@
     "SEARCH": "Search packaging"
   },
   "PRODUCTIONORDER": {
+    "TITLE": "Production order",
     "ADDADDITIVE": "Add additive",
     "ADDITIVE": "Additive",
     "ADDITIVES": "Additives",
@@ -221,8 +222,12 @@
     "USERNAME": "Username",
     "USERNAMELENGTH": "Username must be at least 4 characters long"
   },
+    "PHASES": {
+        "TITLE": "Production phases"
+    },
 
   "SETTINGPHASE": {
+    "TITLE": "Setting phase",
     "START": "Begin setting phase",
     "END": "End setting phase",
     "NEW": "New setting phase",

@@ -47,6 +47,6 @@ export class ProductionOrdersComponent implements OnInit {
     }
 
   edit(id: number): void {
-    this.router.navigate(['productionorder/' + id]);
+    this.router.navigate(['productionOrder/' + id]);
   }
 }

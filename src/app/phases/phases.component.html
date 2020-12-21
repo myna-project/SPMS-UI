@@ -1,0 +1,21 @@
+<div class="main-container" *ngIf="productionorder">
+  <h2>{{'PHASES.TITLE' | translate }} - {{'PRODUCTIONORDER.TITLE' | translate }} {{productionorder.production_order_code}}</h2>
+  <p>{{productionorder.raw_material.name}}: {{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%</p>
+  <p>{{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} C</p>
+  <p>{{productionorder.packaging.packaging_mode}}</p>
+  <p><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionorder.delivery_date_string}}</b></p>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let sf of settingPhaseList" (click)="toSettingPhase(sf.id)">
+      <h3 matLine><b>{{ 'SETTINGPHASE.TITLE' | translate }}</b></h3>
+      <p matLine>{{ 'SETTINGPHASE.START' | translate }}: {{sf.start_time_string}}</p>
+      <p matLine>{{ 'SETTINGPHASE.END' | translate }}: {{sf.end_time_string}}</p>
+
+      <span class="mat-list-item-divider">
+        <mat-divider></mat-divider>
+      </span>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine (click)="newSettingPhase()"><b>{{ 'SETTINGPHASE.NEW' | translate }}</b></h3>
+    </mat-list-item>
+  </mat-nav-list>
+</div>
