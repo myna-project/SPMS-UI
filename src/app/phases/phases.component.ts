@@ -26,14 +26,14 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
     }
 
     constructor(
-        private productionordersService: ProductionOrdersService,
-        private settingPhaseService: SettingPhaseService,
-        private systemPreparationPhaseService: SystemPreparationPhaseService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private location: Location,
-		private httpUtils: HttpUtils,
-		private translate: TranslateService) {}
+	private productionordersService: ProductionOrdersService,
+	private settingPhaseService: SettingPhaseService,
+	private systemPreparationPhaseService: SystemPreparationPhaseService,
+	private route: ActivatedRoute,
+	private router: Router,
+	private location: Location,
+	private httpUtils: HttpUtils,
+	private translate: TranslateService) {}
 
     backRoute = 'dashboard';
     isLoading: boolean = true;
@@ -61,11 +61,15 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                                         (response) => {
                                             var sfl = response;
                                             sfl.forEach((sf) => {
-                                                sf.start_time_string = this.httpUtils
-                                                    .getLocaleDateTimeStr(sf.start_time);
-                                                sf.end_time_string = this.httpUtils
-                                                    .getLocaleDateTimeStr(sf.end_time);
-                                                this.settingPhaseList.push(sf);
+                                                sf.start_time_string = sf
+						    .start_time.toString();
+                                                if(sf.end_time == null) {
+						    sf.end_time_string = this.translate.instant('SETTINGPHASE.ONGOING');
+						} else {
+						    sf.end_time_string = sf
+							.end_time.toString();
+						}
+						this.settingPhaseList.push(sf);
                                             });
                                         },
                                         (error) => {
@@ -110,7 +114,18 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
             });
     }
 
-    toSettingPhase(sid: number | string): void {}
+    toSettingPhase(sid: number | string): void {
+	this.router.navigate(
+	    ['productionOrder/'
+		+ this.productionorder.id
+		+ '/settingPhases/'
+		+ sid]);
+    }
 
-    newSettingPhase(): void {}
+    newSettingPhase(): void {
+	this.router.navigate(
+	    ['productionOrder/'
+		+ this.productionorder.id
+		+ '/settingPhase']);
+    }
 }

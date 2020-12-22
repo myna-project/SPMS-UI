@@ -41,7 +41,6 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     settingPhaseForm: FormGroup;
     allMixtureModes: MixtureMode[];
     productionOrder: ProductionOrder;
-    start_time: Date;
 
     constructor(private settingPhaseService: SettingPhaseService,
 		private route: ActivatedRoute,
@@ -54,9 +53,26 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		private userService: UsersService,
 		private translate: TranslateService) {}
 
+    newSettingPhase(): void {
+	var nsp = new SettingPhase();
+	nsp.productionOrder = this.productionOrder;
+	nsp.start_time = new Date();
+	console.log(nsp);
+	this.settingPhaseService
+	    .createSettingPhase(nsp)
+	    .subscribe(
+		(response) => {
+		    this.settingPhase = response;
+		},
+		(error) => {
+		    this.httpUtils.errorDialog(error);
+		}
+	    );
+    }
+
+
     ngOnInit(): void {
 	this.createForm();
-	this.start_time = new Date();
 	this.mixtureModesService.getMixtureModes().subscribe(
 	    (response) => {
 		this.allMixtureModes = response;
@@ -95,6 +111,7 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 					);
 				} else {
 				    this.isLoading = false;
+				    this.newSettingPhase();
 				}
 			    },
 			    (error) => {
@@ -106,7 +123,6 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		}
 	    });
     }
-
 
     compareObjects(o1: any, o2: any): boolean {
 	return (o2 != null) && (o1.id === o2.id);
@@ -132,17 +148,13 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 
     save(): void {
 	this.isSaving = true;
-	let newSettingPhase: SettingPhase = this.getDataFromForm(new SettingPhase());
-	newSettingPhase.start_time = this.start_time;
-	newSettingPhase.end_time = new Date();
-	newSettingPhase.productionOrder = this.productionOrder;
-	if (this.settingPhase != undefined && this.settingPhase.id !== undefined) {
-	    newSettingPhase.id = this.settingPhase.id;
-	    this.settingPhaseService
-		.updateSettingPhase(newSettingPhase)
-		.subscribe(
+	this.settingPhase = this.getDataFromForm(this.settingPhase);
+	this.settingPhase.end_time = new Date();
+	console.log(this.settingPhase);
+	this.settingPhaseService
+	    .updateSettingPhase(this.settingPhase)
+	    .subscribe(
 		(response) => {
-		    this.settingPhase = response;
 		    this.isSaving = false;
 		    this.settingPhaseForm.markAsUntouched();
 		    this.httpUtils
@@ -152,36 +164,13 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 			.navigate(
 			    ['productionOrder/'
 				+ this.settingPhase.productionOrder.id
-				+ '/systemPreparationPhase']);
+				+ '/phases']);
 		},
 		(error) => {
 		    this.isSaving = false;
 		    this.httpUtils.errorDialog(error);
 		}
 	    );
-	} else {
-	    this.settingPhaseService
-		.createSettingPhase(newSettingPhase)
-		.subscribe(
-		(response) => {
-		    this.settingPhase = response;
-		    this.isSaving = false;
-		    this.settingPhaseForm.markAsUntouched();
-		    this.httpUtils
-			.successSnackbar(
-			    this.translate.instant('SETTINGPHASE.SAVED'));
-		    this.router
-			.navigate(
-			    ['productionOrder/'
-				+ this.settingPhase.productionOrder.id
-				+ '/systemPreparationPhase']);
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
-	}
     }
 
     get effective_mixture_temperature() {
