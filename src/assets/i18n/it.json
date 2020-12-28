@@ -224,7 +224,8 @@
     "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
   },
     "PHASES": {
-        "TITLE": "Fasi di produzione"
+        "TITLE": "Fasi di produzione",
+        "ONGOING": "In corso"
     },
 
     "SETTINGPHASE": {
@@ -243,6 +244,7 @@
   },
 
   "SYSTEMPREPARATIONPHASE": {
+    "TITLE": "Fase di preparazione impianto",
     "START": "Inizio preparazione impianto",
     "END": "Termine preparazione impianto",
     "NEW": "Nuova fase di preparazione impianto",

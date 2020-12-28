@@ -17,4 +17,17 @@
       <h3 matLine (click)="newSettingPhase()"><b>{{ 'SETTINGPHASE.NEW' | translate }}</b></h3>
     </mat-list-item>
   </mat-nav-list>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let sf of systemPreparationPhaseList" (click)="toSystemPreparationPhase(sf.id)">
+      <h3 matLine><b>{{ 'SYSTEMPREPARATIONPHASE.TITLE' | translate }}</b></h3>
+      <p matLine>{{ 'SYSTEMPREPARATIONPHASE.START' | translate }}: {{sf.start_time_string}}</p>
+      <p matLine>{{ 'SYSTEMPREPARATIONPHASE.END' | translate }}: {{sf.end_time_string}}</p>
+      <span class="mat-list-item-divider">
+        <mat-divider></mat-divider>
+      </span>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine (click)="newSystemPreparationPhase()"><b>{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</b></h3>
+    </mat-list-item>
+  </mat-nav-list>
 </div>

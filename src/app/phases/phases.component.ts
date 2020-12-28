@@ -55,49 +55,8 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                                 this.productionorder.delivery_date_string = this.httpUtils
                                     .getLocaleDateString(this.productionorder.delivery_date);
                                 this.isLoading = false;
-                                this.settingPhaseService
-                                    .getSettingPhases(this.productionorder.id)
-                                    .subscribe(
-                                        (response) => {
-                                            var sfl = response;
-                                            sfl.forEach((sf) => {
-                                                sf.start_time_string = sf
-						    .start_time.toString();
-                                                if(sf.end_time == null) {
-						    sf.end_time_string = this.translate.instant('SETTINGPHASE.ONGOING');
-						} else {
-						    sf.end_time_string = sf
-							.end_time.toString();
-						}
-						this.settingPhaseList.push(sf);
-                                            });
-                                        },
-                                        (error) => {
-                                            const dialogRef = this.httpUtils
-                                                .errorDialog(error);
-                                            dialogRef
-                                                .afterClosed()
-                                                .subscribe(value => {
-                                                    this.router
-                                                        .navigate([this.backRoute]);
-                                                });
-                                        });
-                                this.systemPreparationPhaseService
-                                    .getSystemPreparationPhases(this.productionorder.id)
-                                    .subscribe(
-                                        (response) => {
-                                            this.systemPreparationPhaseList = response;
-                                        },
-                                        (error) => {
-                                            const dialogRef = this.httpUtils
-                                                .errorDialog(error);
-                                            dialogRef
-                                                .afterClosed()
-                                                .subscribe(value => {
-                                                    this.router
-                                                        .navigate([this.backRoute]);
-                                                });
-                                        });
+                                this.processSettingPhases();
+                                this.processSystemPreparationPhases();
                             },
                             (error) => {
                                 const dialogRef = this.httpUtils
@@ -114,18 +73,91 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
             });
     }
 
+    processStartEndTime(sf) {
+        sf.start_time_string = new Date(sf.start_time*1000).toString();
+        if(sf.end_time == null) {
+            sf.end_time_string = this.translate.instant('PHASES.ONGOING');
+        } else {
+            sf.end_time_string = new Date(sf.end_time*1000).toString();
+        }
+        return sf;
+    }
+
+    processSettingPhases(): void {
+        this.settingPhaseService
+            .getSettingPhases(this.productionorder.id)
+            .subscribe(
+                (response) => {
+                    var sfl = response;
+                    sfl.forEach((sf) => {
+                        sf = this.processStartEndTime(sf);
+                        this.settingPhaseList.push(sf);
+                    });
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils
+                        .errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                });
+
+    }
+
+    processSystemPreparationPhases(): void {
+        this.systemPreparationPhaseService
+            .getSystemPreparationPhases(this.productionorder.id)
+            .subscribe(
+                (response) => {
+                    var sfl = response;
+                    sfl.forEach((sf) => {
+                        sf = this.processStartEndTime(sf);
+                        this.systemPreparationPhaseList.push(sf);
+                    });
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils
+                        .errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                });
+
+    }
+
     toSettingPhase(sid: number | string): void {
-	this.router.navigate(
-	    ['productionOrder/'
-		+ this.productionorder.id
-		+ '/settingPhases/'
-		+ sid]);
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/settingPhases/'
+                + sid]);
     }
 
     newSettingPhase(): void {
-	this.router.navigate(
-	    ['productionOrder/'
-		+ this.productionorder.id
-		+ '/settingPhase']);
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/settingPhase']);
+    }
+
+    toSystemPreparationPhase(sid: number | string): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/systemPreparationPhases/'
+                + sid]);
+    }
+
+    newSystemPreparationPhase(): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/systemPreparationPhase']);
     }
 }

@@ -223,7 +223,8 @@
     "USERNAMELENGTH": "Username must be at least 4 characters long"
   },
     "PHASES": {
-        "TITLE": "Production phases"
+        "TITLE": "Production phases",
+        "ONGOING": "Ongoing"
     },
 
   "SETTINGPHASE": {
@@ -241,7 +242,8 @@
       "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode"
   },
 
-  "SYSTEMPREPARATIONPHASE": {
+    "SYSTEMPREPARATIONPHASE": {
+    "TITLE": "System preparation phase",
     "START": "Begin system preparation phase",
     "END": "End system preparation phase",
     "NEW": "New system preparation phase",

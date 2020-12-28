@@ -6,5 +6,7 @@ export class SystemPreparationPhase {
     productionOrder: ProductionOrder;
     user: User;
     start_time: number;
+    start_time_string: string;
     end_time: number;
+    end_time_string: string;
 }
