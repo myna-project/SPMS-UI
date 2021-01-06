@@ -54,129 +54,127 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 		private translate: TranslateService) {}
 
     newSettingPhase(): void {
-	var nsp = new SettingPhase();
-	nsp.productionOrder = this.productionOrder;
-	nsp.start_time = new Date();
-	console.log(nsp);
-	this.settingPhaseService
-	    .createSettingPhase(nsp)
-	    .subscribe(
-		(response) => {
-		    this.settingPhase = response;
-		},
-		(error) => {
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
+        var nsp = new SettingPhase();
+        nsp.productionOrder = this.productionOrder;
+        nsp.start_time = new Date();
+        this.settingPhaseService
+            .createSettingPhase(nsp)
+            .subscribe(
+                (response) => {
+                    this.settingPhase = response;
+                },
+                (error) => {
+		            this.httpUtils.errorDialog(error);
+		        }
+	        );
     }
 
 
     ngOnInit(): void {
-	this.createForm();
-	this.mixtureModesService.getMixtureModes().subscribe(
-	    (response) => {
-		this.allMixtureModes = response;
-	    },
-	    (error) => {
-		const dialogRef = this.httpUtils.errorDialog(error);
-		dialogRef.afterClosed().subscribe(value => {
-		    this.router.navigate([this.backRoute]);
-		});
-	    }
-	);
-	this.route.paramMap
-	    .subscribe(params => {
-		var id = params.get('id');
-		if(id) {
-		    this.productionOrderService
-			.getProductionOrder(id)
-			.subscribe(
-			    (po_response) => {
-				this.productionOrder = po_response;
-				var sid = params.get('sid');
-				if(sid) {
-				    this.settingPhaseService
-					.getSettingPhase(id, sid)
-					.subscribe(
-					(response) => {
-						this.isLoading = false;
-						this.settingPhase = response;
-					    },
-					    (error) => {
-						const dialogRef = this.httpUtils.errorDialog(error);
-						dialogRef.afterClosed().subscribe(value => {
-						    this.router.navigate([this.backRoute]);
-						});
-					    }
-					);
-				} else {
-				    this.isLoading = false;
-				    this.newSettingPhase();
-				}
-			    },
-			    (error) => {
-				const dialogRef = this.httpUtils.errorDialog(error);
-				dialogRef.afterClosed().subscribe(value => {
-				    this.router.navigate([this.backRoute]);
-				});
-			    });
-		}
-	    });
+        this.createForm();
+        this.mixtureModesService.getMixtureModes().subscribe(
+            (response) => {
+                this.allMixtureModes = response;
+            },
+            (error) => {
+                const dialogRef = this.httpUtils.errorDialog(error);
+                dialogRef.afterClosed().subscribe(value => {
+                    this.router.navigate([this.backRoute]);
+                });
+            }
+        );
+        this.route.paramMap
+            .subscribe(params => {
+                var id = params.get('id');
+                if(id) {
+                    this.productionOrderService
+                        .getProductionOrder(id)
+                        .subscribe(
+                            (po_response) => {
+                                this.productionOrder = po_response;
+                                var sid = params.get('sid');
+                                if(sid) {
+                                    this.settingPhaseService
+                                        .getSettingPhase(id, sid)
+                                        .subscribe(
+                                            (response) => {
+                                                this.isLoading = false;
+                                                this.settingPhase = response;
+                                            },
+                                            (error) => {
+                                                const dialogRef = this.httpUtils.errorDialog(error);
+                                                dialogRef.afterClosed().subscribe(value => {
+                                                    this.router.navigate([this.backRoute]);
+                                                });
+                                            }
+                                        );
+                                } else {
+                                    this.isLoading = false;
+                                    this.newSettingPhase();
+                                }
+                            },
+                            (error) => {
+                                const dialogRef = this.httpUtils.errorDialog(error);
+                                dialogRef.afterClosed().subscribe(value => {
+                                    this.router.navigate([this.backRoute]);
+                                });
+                            });
+                }
+            });
     }
 
     compareObjects(o1: any, o2: any): boolean {
-	return (o2 != null) && (o1.id === o2.id);
+	    return (o2 != null) && (o1.id === o2.id);
     }
 
     createForm() {
-	// let patterns = this.httpUtils.getPatterns();
-	this.settingPhaseForm = new FormGroup({
-	    'effective_mixture_mode': new FormControl(
-		this.settingPhase.effective_mixture_mode,
-		[ Validators.required ]),
-	    'effective_mixture_temperature': new FormControl(
-		this.settingPhase.effective_mixture_temperature,
-		[ Validators.required ])
-	});
+	    // let patterns = this.httpUtils.getPatterns();
+	    this.settingPhaseForm = new FormGroup({
+	        'effective_mixture_mode': new FormControl(
+		        this.settingPhase.effective_mixture_mode,
+		        [ Validators.required ]),
+	        'effective_mixture_temperature': new FormControl(
+		        this.settingPhase.effective_mixture_temperature,
+		        [ Validators.required ])
+	    });
     }
 
     getDataFromForm(s: SettingPhase): SettingPhase {
-	s.effective_mixture_mode = this.effective_mixture_mode.value;
-	s.effective_mixture_temperature = this.effective_mixture_temperature.value; // form entry type is number
-	return s;
+	    s.effective_mixture_mode = this.effective_mixture_mode.value;
+	    s.effective_mixture_temperature = this.effective_mixture_temperature.value; // form entry type is number
+	    return s;
     }
 
     save(): void {
-	this.isSaving = true;
-	this.settingPhase = this.getDataFromForm(this.settingPhase);
-	this.settingPhase.end_time = new Date();
-	console.log(this.settingPhase);
-	this.settingPhaseService
-	    .updateSettingPhase(this.settingPhase)
-	    .subscribe(
-		(response) => {
-		    this.isSaving = false;
-		    this.settingPhaseForm.markAsUntouched();
-		    this.httpUtils
-			.successSnackbar(
-			    this.translate.instant('SETTINGPHASE.SAVED'));
-		    this.router
-			.navigate(
-			    ['productionOrder/'
-				+ this.settingPhase.productionOrder.id
-				+ '/phases']);
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
+        this.isSaving = true;
+        this.settingPhase = this.getDataFromForm(this.settingPhase);
+        this.settingPhase.end_time = new Date();
+        this.settingPhaseService
+            .updateSettingPhase(this.settingPhase)
+            .subscribe(
+                (response) => {
+                    this.isSaving = false;
+                    this.settingPhaseForm.markAsUntouched();
+                    this.httpUtils
+                        .successSnackbar(
+                            this.translate.instant('SETTINGPHASE.SAVED'));
+                    this.router
+                        .navigate(
+                            ['productionOrder/'
+                                + this.settingPhase.productionOrder.id
+                                + '/phases']);
+                },
+                (error) => {
+                    this.isSaving = false;
+                    this.httpUtils.errorDialog(error);
+                }
+            );
     }
 
     get effective_mixture_temperature() {
-	return this.settingPhaseForm.get('effective_mixture_temperature');
+	    return this.settingPhaseForm.get('effective_mixture_temperature');
     }
     get effective_mixture_mode() {
-	return this.settingPhaseForm.get('effective_mixture_mode');
+	    return this.settingPhaseForm.get('effective_mixture_mode');
     }
 }

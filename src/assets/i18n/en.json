@@ -254,6 +254,7 @@
   },
 
   "CLEANINGPHASE": {
+    "TITLE": "Cleaning phase",
     "START": "Begin cleaning phase",
     "END": "End cleaning phase",
     "NEW": "New cleaning phase",
@@ -263,7 +264,19 @@
       "SEARCH": "Search cleaning phase"
   },
 
+  "VALIDATIONPHASE": {
+    "TITLE": "Validation phase",
+    "START": "Begin validation phase",
+    "END": "End validation phase",
+    "NEW": "New validation phase",
+      "ONGOING": "Ongoing validation phase",
+      "SAVE": "Save",
+      "SAVED": "Validation phase complete",
+      "SEARCH": "Search validation phase"
+  },
+
   "WORKINGPHASE": {
+    "TITLE": "Working phase",
     "START": "Begin working phase",
     "END": "End working phase",
     "NEW": "New working phase",

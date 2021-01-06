@@ -255,6 +255,7 @@
   },
 
   "CLEANINGPHASE": {
+    "TITLE": "Fase di pulizia impianto",
     "START": "Inizio pulizia impianto",
     "END": "Termine pulizia impianto",
     "NEW": "Nuova fase di pulizia impianto",
@@ -264,7 +265,19 @@
       "SEARCH": "Ricerca fase di pulizia impianto"
   },
 
+  "VALIDATIONPHASE": {
+    "TITLE": "Fase di validazione",
+    "START": "Inizio validazione",
+    "END": "Termine validazione",
+    "NEW": "Nuova fase di validazione",
+      "ONGOING": "Validazione in corso",
+      "SAVE": "Salva",
+      "SAVED": "validazione completata",
+      "SEARCH": "Ricerca fase di validazione"
+  },
+
   "WORKINGPHASE": {
+    "TITLE": "Fase di lavorazione",
     "START": "Inizio lavorazione",
     "END": "Termine lavorazione",
     "NEW": "Nuova fase di lavorazione",
