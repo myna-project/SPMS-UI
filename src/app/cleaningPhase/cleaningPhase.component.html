@@ -1,0 +1,13 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="main-container" *ngIf="cleaningPhase">
+  <h4>{{ (cleaningPhase.id ? 'CLEANINGPHASE.ONGOING' : 'CLEANINGPHASE.NEW') | translate }}</h4>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="accent" (click)="cleaning()" [disabled]="!saved">{{ 'CLEANINGPHASE.START' | translate }}</button>
+  </div>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="accent" (click)="working()" [disabled]="!saved">{{ 'WORKINGPHASE.START' | translate }}</button>
+  </div>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'CLEANINGPHASE.END' | translate }}</button>
+  </div>
+</div>

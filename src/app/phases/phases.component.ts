@@ -3,12 +3,22 @@ import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+
 import { ProductionOrder } from '../_models/productionorder';
 import { ProductionOrdersService } from '../_services/productionorders.service';
+
 import { SettingPhase } from '../_models/settingPhase'
-import { SettingPhaseService } from '../_services/settingPhase.service';
 import { SystemPreparationPhase } from '../_models/systemPreparationPhase'
+import { CleaningPhase } from '../_models/cleaningPhase'
+import { ValidationPhase } from '../_models/validationPhase'
+import { WorkingPhase } from '../_models/workingPhase'
+
+import { SettingPhaseService } from '../_services/settingPhase.service';
+import { CleaningPhaseService } from '../_services/cleaningPhase.service';
 import { SystemPreparationPhaseService } from '../_services/systemPreparationPhase.service';
+import { ValidationPhaseService } from '../_services/validationPhase.service';
+import { WorkingPhaseService } from '../_services/workingPhase.service';
+
 import { HttpUtils } from '../_utils/http.utils';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
@@ -29,6 +39,9 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
 	private productionordersService: ProductionOrdersService,
 	private settingPhaseService: SettingPhaseService,
 	private systemPreparationPhaseService: SystemPreparationPhaseService,
+	private cleaningPhaseService: CleaningPhaseService,
+	private validationPhaseService: ValidationPhaseService,
+	private workingPhaseService: WorkingPhaseService,
 	private route: ActivatedRoute,
 	private router: Router,
 	private location: Location,
@@ -40,7 +53,9 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
     productionorder: ProductionOrder;
     settingPhaseList: SettingPhase[] = [];
     systemPreparationPhaseList: SystemPreparationPhase[] = [];
-    // TODO other phases
+    cleaningPhaseList: CleaningPhase[] = [];
+    validationPhaseList: ValidationPhase[] = [];
+    workingPhaseList: WorkingPhase[] = [];
 
     ngOnInit(): void {
         this.route.paramMap
@@ -57,6 +72,9 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                                 this.isLoading = false;
                                 this.processSettingPhases();
                                 this.processSystemPreparationPhases();
+                                this.processCleaningPhases();
+                                this.processValidationPhases();
+                                this.processWorkingPhases();
                             },
                             (error) => {
                                 const dialogRef = this.httpUtils
@@ -74,6 +92,7 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
     }
 
     processStartEndTime(sf) {
+        console.log(sf);
         sf.start_time_string = new Date(sf.start_time*1000).toString();
         if(sf.end_time == null) {
             sf.end_time_string = this.translate.instant('PHASES.ONGOING');
@@ -92,7 +111,7 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                     sfl.forEach((sf) => {
                         sf = this.processStartEndTime(sf);
                         this.settingPhaseList.push(sf);
-                    });
+                   });
                 },
                 (error) => {
                     const dialogRef = this.httpUtils
@@ -117,6 +136,78 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                         sf = this.processStartEndTime(sf);
                         this.systemPreparationPhaseList.push(sf);
                     });
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils
+                        .errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                });
+
+    }
+
+    processCleaningPhases(): void {
+        this.cleaningPhaseService
+            .getCleaningPhases(this.productionorder.id)
+            .subscribe(
+                (response) => {
+                    var sfl = response;
+                    sfl.forEach((sf) => {
+                        sf = this.processStartEndTime(sf);
+                        this.cleaningPhaseList.push(sf);
+                   });
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils
+                        .errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                });
+
+    }
+
+    processValidationPhases(): void {
+        this.validationPhaseService
+            .getValidationPhases(this.productionorder.id)
+            .subscribe(
+                (response) => {
+                    var sfl = response;
+                    sfl.forEach((sf) => {
+                        sf = this.processStartEndTime(sf);
+                        this.validationPhaseList.push(sf);
+                   });
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils
+                        .errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                });
+
+    }
+
+    processWorkingPhases(): void {
+        this.workingPhaseService
+            .getWorkingPhases(this.productionorder.id)
+            .subscribe(
+                (response) => {
+                    var sfl = response;
+                    sfl.forEach((sf) => {
+                        sf = this.processStartEndTime(sf);
+                        this.workingPhaseList.push(sf);
+                   });
                 },
                 (error) => {
                     const dialogRef = this.httpUtils
@@ -159,5 +250,50 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
             ['productionOrder/'
                 + this.productionorder.id
                 + '/systemPreparationPhase']);
+    }
+
+    toCleaningPhase(sid: number | string): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/cleaningPhases/'
+                + sid]);
+    }
+
+    newCleaningPhase(): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/cleaningPhase']);
+    }
+
+    toValidationPhase(sid: number | string): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/validationPhases/'
+                + sid]);
+    }
+
+    newValidationPhase(): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/validationPhase']);
+    }
+
+    toWorkingPhase(sid: number | string): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/workingPhases/'
+                + sid]);
+    }
+
+    newWorkingPhase(): void {
+        this.router.navigate(
+            ['productionOrder/'
+                + this.productionorder.id
+                + '/workingPhase']);
     }
 }

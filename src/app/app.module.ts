@@ -67,6 +67,9 @@ import { UsersComponent } from './users/users-list/users-list.component';
 import { PhasesComponent } from './phases/phases.component';
 import { SettingPhaseComponent } from './settingPhase/settingPhase.component';
 import { SystemPreparationPhaseComponent } from './systemPreparationPhase/systemPreparationPhase.component';
+import { CleaningPhaseComponent } from './cleaningPhase/cleaningPhase.component';
+import { ValidationPhaseComponent } from './validationPhase/validationPhase.component';
+import { WorkingPhaseComponent } from './workingPhase/workingPhase.component';
 
 import { PendingChangesGuard } from './_guards/pending-changes.guard';
 
@@ -103,6 +106,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UsersComponent,
     PhasesComponent,
     SettingPhaseComponent,
+    CleaningPhaseComponent,
+    ValidationPhaseComponent,
+    WorkingPhaseComponent,
     SystemPreparationPhaseComponent
   ],
   entryComponents: [
