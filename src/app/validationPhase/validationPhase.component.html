@@ -1,6 +1,50 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="main-container" *ngIf="validationPhase">
   <h4>{{ (validationPhase.id ? 'VALIDATIONPHASE.ONGOING' : 'VALIDATIONPHASE.NEW') | translate }}</h4>
+  <form class="spms-form" [formGroup]="validationPhaseForm">
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.HUMIDITY_FINISHED_PRODUCT' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.HUMIDITY_FINISHED_PRODUCT' | translate }}" [formControl]="humidity_finished_product">
+        <mat-error *ngIf="humidity_finished_product.invalid && (humidity_finished_product.dirty || humidity_finished_product.touched) && humidity_finished_product.errors.required">{{ 'VALIDATIONPHASE.MISSING_HUMIDITY_FINISHED_PRODUCT' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.DENSITY_FINISHED_PRODUCT' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.DENSITY_FINISHED_PRODUCT' | translate }}" [formControl]="density_finished_product">
+        <mat-error *ngIf="density_finished_product.invalid && (density_finished_product.dirty || density_finished_product.touched) && density_finished_product.errors.required">{{ 'VALIDATIONPHASE.MISSING_DENSITY_FINISHED_PRODUCT' | translate }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.PACKAGING_STATE' | translate }}</mat-label>
+        <input matInput type="string" placeholder="{{ 'VALIDATIONPHASE.PACKAGING_STATE' | translate }}" [formControl]="packaging_state">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.SIEVE_QUANTITY' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.SIEVE_QUANTITY' | translate }}" [formControl]="sieve_quantity">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.CHIMNEY_QUANTITY' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.CHIMNEY_QUANTITY' | translate }}" [formControl]="chimney_quantity">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.TOWER_ENTRY_TEMPERATURE' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.TOWER_ENTRY_TEMPERATURE' | translate }}" [formControl]="tower_entry_temperature">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.TOWER_INTERN_TEMPERATURE' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.TOWER_INTERN_TEMPERATURE' | translate }}" [formControl]="tower_intern_temperature">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.CYCLON_ENTRY_TEMPERATURE' | translate }}</mat-label>
+        <input matInput type="number" placeholder="{{ 'VALIDATIONPHASE.CYCLON_ENTRY_TEMPERATURE' | translate }}" [formControl]="cyclon_entry_temperature">
+      </mat-form-field>
+      <mat-form-field class="medium-form-field">
+        <mat-label>{{ 'VALIDATIONPHASE.NOTE' | translate }}</mat-label>
+        <input matInput type="string" placeholder="{{ 'VALIDATIONPHASE.NOTE' | translate }}" [formControl]="note">
+      </mat-form-field>
+    </div>
+  </form>
   <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'VALIDATIONPHASE.END' | translate }}</button>
   </div>

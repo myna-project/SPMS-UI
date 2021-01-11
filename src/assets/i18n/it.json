@@ -273,7 +273,18 @@
       "ONGOING": "Validazione in corso",
       "SAVE": "Salva",
       "SAVED": "validazione completata",
-      "SEARCH": "Ricerca fase di validazione"
+      "SEARCH": "Ricerca fase di validazione",
+      "HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito",
+      "MISSING_HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito mancante",
+      "DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito",
+      "MISSING_DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito mancante",
+      "PACKAGING_STATE": "Stato del packaging",
+      "SIEVE_QUANTITY": "Quantità nel setaccio",
+      "CHIMNEY_QUANTITY": "Quantità nel camino",
+      "TOWER_ENTRY_TEMPERATURE": "Temperatura di ingresso della torre",
+      "TOWER_INTERN_TEMPERATURE": "Temperatura interna della torre",
+      "CYCLON_ENTRY_TEMPERATURE": "Temperatura interna del ciclone",
+      "NOTE": "Note aggiuntive"
   },
 
   "WORKINGPHASE": {

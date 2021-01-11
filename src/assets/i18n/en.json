@@ -272,7 +272,18 @@
       "ONGOING": "Ongoing validation phase",
       "SAVE": "Save",
       "SAVED": "Validation phase complete",
-      "SEARCH": "Search validation phase"
+      "SEARCH": "Search validation phase",
+      "HUMIDITY_FINISHED_PRODUCT": "Humidity finished product",
+      "MISSING_HUMIDITY_FINISHED_PRODUCT": "Humidity finished product missing",
+      "DENSITY_FINISHED_PRODUCT": "Density finished product",
+      "MISSING_DENSITY_FINISHED_PRODUCT": "Density finished product missing",
+      "PACKAGING_STATE": "Packaging state",
+      "SIEVE_QUANTITY": "Sieve quantity",
+      "CHIMNEY_QUANTITY": "Chimney quantity",
+      "TOWER_ENTRY_TEMPERATURE": "Tower entry temperature",
+      "TOWER_INTERN_TEMPERATURE": "Tower internal temperature",
+      "CYCLON_ENTRY_TEMPERATURE": "Cyclon entry temperature",
+      "NOTE": "Additional notes"
   },
 
   "WORKINGPHASE": {
