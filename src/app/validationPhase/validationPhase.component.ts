@@ -108,6 +108,11 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
 		    this.httpUtils
 			.successSnackbar(
 			    this.translate.instant('VALIDATIONPHASE.SAVED'));
+            this.router
+                .navigate(
+                    ['productionOrder/'
+                        + this.validationPhase.productionOrder.id
+                        + '/phases']);
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -125,6 +130,11 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
 		    this.httpUtils
 			.successSnackbar(
 			    this.translate.instant('VALIDATIONPHASE.SAVED'));
+            this.router
+                .navigate(
+                    ['productionOrder/'
+                        + this.validationPhase.productionOrder.id
+                        + '/phases']);
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -133,19 +143,4 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
 	    );
 	}
     }
-
-    validation(): void {
-	this.router
-	    .navigate(
-		['validationPhases/'
-		    + this.validationPhase.productionOrder.id]);
-    }
-
-    working(): void {
-	this.router
-	    .navigate(
-		['workingPhases/'
-		    + this.validationPhase.productionOrder.id]);
-    }
-
 }

@@ -2,12 +2,6 @@
 <div class="main-container" *ngIf="systemPreparationPhase">
   <h4>{{ (systemPreparationPhase.id ? 'SYSTEMPREPARATIONPHASE.ONGOING' : 'SYSTEMPREPARATIONPHASE.NEW') | translate }}</h4>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="accent" (click)="cleaning()" [disabled]="!saved">{{ 'CLEANINGPHASE.START' | translate }}</button>
-  </div>
-  <div class="button-row-right">
-    <button type="submit" mat-raised-button color="accent" (click)="working()" [disabled]="!saved">{{ 'WORKINGPHASE.START' | translate }}</button>
-  </div>
-  <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'SYSTEMPREPARATIONPHASE.END' | translate }}</button>
   </div>
 </div>

@@ -2,12 +2,6 @@
 <div class="main-container" *ngIf="validationPhase">
   <h4>{{ (validationPhase.id ? 'VALIDATIONPHASE.ONGOING' : 'VALIDATIONPHASE.NEW') | translate }}</h4>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="accent" (click)="validation()" [disabled]="!saved">{{ 'VALIDATIONPHASE.START' | translate }}</button>
-  </div>
-  <div class="button-row-right">
-    <button type="submit" mat-raised-button color="accent" (click)="working()" [disabled]="!saved">{{ 'WORKINGPHASE.START' | translate }}</button>
-  </div>
-  <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'VALIDATIONPHASE.END' | translate }}</button>
   </div>
 </div>
