@@ -288,14 +288,15 @@
   },
 
   "WORKINGPHASE": {
-    "TITLE": "Fase di lavorazione",
+    "TITLE": "Turno di lavorazione",
     "START": "Inizio lavorazione",
     "END": "Termine lavorazione",
     "NEW": "Nuova fase di lavorazione",
       "ONGOING": "Lavorazione in corso",
       "SAVE": "Salva",
       "SAVED": "Lavorazione completata",
-      "SEARCH": "Ricerca fase di lavorazione"
+      "SEARCH": "Ricerca fase di lavorazione",
+      "FINISHED_PRODUCT": "Quantità di prodotto finito"
   }
 
 }

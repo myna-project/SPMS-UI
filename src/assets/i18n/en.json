@@ -287,13 +287,14 @@
   },
 
   "WORKINGPHASE": {
-    "TITLE": "Working phase",
+    "TITLE": "Working phase shift",
     "START": "Begin working phase",
     "END": "End working phase",
     "NEW": "New working phase",
       "ONGOING": "Ongoing working phase",
       "SAVE": "Save",
       "SAVED": "Working phase complete",
-      "SEARCH": "Search working phase"
+      "SEARCH": "Search working phase",
+      "FINISHED_PRODUCT": "Finished product quantities"
   }
 }

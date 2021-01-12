@@ -177,49 +177,49 @@ const routes: Routes = [
   },
   {
     path: 'productionOrder/:id/settingPhase',
-    component: SettingPhaseComponent, // TODO
+    component: SettingPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/settingPhases/:sid',
-    component: SettingPhaseComponent, // TODO
+    component: SettingPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/systemPreparationPhase',
-    component: SystemPreparationPhaseComponent, // TODO
+    component: SystemPreparationPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/systemPreparationPhases/:sid',
-    component: SystemPreparationPhaseComponent, // TODO
+      component: SystemPreparationPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/cleaningPhase',
-    component: CleaningPhaseComponent, // TODO
+    component: CleaningPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/cleaningPhases/:sid',
-    component: CleaningPhaseComponent, // TODO
+    component: CleaningPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/validationPhase',
-    component: ValidationPhaseComponent, // TODO
+    component: ValidationPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/validationPhases/:sid',
-    component: ValidationPhaseComponent, // TODO
+    component: ValidationPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },

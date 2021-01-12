@@ -1,9 +1,9 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="main-container" *ngIf="workingPhase">
-  <h4>WORKING PHASE</h4>
+  <h4>{{ 'WORKINGPHASE.TITLE' | translate }}</h4>
   <div class="container">
     <div class="wpm-list-container">
-      <h5>Finished product quantities:</h5>
+      <h5>{{ 'WORKINGPHASE.FINISHED_PRODUCT' | translate }}</h5>
       <mat-list class="mat-list spms-list">
         <mat-list-item class="mat-list-item" *ngFor="let m of workingPhaseMeasures; let i = index">
           <div class="mat-list-item-content">

@@ -92,7 +92,6 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
     }
 
     processStartEndTime(sf) {
-        console.log(sf);
         sf.start_time_string = new Date(sf.start_time*1000).toString();
         if(sf.end_time == null) {
             sf.end_time_string = this.translate.instant('PHASES.ONGOING');
