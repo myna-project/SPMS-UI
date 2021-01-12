@@ -108,6 +108,11 @@ export class CleaningPhaseComponent implements ComponentCanDeactivate,OnInit {
 		    this.httpUtils
 			.successSnackbar(
 			    this.translate.instant('CLEANINGPHASE.SAVED'));
+            this.router
+                .navigate(
+                    ['productionOrder/'
+                        + this.cleaningPhase.productionOrder.id
+                        + '/phases']);
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -125,6 +130,11 @@ export class CleaningPhaseComponent implements ComponentCanDeactivate,OnInit {
 		    this.httpUtils
 			.successSnackbar(
 			    this.translate.instant('CLEANINGPHASE.SAVED'));
+            this.router
+                .navigate(
+                    ['productionOrder/'
+                        + this.cleaningPhase.productionOrder.id
+                        + '/phases']);
 		},
 		(error) => {
 		    this.isSaving = false;
@@ -133,19 +143,4 @@ export class CleaningPhaseComponent implements ComponentCanDeactivate,OnInit {
 	    );
 	}
     }
-
-    cleaning(): void {
-	this.router
-	    .navigate(
-		['cleaningPhases/'
-		    + this.cleaningPhase.productionOrder.id]);
-    }
-
-    working(): void {
-	this.router
-	    .navigate(
-		['workingPhases/'
-		    + this.cleaningPhase.productionOrder.id]);
-    }
-
 }

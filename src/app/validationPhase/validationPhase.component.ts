@@ -109,25 +109,25 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
                 [ Validators.required ]),
             'packaging_state': new FormControl(
                 this.validationPhase.packaging_state,
-                [ Validators.required ]),
+                [ ]),
             'sieve_quantity': new FormControl(
                 this.validationPhase.sieve_quantity,
-                [ Validators.required ]),
+                [ ]),
             'chimney_quantity': new FormControl(
                 this.validationPhase.chimney_quantity,
-                [ Validators.required ]),
+                [ ]),
             'tower_entry_temperature': new FormControl(
                 this.validationPhase.tower_entry_temperature,
-                [ Validators.required ]),
+                [ ]),
             'tower_intern_temperature': new FormControl(
                 this.validationPhase.tower_intern_temperature,
-                [ Validators.required ]),
+                [ ]),
             'cyclon_entry_temperature': new FormControl(
                 this.validationPhase.cyclon_entry_temperature,
-                [ Validators.required ]),
+                [ ]),
             'note': new FormControl(
                 this.validationPhase.note,
-                [ Validators.required ])
+                [ ])
 	    });
     }
 

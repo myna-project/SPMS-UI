@@ -46,6 +46,6 @@
     </div>
   </form>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'VALIDATIONPHASE.END' | translate }}</button>
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || validationPhaseForm.invalid">{{ 'VALIDATIONPHASE.END' | translate }}</button>
   </div>
 </div>
