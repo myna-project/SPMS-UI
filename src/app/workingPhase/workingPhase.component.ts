@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { ComponentCanDeactivate } from '../_guards/pending-changes.guard';
 
@@ -27,7 +28,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
     isLoading: boolean = true;
     isSaving: boolean = false;
     productionOrder: ProductionOrder = new ProductionOrder();
-    workingPhase: any; // WorkingPhase = new WorkingPhase();
+    workingPhase: WorkingPhase = new WorkingPhase();
     workingPhaseMeasures = [];
     finished_product_quantity: string = '0';
     backRoute = 'dashboard';
