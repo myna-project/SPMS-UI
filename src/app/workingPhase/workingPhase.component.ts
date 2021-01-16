@@ -8,9 +8,11 @@ import { ComponentCanDeactivate } from '../_guards/pending-changes.guard';
 
 import { ProductionOrder } from '../_models/productionorder';
 import { WorkingPhase } from '../_models/workingPhase';
+import { WorkingPhaseMeasure } from '../_models/workingPhaseMeasure';
 
 import { ProductionOrdersService } from '../_services/productionorders.service';
 import { WorkingPhaseService } from '../_services/workingPhase.service';
+import { WorkingPhaseMeasureService } from '../_services/workingPhaseMeasure.service';
 
 import { HttpUtils } from '../_utils/http.utils';
 
@@ -30,13 +32,14 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
     saved: boolean = false;
     productionOrder: ProductionOrder = new ProductionOrder();
     workingPhase: WorkingPhase = new WorkingPhase();
-    workingPhaseMeasures = [];
+    workingPhaseMeasures: WorkingPhaseMeasure[] = [];
     finished_product_quantity: string = '0';
     backRoute = 'dashboard';
     start_time: Date;
 
     constructor(private productionOrdersService: ProductionOrdersService,
                 private workingPhaseService: WorkingPhaseService,
+                private workingPhaseMeasureService: WorkingPhaseMeasureService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private location: Location,
@@ -44,7 +47,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
                 private translate: TranslateService) {}
 
     ngOnInit(): void {
-	this.start_time = new Date();
+        this.start_time = new Date();
         this.route.paramMap.subscribe(params => {
             this.productionOrdersService.getProductionOrder(params.get('id')).subscribe(
                 (po_response) => {
@@ -88,7 +91,11 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
     }
 
     addMeasure() {
-        this.workingPhaseMeasures.push({ time: Math.floor(new Date().getTime()/1000), finished_product_quantity: this.finished_product_quantity });
+        var wpm = new WorkingPhaseMeasure();
+        wpm.time = Math.floor(new Date().getTime()/1000);
+        wpm.finished_product_quantity = this.httpUtils.convertToNumber(this.finished_product_quantity);
+        wpm.workingPhase = this.workingPhase;
+        this.workingPhaseMeasures.push(wpm);
         this.clear();
     }
 
@@ -97,64 +104,63 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
     }
 
     save(): void {
-	this.isSaving = true;
-	var newWorkingPhase = new WorkingPhase();
-	newWorkingPhase.start_time = Math.floor(this.start_time.getTime()/1000);
-	newWorkingPhase.end_time = Math.floor(new Date().getTime()/1000);
-	newWorkingPhase.productionOrder = this.productionOrder;
-	if (this.workingPhase.id !== undefined) {
-	    newWorkingPhase.id = this.workingPhase.id;
-	    this.workingPhaseService
-		.updateWorkingPhase(newWorkingPhase)
-		.subscribe(
-		(response) => {
-		    this.workingPhase = response;
-		    this.saveMeasures();
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
-	} else {
-	    this.workingPhaseService
-		.createWorkingPhase(newWorkingPhase)
-		.subscribe(
-		(response) => {
-		    this.workingPhase = response;
-		    this.saveMeasures();
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
-	}
+        this.isSaving = true;
+        var newWorkingPhase = new WorkingPhase();
+        newWorkingPhase.start_time = Math.floor(this.start_time.getTime()/1000);
+        newWorkingPhase.end_time = Math.floor(new Date().getTime()/1000);
+        newWorkingPhase.productionOrder = this.productionOrder;
+        if (this.workingPhase.id !== undefined) {
+            newWorkingPhase.id = this.workingPhase.id;
+            this.workingPhaseService
+                .updateWorkingPhase(newWorkingPhase)
+                .subscribe(
+                    (response) => {
+                        this.workingPhase = response;
+                        this.saveMeasures();
+                    },
+                    (error) => {
+                        this.isSaving = false;
+                        this.httpUtils.errorDialog(error);
+                    }
+                );
+        } else {
+            this.workingPhaseService
+                .createWorkingPhase(newWorkingPhase)
+                .subscribe(
+                    (response) => {
+                        this.workingPhase = response;
+                        this.saveMeasures();
+                    },
+                    (error) => {
+                        this.isSaving = false;
+                        this.httpUtils.errorDialog(error);
+                    }
+                );
+        }
     }
 
     saveMeasures(): void {
-	// TODO handle workingPhaseUser?
-	this.workingPhaseMeasures.forEach(measure => {
-	    this.workingPhaseService
-		.createWorkingPhaseMeasure(this.workingPhase, measure)
-		.subscribe(
-		(response) => {
-		    this.workingPhase = response;
-		    this.isSaving = false;
-		    this.saved = true;
-		    this.httpUtils
-			.successSnackbar(
-			    this.translate.instant('WORKINGPHASE.SAVED'));
-		    this.router
-			.navigate(
-			    ['productionOrder/'
-				+ this.workingPhase.productionOrder.id
-				+ '/phases']);
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		});
-	});
+        // TODO handle workingPhaseUser?
+        this.workingPhaseMeasures.forEach(measure => {
+            this.workingPhaseMeasureService
+                .createWorkingPhaseMeasure(measure)
+                .subscribe(
+                    (response) => {
+                        this.isSaving = false;
+                        this.saved = true;
+                        this.httpUtils
+                            .successSnackbar(
+                                this.translate.instant('WORKINGPHASE.SAVED'));
+                        this.router
+                            .navigate(
+                                ['productionOrder/'
+                                    + this.workingPhase.productionOrder.id
+				                    + '/phases']);
+		            },
+		            (error) => {
+		                this.isSaving = false;
+		                this.httpUtils.errorDialog(error);
+		            });
+	    });
     }
 }
