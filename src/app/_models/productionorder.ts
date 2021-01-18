@@ -6,6 +6,7 @@ import { RawMaterial } from './rawmaterial';
 
 export class ProductionOrder {
   id: number;
+  completed: boolean;
   customer: Customer;
   production_order_code: string;
   production_number_lot: string;

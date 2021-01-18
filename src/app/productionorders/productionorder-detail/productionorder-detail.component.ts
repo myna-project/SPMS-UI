@@ -191,6 +191,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
   }
 
   getDataFromForm(po: ProductionOrder): ProductionOrder {
+    po.completed = false;
     po.customer = this.customer.value;
     po.production_order_code = this.production_order_code.value;
     po.production_number_lot = this.production_number_lot.value;
