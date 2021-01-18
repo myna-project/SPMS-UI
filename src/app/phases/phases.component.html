@@ -46,14 +46,9 @@
   <mat-nav-list>
     <mat-list-item *ngFor="let sf of workingPhaseList" (click)="toWorkingPhase(sf.id)">
       <h3 matLine><b>{{ 'WORKINGPHASE.TITLE' | translate }}</b></h3>
-      <p matLine>{{ 'WORKINGPHASE.START' | translate }}: {{sf.start_time_string}}</p>
-      <p matLine>{{ 'WORKINGPHASE.END' | translate }}: {{sf.end_time_string}}</p>
       <span class="mat-list-item-divider">
         <mat-divider></mat-divider>
       </span>
-    </mat-list-item>
-    <mat-list-item>
-      <h3 matLine (click)="newWorkingPhase()"><b>{{ 'WORKINGPHASE.NEW' | translate }}</b></h3>
     </mat-list-item>
   </mat-nav-list>
   <mat-nav-list>
@@ -69,4 +64,8 @@
       <h3 matLine (click)="newValidationPhase()"><b>{{ 'VALIDATIONPHASE.NEW' | translate }}</b></h3>
     </mat-list-item>
   </mat-nav-list>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="close()">{{ 'PHASES.TERMINATE' | translate }}</button>
+  </div>
+
 </div>

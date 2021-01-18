@@ -225,7 +225,9 @@
   },
     "PHASES": {
         "TITLE": "Fasi di produzione",
-        "ONGOING": "In corso"
+        "ONGOING": "In corso",
+        "TERMINATE": "Chiudi ordine di produzione",
+        "CLOSED": "Ordine di produzione completato"
     },
 
     "SETTINGPHASE": {
@@ -291,10 +293,12 @@
     "TITLE": "Turno di lavorazione",
     "START": "Inizio lavorazione",
     "END": "Termine lavorazione",
+    "ENDSHIFT": "Termine turno",
     "NEW": "Nuova fase di lavorazione",
       "ONGOING": "Lavorazione in corso",
       "SAVE": "Salva",
       "SAVED": "Lavorazione completata",
+      "MEASURE_SAVED": "Quantità di prodotto finito salvata",
       "SEARCH": "Ricerca fase di lavorazione",
       "FINISHED_PRODUCT": "Quantità di prodotto finito"
   }

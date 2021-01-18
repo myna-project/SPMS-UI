@@ -92,6 +92,9 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
     }
 
     processStartEndTime(sf) {
+        console.log(sf);
+        console.log(sf.start_time);
+        console.log(sf.end_time);
         sf.start_time_string = new Date(sf.start_time*1000).toString();
         if(sf.end_time == null) {
             sf.end_time_string = this.translate.instant('PHASES.ONGOING');
@@ -204,7 +207,6 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                 (response) => {
                     var sfl = response;
                     sfl.forEach((sf) => {
-                        sf = this.processStartEndTime(sf);
                         this.workingPhaseList.push(sf);
                    });
                 },
@@ -219,6 +221,29 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
                         });
                 });
 
+    }
+
+    close(): void {
+        this.productionorder.completed = true;
+        this.productionordersService
+            .updateProductionOrder(this.productionorder)
+            .subscribe(
+                (response) => {
+                    this.httpUtils
+                        .successSnackbar(
+                            this.translate.instant('PHASES.CLOSED'));
+                    this.router.navigate([this.backRoute]);
+                },
+                (error) => {
+                    const dialogRef = this.httpUtils.errorDialog(error);
+                    dialogRef
+                        .afterClosed()
+                        .subscribe(value => {
+                            this.router
+                                .navigate([this.backRoute]);
+                        });
+                }
+            );
     }
 
     toSettingPhase(sid: number | string): void {

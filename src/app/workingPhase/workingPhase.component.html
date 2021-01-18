@@ -49,4 +49,7 @@
   <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'WORKINGPHASE.END' | translate }}</button>
   </div>
+  <div class="button-row-right">
+    <button type="submit" mat-raised-button color="primary" (click)="saveShift()" [disabled]="isSaving || saved">{{ 'WORKINGPHASE.ENDSHIFT' | translate }}</button>
+  </div>
 </div>
