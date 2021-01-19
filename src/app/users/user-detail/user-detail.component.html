@@ -16,11 +16,11 @@
     </mat-form-field>
     <div class="spms-form-field-group">
       <mat-form-field class="medium-form-field">
-        <input matInput placeholder="{{ 'USER.NAME' | translate }}" [formControl]="name">
+        <input matInput placeholder="{{ 'USER.NAME' | translate }}" [formControl]="name" required>
         <mat-error *ngIf="name.invalid && (name.dirty || name.touched) && name.errors.required">{{ 'USER.MISSINGNAME' | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field class="medium-form-field">
-        <input matInput placeholder="{{ 'USER.SURNAME' | translate }}" [formControl]="surname">
+        <input matInput placeholder="{{ 'USER.SURNAME' | translate }}" [formControl]="surname" required>
         <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched) && surname.errors.required">{{ 'USER.MISSINGSURNAME' | translate }}</mat-error>
       </mat-form-field>
     </div>

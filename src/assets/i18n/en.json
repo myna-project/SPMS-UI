@@ -15,6 +15,16 @@
     "SAVED": "Additive saved successfully!",
     "SEARCH": "Search additive"
   },
+  "CLEANINGPHASE": {
+    "END": "End cleaning phase",
+    "NEW": "New cleaning phase",
+    "ONGOING": "Ongoing cleaning phase",
+    "SAVE": "Save",
+    "SAVED": "Cleaning phase complete",
+    "SEARCH": "Search cleaning phase",
+    "START": "Begin cleaning phase",
+    "TITLE": "Cleaning phase"
+  },
   "CUSTOMER": {
     "CREATE": "Create customer",
     "CREATETITLE": "Create new customer",
@@ -49,7 +59,20 @@
     "1001": "Username not available!",
     "1002": "An user is already registered for this e-mail address!",
     "1004": "Old and new password must be different!",
-    "1005": "Password not correct!"
+    "1005": "Password not correct!",
+    "2001": "This role already exists!",
+    "2101": "Cannot delete this role because it is already assigned to one or more users!",
+    "3001": "This raw material already exists!",
+    "3101": "Cannot delete this raw material because it is already used!",
+    "4001": "This additive already exists!",
+    "4101": "Cannot delete this additive because it is already used!",
+    "5001": "This mixture mode already exists!",
+    "5101": "Cannot delete this mixture mode because it is already used!",
+    "6001": "This packaging already exists!",
+    "6101": "Cannot delete this packaging because it is already used!",
+    "7001": "This production order code already exists!",
+    "8001": "This customer already exists!",
+    "8101": "Cannot delete this customer because it is already used!"
   },
   "LANGUAGE": {
     "LONG": "English",
@@ -104,8 +127,13 @@
     "SAVED": "Packaging saved successfully!",
     "SEARCH": "Search packaging"
   },
+  "PHASES": {
+    "CLOSED": "Production order closed",
+    "ONGOING": "Ongoing",
+    "TERMINATE": "Close production order",
+    "TITLE": "Production phases"
+  },
   "PRODUCTIONORDER": {
-    "TITLE": "Production order",
     "ADDADDITIVE": "Add additive",
     "ADDITIVE": "Additive",
     "ADDITIVES": "Additives",
@@ -150,8 +178,9 @@
     "RAWMATERIALWEIGHT": "Raw material weight",
     "SAVE": "Save",
     "SAVED": "Production order saved successfully!",
-      "SEARCH": "Search production order",
-      "START": "Start production"
+    "SEARCH": "Search production order",
+    "START": "Start production",
+    "TITLE": "Production order"
   },
   "PROFILE": {
     "CANCEL": "Cancel",
@@ -188,9 +217,34 @@
     "EDITTITLE": "Edit raw material",
     "MISSINGNAME": "Provide a name",
     "NAME": "Name",
+    "NEW": "New raw material",
     "SAVE": "Save",
     "SAVED": "Raw material saved successfully!",
     "SEARCH": "Search raw material"
+  },
+  "SETTINGPHASE": {
+    "EFFECTIVE_MIXTURE_MODE": "Mixture Mode",
+    "EFFECTIVE_MIXTURE_TEMPERATURE": "Mixture temperature",
+    "END": "End setting phase",
+    "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Missing mixture temperature",
+    "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode",
+    "NEW": "New setting phase",
+    "ONGOING": "Ongoing setting phase",
+    "SAVE": "Save",
+    "SAVED": "Setting phase complete",
+    "SEARCH": "Search setting phase",
+    "START": "Begin setting phase",
+    "TITLE": "Setting phase"
+  },
+  "SYSTEMPREPARATIONPHASE": {
+    "END": "End system preparation phase",
+    "NEW": "New system preparation phase",
+    "ONGOING": "Ongoing system preparation phase",
+    "SAVE": "Save",
+    "SAVED": "System Preparation phase complete",
+    "SEARCH": "Search system preparation phase",
+    "START": "Begin system preparation phase",
+    "TITLE": "System preparation phase"
   },
   "USER": {
     "CONFIRMLOGOUT": "Are you sure you want to logout?",
@@ -222,83 +276,38 @@
     "USERNAME": "Username",
     "USERNAMELENGTH": "Username must be at least 4 characters long"
   },
-    "PHASES": {
-        "TITLE": "Production phases",
-        "ONGOING": "Ongoing",
-        "TERMINATE": "Close production order",
-        "CLOSED": "Production order closed"
-    },
-
-  "SETTINGPHASE": {
-    "TITLE": "Setting phase",
-    "START": "Begin setting phase",
-    "END": "End setting phase",
-    "NEW": "New setting phase",
-      "ONGOING": "Ongoing setting phase",
-      "SAVE": "Save",
-      "SAVED": "Setting phase complete",
-      "SEARCH": "Search setting phase",
-      "EFFECTIVE_MIXTURE_MODE": "Mixture Mode",
-      "EFFECTIVE_MIXTURE_TEMPERATURE": "Mixture temperature",
-      "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Missing mixture temperature",
-      "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode"
-  },
-
-    "SYSTEMPREPARATIONPHASE": {
-    "TITLE": "System preparation phase",
-    "START": "Begin system preparation phase",
-    "END": "End system preparation phase",
-    "NEW": "New system preparation phase",
-      "ONGOING": "Ongoing system preparation phase",
-      "SAVE": "Save",
-      "SAVED": "System Preparation phase complete",
-      "SEARCH": "Search system preparation phase"
-  },
-
-  "CLEANINGPHASE": {
-    "TITLE": "Cleaning phase",
-    "START": "Begin cleaning phase",
-    "END": "End cleaning phase",
-    "NEW": "New cleaning phase",
-      "ONGOING": "Ongoing cleaning phase",
-      "SAVE": "Save",
-      "SAVED": "Cleaning phase complete",
-      "SEARCH": "Search cleaning phase"
-  },
-
   "VALIDATIONPHASE": {
-    "TITLE": "Validation phase",
-    "START": "Begin validation phase",
+    "CHIMNEY_QUANTITY": "Chimney quantity",
+    "CYCLON_ENTRY_TEMPERATURE": "Cyclon entry temperature",
+    "DENSITY_FINISHED_PRODUCT": "Density finished product",
     "END": "End validation phase",
+    "HUMIDITY_FINISHED_PRODUCT": "Humidity finished product",
+    "ONGOING": "Ongoing validation phase",
+    "MISSING_DENSITY_FINISHED_PRODUCT": "Density finished product missing",
+    "MISSING_HUMIDITY_FINISHED_PRODUCT": "Humidity finished product missing",
     "NEW": "New validation phase",
-      "ONGOING": "Ongoing validation phase",
-      "SAVE": "Save",
-      "SAVED": "Validation phase complete",
-      "SEARCH": "Search validation phase",
-      "HUMIDITY_FINISHED_PRODUCT": "Humidity finished product",
-      "MISSING_HUMIDITY_FINISHED_PRODUCT": "Humidity finished product missing",
-      "DENSITY_FINISHED_PRODUCT": "Density finished product",
-      "MISSING_DENSITY_FINISHED_PRODUCT": "Density finished product missing",
-      "PACKAGING_STATE": "Packaging state",
-      "SIEVE_QUANTITY": "Sieve quantity",
-      "CHIMNEY_QUANTITY": "Chimney quantity",
-      "TOWER_ENTRY_TEMPERATURE": "Tower entry temperature",
-      "TOWER_INTERN_TEMPERATURE": "Tower internal temperature",
-      "CYCLON_ENTRY_TEMPERATURE": "Cyclon entry temperature",
-      "NOTE": "Additional notes"
+    "NOTE": "Additional notes",
+    "PACKAGING_STATE": "Packaging state",
+    "TITLE": "Validation phase",
+    "SAVE": "Save",
+    "SAVED": "Validation phase complete",
+    "SEARCH": "Search validation phase",
+    "SIEVE_QUANTITY": "Sieve quantity",
+    "START": "Begin validation phase",
+    "TOWER_ENTRY_TEMPERATURE": "Tower entry temperature",
+    "TOWER_INTERN_TEMPERATURE": "Tower internal temperature"
   },
-
   "WORKINGPHASE": {
-    "TITLE": "Working phase shift",
-    "START": "Begin working phase",
     "END": "End working phase",
     "ENDSHIFT": "End shift",
+    "FINISHED_PRODUCT": "Finished product quantities",
+    "MEASURE_SAVED": "Finished product quantity saved",
     "NEW": "New working phase",
-      "ONGOING": "Ongoing working phase",
-      "SAVE": "Save",
-      "SAVED": "Working phase complete",
-      "MEASURE_SAVED": "Finished product quantity saved",
-      "SEARCH": "Search working phase",
-      "FINISHED_PRODUCT": "Finished product quantities"
+    "ONGOING": "Ongoing working phase",
+    "SAVE": "Save",
+    "SAVED": "Working phase complete",
+    "SEARCH": "Search working phase",
+    "START": "Begin working phase",
+    "TITLE": "Working phase shift"
   }
 }

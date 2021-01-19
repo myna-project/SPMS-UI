@@ -15,6 +15,16 @@
     "SAVED": "Additivo salvato!",
     "SEARCH": "Ricerca additivo"
   },
+  "CLEANINGPHASE": {
+    "END": "Termine pulizia impianto",
+    "NEW": "Nuova fase di pulizia impianto",
+    "ONGOING": "Pulizia impianto in corso",
+    "SAVE": "Salva",
+    "SAVED": "Pulizia impianto completata",
+    "SEARCH": "Ricerca fase di pulizia impianto",
+    "START": "Inizio pulizia impianto",
+    "TITLE": "Fase di pulizia impianto"
+  },
   "CUSTOMER": {
     "CREATE": "Crea cliente",
     "CREATETITLE": "Crea nuovo cliente",
@@ -49,7 +59,20 @@
     "1001": "Username non disponibile!",
     "1002": "Esiste già un utente per questo indirizzo e-mail!",
     "1004": "La nuova password deve essere diversa da quella vecchia!",
-    "1005": "La password non è corretta!"
+    "1005": "La password non è corretta!",
+    "2001": "Questo ruolo esiste già!",
+    "2101": "Impossibile eliminare questo ruolo perché è già stato assegnato ad uno o più utenti!",
+    "3001": "Questa materia prima esiste già!",
+    "3101": "Impossibile eliminare questa materia prima perché è già stata utilizzata!",
+    "4001": "Questo additivo esiste già!",
+    "4101": "Impossibile eliminare questo additivo perché è già stato utilizzato!",
+    "5001": "Questa modalità di miscelazione esiste già!",
+    "5101": "Impossibile eliminare questa modalità di miscelazione perché è già stata utilizzata!",
+    "6001": "Questo packaging esiste già!",
+    "6101": "Impossibile eliminare questo packaging perché è già stato utilizzato!",
+    "7001": "Questo codice ordine di produzione esiste già!",
+    "8001": "Questo cliente esiste già!",
+    "8101": "Impossibile eliminare questo cliente perché è già stato utilizzato!"
   },
   "LANGUAGE": {
     "LONG": "Italiano",
@@ -104,8 +127,13 @@
     "SAVED": "Packaging salvato!",
     "SEARCH": "Ricerca packaging"
   },
-    "PRODUCTIONORDER": {
-    "TITLE": "Ordine di produzione",
+  "PHASES": {
+    "CLOSED": "Ordine di produzione completato",
+    "ONGOING": "In corso",
+    "TERMINATE": "Chiudi ordine di produzione",
+    "TITLE": "Fasi di produzione"
+  },
+  "PRODUCTIONORDER": {
     "ADDADDITIVE": "Aggiungi additivo",
     "ADDITIVE": "Additivo",
     "ADDITIVES": "Additivi",
@@ -151,7 +179,8 @@
     "SAVE": "Salva",
     "SAVED": "Ordine di produzione salvato!",
     "SEARCH": "Ricerca ordine di produzione",
-    "START": "Inizio lavorazione"
+    "START": "Inizio lavorazione",
+    "TITLE": "Ordine di produzione"
   },
   "PROFILE": {
     "CANCEL": "Annulla",
@@ -193,6 +222,30 @@
     "SAVED": "Materia prima salvata!",
     "SEARCH": "Ricerca materia prima"
   },
+  "SETTINGPHASE": {
+    "EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione",
+    "EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione",
+    "END": "Termine setting impianto",
+    "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione mancante",
+    "MISSING_EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione mancante",
+    "NEW": "Nuova fase di setting impianto",
+    "ONGOING": "Setting impianto in corso",
+    "SAVE": "Salva",
+    "SAVED": "Setting impianto completato",
+    "SEARCH": "Ricerca fase di setting impianto",
+    "START": "Inizio setting impianto",
+    "TITLE": "Fase di setting impianto"
+  },
+  "SYSTEMPREPARATIONPHASE": {
+    "END": "Termine preparazione impianto",
+    "NEW": "Nuova fase di preparazione impianto",
+    "ONGOING": "Preparazione impianto in corso",
+    "SAVE": "Salva",
+    "SAVED": "Preparazione impianto completata",
+    "SEARCH": "Ricerca fase di preparazione impianto",
+    "START": "Inizio preparazione impianto",
+    "TITLE": "Fase di preparazione impianto"
+  },
   "USER": {
     "CONFIRMLOGOUT": "Sei sicuro di voler fare il logout?",
     "CREATE": "Crea utente",
@@ -223,84 +276,38 @@
     "USERNAME": "Username",
     "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
   },
-    "PHASES": {
-        "TITLE": "Fasi di produzione",
-        "ONGOING": "In corso",
-        "TERMINATE": "Chiudi ordine di produzione",
-        "CLOSED": "Ordine di produzione completato"
-    },
-
-    "SETTINGPHASE": {
-    "TITLE": "Fase di setting impianto",
-    "START": "Inizio setting impianto",
-    "END": "Termine setting impianto",
-    "NEW": "Nuova fase di setting impianto",
-      "ONGOING": "Setting impianto in corso",
-      "SAVE": "Salva",
-      "SAVED": "Setting impianto completato",
-      "SEARCH": "Ricerca fase di setting impianto",
-      "EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione",
-      "EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione",
-      "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Temperatura di miscelazione mancante",
-      "MISSING_EFFECTIVE_MIXTURE_MODE": "Modalità di miscelazione mancante"
-  },
-
-  "SYSTEMPREPARATIONPHASE": {
-    "TITLE": "Fase di preparazione impianto",
-    "START": "Inizio preparazione impianto",
-    "END": "Termine preparazione impianto",
-    "NEW": "Nuova fase di preparazione impianto",
-      "ONGOING": "Preparazione impianto in corso",
-      "SAVE": "Salva",
-      "SAVED": "Preparazione impianto completata",
-      "SEARCH": "Ricerca fase di preparazione impianto"
-  },
-
-  "CLEANINGPHASE": {
-    "TITLE": "Fase di pulizia impianto",
-    "START": "Inizio pulizia impianto",
-    "END": "Termine pulizia impianto",
-    "NEW": "Nuova fase di pulizia impianto",
-      "ONGOING": "Pulizia impianto in corso",
-      "SAVE": "Salva",
-      "SAVED": "Pulizia impianto completata",
-      "SEARCH": "Ricerca fase di pulizia impianto"
-  },
-
   "VALIDATIONPHASE": {
-    "TITLE": "Fase di validazione",
-    "START": "Inizio validazione",
+    "CHIMNEY_QUANTITY": "Quantità nel camino",
+    "CYCLON_ENTRY_TEMPERATURE": "Temperatura interna del ciclone",
+    "DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito",
     "END": "Termine validazione",
+    "HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito",
+    "MISSING_DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito mancante",
+    "MISSING_HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito mancante",
     "NEW": "Nuova fase di validazione",
-      "ONGOING": "Validazione in corso",
-      "SAVE": "Salva",
-      "SAVED": "validazione completata",
-      "SEARCH": "Ricerca fase di validazione",
-      "HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito",
-      "MISSING_HUMIDITY_FINISHED_PRODUCT": "Umidità del prodotto finito mancante",
-      "DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito",
-      "MISSING_DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito mancante",
-      "PACKAGING_STATE": "Stato del packaging",
-      "SIEVE_QUANTITY": "Quantità nel setaccio",
-      "CHIMNEY_QUANTITY": "Quantità nel camino",
-      "TOWER_ENTRY_TEMPERATURE": "Temperatura di ingresso della torre",
-      "TOWER_INTERN_TEMPERATURE": "Temperatura interna della torre",
-      "CYCLON_ENTRY_TEMPERATURE": "Temperatura interna del ciclone",
-      "NOTE": "Note aggiuntive"
+    "NOTE": "Note aggiuntive",
+    "ONGOING": "Validazione in corso",
+    "PACKAGING_STATE": "Stato del packaging",
+    "SAVE": "Salva",
+    "SAVED": "validazione completata",
+    "SEARCH": "Ricerca fase di validazione",
+    "SIEVE_QUANTITY": "Quantità nel setaccio",
+    "START": "Inizio validazione",
+    "TITLE": "Fase di validazione",
+    "TOWER_ENTRY_TEMPERATURE": "Temperatura di ingresso della torre",
+    "TOWER_INTERN_TEMPERATURE": "Temperatura interna della torre"
   },
-
   "WORKINGPHASE": {
-    "TITLE": "Turno di lavorazione",
-    "START": "Inizio lavorazione",
     "END": "Termine lavorazione",
     "ENDSHIFT": "Termine turno",
+    "FINISHED_PRODUCT": "Quantità di prodotto finito",
+    "MEASURE_SAVED": "Quantità di prodotto finito salvata",
     "NEW": "Nuova fase di lavorazione",
-      "ONGOING": "Lavorazione in corso",
-      "SAVE": "Salva",
-      "SAVED": "Lavorazione completata",
-      "MEASURE_SAVED": "Quantità di prodotto finito salvata",
-      "SEARCH": "Ricerca fase di lavorazione",
-      "FINISHED_PRODUCT": "Quantità di prodotto finito"
+    "ONGOING": "Lavorazione in corso",
+    "SAVE": "Salva",
+    "SAVED": "Lavorazione completata",
+    "SEARCH": "Ricerca fase di lavorazione",
+    "START": "Inizio lavorazione",
+    "TITLE": "Turno di lavorazione"
   }
-
 }
