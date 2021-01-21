@@ -12,5 +12,6 @@ export class User {
   style: string;
   roles: number[];
   isLogged?: boolean;
-  isAdmin?: boolean;
+    isAdmin?: boolean;
+    isResp?: boolean;
 }
