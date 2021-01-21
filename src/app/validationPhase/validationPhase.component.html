@@ -1,5 +1,10 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="main-container" *ngIf="validationPhase">
+  <mat-chip-list>
+    <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
+    <mat-chip routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
+    <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/validationPhases/{{validationPhase.id}}" routerLinkActive="active">{{ 'VALIDATIONPHASE.TITLE' | translate }}</mat-chip>
+  </mat-chip-list>
   <h4>{{ (validationPhase.id ? 'VALIDATIONPHASE.ONGOING' : 'VALIDATIONPHASE.NEW') | translate }}</h4>
   <form class="spms-form" [formGroup]="validationPhaseForm">
     <div class="spms-form-field-group">

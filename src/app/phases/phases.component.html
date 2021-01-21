@@ -1,4 +1,8 @@
 <div class="main-container" *ngIf="productionorder">
+  <mat-chip-list>
+    <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
+    <mat-chip disabled routerLink="/productionOrder/{{productionorder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
+  </mat-chip-list>
   <h2>{{'PHASES.TITLE' | translate }} - {{'PRODUCTIONORDER.TITLE' | translate }} {{productionorder.production_order_code}}</h2>
   <p>{{productionorder.raw_material.name}}: {{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%</p>
   <p>{{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} C</p>

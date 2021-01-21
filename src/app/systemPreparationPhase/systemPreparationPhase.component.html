@@ -1,5 +1,10 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="main-container" *ngIf="systemPreparationPhase">
+  <mat-chip-list>
+    <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
+    <mat-chip routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
+    <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/systempreparationPhases/{{systemPreparationPhase.id}}" routerLinkActive="active">{{ 'SYSTEMPREPARATIONPHASE.TITLE' | translate }}</mat-chip>
+  </mat-chip-list>
   <h4>{{ (systemPreparationPhase.id ? 'SYSTEMPREPARATIONPHASE.ONGOING' : 'SYSTEMPREPARATIONPHASE.NEW') | translate }}</h4>
   <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'SYSTEMPREPARATIONPHASE.END' | translate }}</button>
