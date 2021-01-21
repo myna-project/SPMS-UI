@@ -1,6 +1,6 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="main-container" *ngIf="validationPhase">
-  <mat-chip-list>
+  <mat-chip-list *ngIf="productionOrder">
     <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
     <mat-chip routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
     <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/validationPhases/{{validationPhase.id}}" routerLinkActive="active">{{ 'VALIDATIONPHASE.TITLE' | translate }}</mat-chip>
