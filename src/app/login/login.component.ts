@@ -45,19 +45,19 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('currentUser', JSON.stringify(
                         { 'username': this.username.value,
                           'isLogged': true,
-                          'isAdmin': (data.headers.get('isAdmin') === 'true' ? true : false)
+                          'isAdmin': (data.headers.get('isAdmin') === 'true') ? true : false,
+                          'isResp': (data.headers.get('isResp') === 'true') ? true : false
                         }));
                     this.usersService.getUsersByUsername(this.username.value).subscribe(
                         (resp) => {
-                            console.log(resp);
                             localStorage.setItem('currentUser', JSON.stringify(
                                 { 'username': this.username.value,
                                   'lang': resp[0].lang,
                                   'avatar': resp[0].avatar,
                                   'style': resp[0].style,
                                   'isLogged': true,
-                                  'isAdmin': (data.headers.get('isAdmin') === 'true' ? true : false),
-                                  'isResp': (resp[0].roles[0] == 3 ? true : false) }));
+                                  'isAdmin': (data.headers.get('isAdmin') === 'true') ? true : false,
+                                  'isResp': (data.headers.get('isResp') === 'true') ? true : false }));
                             this.isLoading = false;
                             this.router.navigate([this.returnUrl]);
                         },
