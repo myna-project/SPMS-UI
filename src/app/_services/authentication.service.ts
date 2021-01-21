@@ -15,7 +15,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) {}
 
   public getCurrentUser(): User {
-    let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
+      let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser === null || currentUser === undefined) {
       return null;
     } else {

@@ -26,6 +26,7 @@ import { ValidationPhaseComponent } from './validationPhase/validationPhase.comp
 import { WorkingPhaseComponent } from './workingPhase/workingPhase.component';
 
 import { AuthGuard } from './_guards/auth.guard';
+import { RespAuthGuard } from './_guards/resp-auth.guard';
 import { PendingChangesGuard } from './_guards/pending-changes.guard';
 import { AdminAuthGuard } from './_guards/admin-auth.guard';
 
@@ -214,13 +215,13 @@ const routes: Routes = [
   {
     path: 'productionOrder/:id/validationPhase',
     component: ValidationPhaseComponent,
-    canActivate: [ AuthGuard ],
+    canActivate: [ RespAuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/validationPhases/:sid',
     component: ValidationPhaseComponent,
-    canActivate: [ AuthGuard ],
+    canActivate: [ RespAuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
