@@ -4,24 +4,32 @@
     <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
     <mat-chip routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
     <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/settingPhases/{{settingPhase.id}}" routerLinkActive="active">{{ 'SETTINGPHASE.TITLE' | translate }}</mat-chip>
+    <span *ngIf="settingPhase.id" class="button-row-right">
+      <button mat-raised-button color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'SETTINGPHASE.DELETE' | translate }}</button>
+    </span>
   </mat-chip-list>
+  <h2>{{'PRODUCTIONORDER.TITLE' | translate }} {{productionOrder.production_order_code}}</h2>
+  <p>{{productionOrder.raw_material ? productionOrder.raw_material.name : ''}}: {{productionOrder.weight_raw_material}} Kg - {{productionOrder.tons_raw_material}} T - {{productionOrder.density_raw_material}}%</p>
+  <p><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
   <h4>{{ (settingPhase.id ? 'SETTINGPHASE.ONGOING' : 'SETTINGPHASE.NEW') | translate }}</h4>
   <form class="spms-form" [formGroup]="settingPhaseForm">
     <div class="spms-form-field-group">
-      <mat-form-field class="medium-form-field">
-	<mat-label>{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_MODE' | translate }}</mat-label>
-	<mat-select [formControl]="effective_mixture_mode" [compareWith]="compareObjects" required>
-	  <mat-option *ngFor="let mm of allMixtureModes" [value]="mm">{{mm.name}}</mat-option>
-	</mat-select>
-	<mat-error *ngIf="effective_mixture_mode.invalid && (effective_mixture_mode.dirty || effective_mixture_mode.touched) && effective_mixture_mode.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_MODE' | translate }}</mat-error>
+      <mat-form-field class="long-form-field">
+        <mat-label>{{ ('SETTINGPHASE.EFFECTIVE_MIXTURE_MODE' | translate) + (productionOrder.expected_mixture_mode ? ' (' + productionOrder.expected_mixture_mode.name + ')' : '') }}</mat-label>
+        <mat-select [formControl]="effective_mixture_mode" [compareWith]="compareObjects" required>
+          <mat-option *ngFor="let mm of allMixtureModes" [value]="mm">{{mm.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="effective_mixture_mode.invalid && (effective_mixture_mode.dirty || effective_mixture_mode.touched) && effective_mixture_mode.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_MODE' | translate }}</mat-error>
       </mat-form-field>
-      <mat-form-field class="medium-form-field">
-	<input matInput type="number" placeholder="{{ 'SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}" [formControl]="effective_mixture_temperature">
-	<mat-error *ngIf="effective_mixture_temperature.invalid && (effective_mixture_temperature.dirty || effective_mixture_temperature.touched) && effective_mixture_temperature.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}</mat-error>
+    </div>
+    <div class="spms-form-field-group">
+      <mat-form-field class="long-form-field">
+        <input matInput type="number" placeholder="{{ ('SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate) + ' (' + productionOrder.expected_mixture_temperature + ') °C' }}" [formControl]="effective_mixture_temperature">
+        <mat-error *ngIf="effective_mixture_temperature.invalid && (effective_mixture_temperature.dirty || effective_mixture_temperature.touched) && effective_mixture_temperature.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}</mat-error>
       </mat-form-field>
     </div>
   </form>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || settingPhaseForm.invalid">{{ 'SETTINGPHASE.END' | translate }}</button>
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="settingPhase.end_time || isSaving || settingPhaseForm.invalid">{{ 'SETTINGPHASE.END' | translate }}</button>
   </div>
 </div>

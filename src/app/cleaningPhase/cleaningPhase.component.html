@@ -4,9 +4,12 @@
     <mat-chip routerLink="/dashboard" routerLinkActive="active">Dashboard</mat-chip>
     <mat-chip routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
     <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/cleaningPhases/{{cleaningPhase.id}}" routerLinkActive="active">{{ 'CLEANINGPHASE.TITLE' | translate }}</mat-chip>
+    <span *ngIf="cleaningPhase.id" class="button-row-right">
+      <button mat-raised-button color="warn" [disabled]="isDeleting" (click)="delete()">{{ 'CLEANINGPHASE.DELETE' | translate }}</button>
+    </span>
   </mat-chip-list>
   <h4>{{ (cleaningPhase.id ? 'CLEANINGPHASE.ONGOING' : 'CLEANINGPHASE.NEW') | translate }}</h4>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || saved">{{ 'CLEANINGPHASE.END' | translate }}</button>
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="cleaningPhase.end_time || isSaving">{{ 'CLEANINGPHASE.END' | translate }}</button>
   </div>
 </div>

@@ -6,141 +6,119 @@ import { Observable } from 'rxjs';
 
 import { ComponentCanDeactivate } from '../_guards/pending-changes.guard';
 
-import { SystemPreparationPhase } from '../_models/systemPreparationPhase';
-import { User } from '../_models/user';
 import { ProductionOrder } from '../_models/productionorder';
-import { SystemPreparationPhaseService } from '../_services/systemPreparationPhase.service';
-import { UsersService } from '../_services/users.service';
+import { SystemPreparationPhase } from '../_models/systemPreparationPhase';
+
 import { ProductionOrdersService } from '../_services/productionorders.service';
+import { SystemPreparationPhaseService } from '../_services/systemPreparationPhase.service';
 
 import { HttpUtils } from '../_utils/http.utils';
 
-import { AuthenticationService } from '../_services/authentication.service'
-
-/**
-* TODO NOTEs:
-* - JSON payloads: there's no need to serialize the whole ProductionOrder / User, yet we are forced to mantain backend consistency
-*/
 @Component({
   templateUrl: './systemPreparationPhase.component.html',
 })
 export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,OnInit {
 
-    @HostListener('window:beforeunload')
-    canDeactivate(): Observable<boolean> | boolean {
-	return true;
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    return true;
+  }
+
+  isLoading: boolean = true;
+  isSaving: boolean = false;
+  isDeleting: boolean = false;
+  systemPreparationPhase: SystemPreparationPhase = new SystemPreparationPhase();
+  productionOrder: ProductionOrder = new ProductionOrder();
+  backRoute = 'dashboard';
+
+  constructor(private systemPreparationPhaseService: SystemPreparationPhaseService, private productionOrderService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      var id = params.get('id');
+      if (id) {
+        this.productionOrderService.getProductionOrder(id).subscribe(
+          (po_response) => {
+            this.productionOrder = po_response;
+            this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
+            var sid = params.get('sid');
+            if (sid) {
+              if (this.productionOrder.system_preparation_phases) {
+                let sf = this.productionOrder.system_preparation_phases.filter(phase => (phase.id === +sid))[0];
+                if (sf) {
+                  this.systemPreparationPhase = sf;
+                  this.isLoading = false;
+                } else {
+                  this.router.navigate([this.backRoute]);
+                }
+              } else {
+                this.router.navigate([this.backRoute]);
+              }
+            } else {
+              this.systemPreparationPhase.productionOrder = this.productionOrder;
+              this.save();
+              this.isLoading = false;
+            }
+          },
+          (error) => {
+            const dialogRef = this.httpUtils.errorDialog(error);
+            dialogRef.afterClosed().subscribe(value => {
+              this.router.navigate([this.backRoute]);
+            });
+          }
+        );
+      }
+    });
+  }
+
+  save(): void {
+    this.isSaving = true;
+    if (this.systemPreparationPhase.id) {
+      this.systemPreparationPhase.end_time = Math.floor(new Date().getTime()/1000);
+      this.systemPreparationPhaseService.updateSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
+        (response) => {
+          this.isSaving = false;
+          this.httpUtils.successSnackbar(this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
+          this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
+        },
+        (error) => {
+          this.isSaving = false;
+          this.httpUtils.errorDialog(error);
+        }
+      );
+    } else {
+      this.systemPreparationPhase.start_time = Math.floor(new Date().getTime()/1000);
+      this.systemPreparationPhaseService.createSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
+   	    (response) => {
+          this.isSaving = false;
+   	      this.systemPreparationPhase = response;
+   	      this.router.navigate(['productionOrder/' + this.productionOrder.id + '/systemPreparationPhase/' + this.systemPreparationPhase.id]);
+   	    },
+   	    (error) => {
+          this.isSaving = false;
+          this.httpUtils.errorDialog(error);
+   	    }
+      );
     }
+  }
 
-    saved: boolean = false;
-    isSaving: boolean = false;
-    isLoading: boolean = true;
-    systemPreparationPhase: SystemPreparationPhase = new SystemPreparationPhase();
-    backRoute = 'dashboard';
-    productionOrder: ProductionOrder;
-    start_time: Date;
-
-    constructor(private systemPreparationPhaseService: SystemPreparationPhaseService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private location: Location,
-		private httpUtils: HttpUtils,
-		private productionOrderService: ProductionOrdersService,
-		private authService: AuthenticationService,
-		private userService: UsersService,
-		private translate: TranslateService) {}
-
-    ngOnInit(): void {
-	this.start_time = new Date();
-	this.route.paramMap
-	    .subscribe(params => {
-		var id = params.get('id');
-		if(id) {
-		    this.productionOrderService
-			.getProductionOrder(id)
-			.subscribe(
-			    (po_response) => {
-				this.productionOrder = po_response;
-				var sid = params.get('sid');
-				if(sid) {
-				    this.systemPreparationPhaseService
-					.getSystemPreparationPhase(id, sid)
-					.subscribe(
-					(response) => {
-						this.isLoading = false;
-						this.systemPreparationPhase = response;
-					    },
-					    (error) => {
-						const dialogRef = this.httpUtils.errorDialog(error);
-						dialogRef.afterClosed().subscribe(value => {
-						    this.router.navigate([this.backRoute]);
-						});
-					    }
-					);
-				} else {
-				    this.isLoading = false;
-				}
-			    },
-			    (error) => {
-				const dialogRef = this.httpUtils.errorDialog(error);
-				dialogRef.afterClosed().subscribe(value => {
-				    this.router.navigate([this.backRoute]);
-				});
-			    });
-		}
-	    });
-    }
-
-    save(): void {
-	this.isSaving = true;
-	var newSystemPreparationPhase = new SystemPreparationPhase();
-	newSystemPreparationPhase.start_time = Math.floor(this.start_time.getTime()/1000);
-	newSystemPreparationPhase.end_time = Math.floor(new Date().getTime()/1000);
-	newSystemPreparationPhase.productionOrder = this.productionOrder;
-	if (this.systemPreparationPhase.id !== undefined) {
-	    newSystemPreparationPhase.id = this.systemPreparationPhase.id;
-	    this.systemPreparationPhaseService
-		.updateSystemPreparationPhase(newSystemPreparationPhase)
-		.subscribe(
-		(response) => {
-		    this.systemPreparationPhase = response;
-		    this.isSaving = false;
-		    this.saved = true;
-		    this.httpUtils
-			.successSnackbar(
-			    this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
-            this.router
-                .navigate(
-                    ['productionOrder/'
-                        + this.systemPreparationPhase.productionOrder.id
-                        + '/phases']);
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
-	} else {
-	    this.systemPreparationPhaseService
-		.createSystemPreparationPhase(newSystemPreparationPhase)
-		.subscribe(
-		(response) => {
-		    this.systemPreparationPhase = response;
-		    this.isSaving = false;
-		    this.saved = true;
-		    this.httpUtils
-			.successSnackbar(
-			    this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
-            this.router
-                .navigate(
-                    ['productionOrder/'
-                        + this.systemPreparationPhase.productionOrder.id
-                        + '/phases']);
-		},
-		(error) => {
-		    this.isSaving = false;
-		    this.httpUtils.errorDialog(error);
-		}
-	    );
-	}
-    }
+  delete(): void {
+    const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('SYSTEMPREPARATIONPHASE.DELETECONFIRM'));
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.isDeleting = true;
+        this.systemPreparationPhaseService.deleteSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
+          (response) => {
+            this.isDeleting = false;
+            this.httpUtils.successSnackbar(this.translate.instant('SYSTEMPREPARATIONPHASE.DELETED'));
+            this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
+          },
+          (error) => {
+            this.isDeleting = false;
+            this.httpUtils.errorDialog(error);
+          }
+        );
+      }
+    });
+  }
 }

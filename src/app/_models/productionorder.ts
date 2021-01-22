@@ -1,8 +1,13 @@
 import { AdditiveProductionOrder } from './additiveproductionorder';
+import { CleaningPhase } from './cleaningPhase';
 import { Customer } from './customer';
 import { MixtureMode } from './mixturemode';
 import { Packaging } from './packaging';
 import { RawMaterial } from './rawmaterial';
+import { SettingPhase } from './settingPhase';
+import { SystemPreparationPhase } from './systemPreparationPhase';
+import { ValidationPhase } from './validationPhase';
+import { WorkingPhase } from './workingPhase';
 
 export class ProductionOrder {
   id: number;
@@ -27,4 +32,9 @@ export class ProductionOrder {
   ddt_date: string;
   ddt_date_string: string;
   ddt_number: string;
+  setting_phases: SettingPhase[];
+  system_preparation_phases: SystemPreparationPhase[];
+  cleaning_phases: CleaningPhase[];
+  working_phases: WorkingPhase[];
+  validation_phases: ValidationPhase[];
 }

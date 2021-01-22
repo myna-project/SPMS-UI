@@ -226,13 +226,13 @@ const routes: Routes = [
   },
   {
     path: 'productionOrder/:id/workingPhase',
-    component: WorkingPhaseComponent, // TODO
+    component: WorkingPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },
   {
     path: 'productionOrder/:id/workingPhases/:sid',
-    component: WorkingPhaseComponent, // TODO
+    component: WorkingPhaseComponent,
     canActivate: [ AuthGuard ],
     canDeactivate: [ PendingChangesGuard ]
   },

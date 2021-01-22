@@ -129,21 +129,11 @@ export class HttpUtils {
     return date.getFullYear() + '-' + ((month < 10) ? '0' : '') + month + '-' + ((day < 10) ? '0' : '') + day + 'T' + ((hour < 10) ? '0' : '') + hour + ':' + ((minute < 10) ? '0' : '') + minute + ':00' + offsetString;
   }
 
-  public getLocaleDateString(date: string): string {
+  public getLocaleDateString(date: string | Date): string {
     return (new Date(date)).toLocaleDateString(this.getLanguage(), { year: "numeric", month: "2-digit", day: "2-digit" });
   }
 
-  public getLocaleDateStr(date: Date): string {
-      return (new Date(date)).toLocaleDateString(this.getLanguage(), { year: "numeric", month: "2-digit", day: "2-digit" });
-  }
-
-  public getLocaleDateTimeString(date: string): string {
-    return (new Date(date)).toLocaleDateString(this.getLanguage(), { year: "numeric", month: "2-digit", day: "2-digit" }) + ' ' + (new Date(date)).toLocaleTimeString(this.getLanguage(), { hour: '2-digit', minute: '2-digit' });
-  }
-
-  public getLocaleDateTimeStr(date: Date): string {
-      return (new Date(date)).toLocaleDateString(this.getLanguage(), { year: "numeric", month: "2-digit", day: "2-digit" })
-	  + ' '
-	  + (date.toLocaleTimeString(this.getLanguage(), { hour: '2-digit', minute: '2-digit' }));
+  public getLocaleDateTimeString(date: string | Date): string {
+    return (new Date(date)).toLocaleDateString(this.getLanguage(), { year: "numeric", month: "2-digit", day: "2-digit", weekday: 'long' }) + ' ' + (new Date(date)).toLocaleTimeString(this.getLanguage(), { hour: '2-digit', minute: '2-digit' });
   }
 }

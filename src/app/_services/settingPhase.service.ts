@@ -14,66 +14,37 @@ import { HttpUtils } from '../_utils/http.utils';
 })
 export class SettingPhaseService {
 
-    private poResource: string = 'productionOrders';
-    private phaseResource: string = 'settingPhases';
+  private poResource: string = 'productionOrders';
+  private phaseResource: string = 'settingPhases';
 
-    constructor(private http: HttpClient,
-		private httpUtils: HttpUtils) {}
+  constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
-    getSettingPhases(id: number | string): Observable<SettingPhase[]> {
-	return this.http.get<SettingPhase[]>(
-	    environment.apiEndPoint
-		+ this.httpUtils.getAdminUrl()
-		+ this.poResource + '/'
-		+ id + '/'
-		+ this.phaseResource).pipe(
+  getSettingPhases(id: number | string): Observable<SettingPhase[]> {
+	return this.http.get<SettingPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-    getSettingPhase(id: number | string, sid: number | string): Observable<SettingPhase> {
-	return this.http.get<SettingPhase>(
-	    environment.apiEndPoint
-		+ this.httpUtils.getAdminUrl()
-		+ this.poResource + '/'
-		+ id + '/'
-		+ this.phaseResource + '/'
-		+ sid).pipe(
+  getSettingPhase(id: number | string, sid: number | string): Observable<SettingPhase> {
+	return this.http.get<SettingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  createSettingPhase(settingPhase: SettingPhase): Observable<any> {
-      return this.http.post<SettingPhase>(
-	  environment.apiEndPoint
-	      + this.httpUtils.getAdminUrl()
-	      + this.poResource + '/'
-	      + settingPhase.productionOrder.id + '/'
-	      + this.phaseResource, settingPhase).pipe(
+  createSettingPhase(id: number | string, settingPhase: SettingPhase): Observable<any> {
+    return this.http.post<SettingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource, settingPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  updateSettingPhase(settingPhase: SettingPhase): Observable<any> {
-      return this.http.put(
-	  environment.apiEndPoint
-	  + this.httpUtils.getAdminUrl()
-	  + this.poResource + '/'
-	  + settingPhase.productionOrder.id + '/'
-	  + this.phaseResource + '/'
-	      + settingPhase.id, settingPhase).pipe(
+  updateSettingPhase(id: number | string, settingPhase: SettingPhase): Observable<any> {
+    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + settingPhase.id, settingPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  deleteSettingPhase(settingPhase: SettingPhase): Observable<SettingPhase> {
-      return this.http.delete<SettingPhase>(
-	  environment.apiEndPoint
-	  + this.httpUtils.getAdminUrl()
-	  + this.poResource + '/'
-	  + settingPhase.productionOrder.id + '/'
-	  + this.phaseResource + '/'
-	  + settingPhase.id).pipe(
+  deleteSettingPhase(id: number | string, settingPhase: SettingPhase): Observable<SettingPhase> {
+    return this.http.delete<SettingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + settingPhase.id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

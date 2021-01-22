@@ -50,6 +50,10 @@ mat-list.spms-list .mat-list-item {
   margin-right: 8px;
 }
 
+.mat-list-item-underline-title {
+  text-decoration: underline;
+}
+
 .mat-list-item-content {
   flex-wrap: wrap;
   width: 100%;
@@ -324,20 +328,8 @@ mat-list.spms-list .mat-list-item {
   margin-left: 10px;
 }
 
-.project {
-  color: green;
-}
-
-.analysis {
-  color: red;
-}
-
-.material {
-  color: blue;
-}
-
-.process {
-  color: yellow;
+.current-phase {
+  background-color: #8ae234
 }
 
 .clickable {

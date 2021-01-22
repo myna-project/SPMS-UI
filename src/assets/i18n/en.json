@@ -16,6 +16,9 @@
     "SEARCH": "Search additive"
   },
   "CLEANINGPHASE": {
+    "DELETE": "Delete cleaning phase",
+    "DELETECONFIRM": "Are you sure you want to delete this cleaning phase?",
+    "DELETED": "Cleaning phase deleted!",
     "END": "End cleaning phase",
     "NEW": "New cleaning phase",
     "ONGOING": "Ongoing cleaning phase",
@@ -223,8 +226,12 @@
     "SEARCH": "Search raw material"
   },
   "SETTINGPHASE": {
+    "DELETE": "Delete setting phase",
+    "DELETECONFIRM": "Are you sure you want to delete this setting phase?",
+    "DELETED": "Setting phase deleted!",
     "EFFECTIVE_MIXTURE_MODE": "Mixture Mode",
     "EFFECTIVE_MIXTURE_TEMPERATURE": "Mixture temperature",
+    "INVALID_EFFECTIVE_MIXTURE_TEMPERATURE": "Provide a number",
     "END": "End setting phase",
     "MISSING_EFFECTIVE_MIXTURE_TEMPERATURE": "Missing mixture temperature",
     "MISSING_EFFECTIVE_MIXTURE_MODE": "Missing mixture mode",
@@ -237,6 +244,9 @@
     "TITLE": "Setting phase"
   },
   "SYSTEMPREPARATIONPHASE": {
+    "DELETE": "Delete system preparation phase",
+    "DELETECONFIRM": "Are you sure you want to delete this system preparation phase?",
+    "DELETED": "System preparation phase deleted!",
     "END": "End system preparation phase",
     "NEW": "New system preparation phase",
     "ONGOING": "Ongoing system preparation phase",
@@ -298,6 +308,9 @@
     "TOWER_INTERN_TEMPERATURE": "Tower internal temperature"
   },
   "WORKINGPHASE": {
+    "DELETE": "Delete working phase",
+    "DELETECONFIRM": "Are you sure you want to delete this working phase?",
+    "DELETED": "Working phase deleted!",
     "END": "End working phase",
     "ENDSHIFT": "End shift",
     "FINISHED_PRODUCT": "Finished product quantities",
@@ -308,6 +321,6 @@
     "SAVED": "Working phase complete",
     "SEARCH": "Search working phase",
     "START": "Begin working phase",
-    "TITLE": "Working phase shift"
+    "TITLE": "Working phase"
   }
 }
