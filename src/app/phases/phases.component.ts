@@ -20,7 +20,8 @@ import { ProductionOrdersService } from '../_services/productionorders.service';
 import { HttpUtils } from '../_utils/http.utils';
 
 @Component({
-  templateUrl: './phases.component.html'
+  templateUrl: './phases.component.html',
+  styleUrls: ['./phases.component.scss']
 })
 export class PhasesComponent implements ComponentCanDeactivate,OnInit {
 

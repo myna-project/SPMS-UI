@@ -10,7 +10,7 @@
   <p><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.setting_phases" (click)="toPhase('settingPhase', sf.id)">
-      <div class="mat-list-item-content">
+      <div class="mat-list-item-content" [class.current-phase]="sf.current">
         <span>
           <span class="mat-list-item-bold-title">{{ 'SETTINGPHASE.TITLE' | translate }}:</span><br/>
           {{ 'SETTINGPHASE.START' | translate }}: {{sf.start_time_string}}<br/>
@@ -18,16 +18,14 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item class="mat-list-item-underline-title" (click)="newPhase('settingPhase')">
-      <span *ngIf="canAddPhase">{{ 'SETTINGPHASE.NEW' | translate }}</span>
-      <span class="mat-list-item-divider">
-        <mat-divider></mat-divider>
-      </span>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('settingPhase')">
+      <span class="mat-list-item-underline-title">{{ 'SETTINGPHASE.NEW' | translate }}</span>
     </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.system_preparation_phases" (click)="toPhase('systemPreparationPhase', sf.id)">
-      <div class="mat-list-item-content">
+      <div class="mat-list-item-content" [class.current-phase]="sf.current">
         <span>
           <span class="mat-list-item-bold-title">{{ 'SYSTEMPREPARATIONPHASE.TITLE' | translate }}:</span><br/>
           {{ 'SYSTEMPREPARATIONPHASE.START' | translate }}: {{sf.start_time_string}}<br/>
@@ -35,16 +33,14 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item class="mat-list-item-underline-title" (click)="newPhase('systemPreparationPhase')">
-      <span *ngIf="canAddPhase">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</span>
-      <span class="mat-list-item-divider">
-        <mat-divider></mat-divider>
-      </span>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('systemPreparationPhase')">
+      <span class="mat-list-item-underline-title">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</span>
     </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.cleaning_phases" (click)="toPhase('cleaningPhase', sf.id)">
-      <div class="mat-list-item-content">
+      <div class="mat-list-item-content" [class.current-phase]="sf.current">
         <span>
           <span class="mat-list-item-bold-title">{{ 'CLEANINGPHASE.TITLE' | translate }}:</span><br/>
           {{ 'CLEANINGPHASE.START' | translate }}: {{sf.start_time_string}}<br/>
@@ -52,12 +48,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item class="mat-list-item-underline-title" (click)="newPhase('cleaningPhase')">
-      <span *ngIf="canAddPhase">{{ 'CLEANINGPHASE.NEW' | translate }}</span>
-      <span class="mat-list-item-divider">
-        <mat-divider></mat-divider>
-      </span>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('cleaningPhase')">
+      <span class="mat-list-item-underline-title">{{ 'CLEANINGPHASE.NEW' | translate }}</span>
     </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.working_phases" (click)="toPhase('workingPhase', sf.id)">
@@ -69,12 +63,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item class="mat-list-item-underline-title" (click)="newPhase('workingPhase')">
-      <span *ngIf="canAddPhase">{{ 'WORKINGPHASE.NEW' | translate }}</span>
-      <span class="mat-list-item-divider">
-        <mat-divider></mat-divider>
-      </span>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('workingPhase')">
+      <span class="mat-list-item-underline-title">{{ 'WORKINGPHASE.NEW' | translate }}</span>
     </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-list>
   <mat-list *ngIf="currentUser && currentUser.isResp" class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.validation_phases" (click)="toPhase('validationPhase', sf.id)">
@@ -86,12 +78,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item class="mat-list-item-underline-title" (click)="newPhase('validationPhase')">
-      <span *ngIf="canAddPhase">{{ 'VALIDATIONPHASE.NEW' | translate }}</span>
-      <span class="mat-list-item-divider">
-        <mat-divider></mat-divider>
-      </span>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('validationPhase')">
+      <span class="mat-list-item-underline-title">{{ 'VALIDATIONPHASE.NEW' | translate }}</span>
     </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-list>
   <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="close()">{{ 'PHASES.TERMINATE' | translate }}</button>
