@@ -31,6 +31,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
 
     isLoading: boolean = true;
     isSaving: boolean = false;
+    isDeleting: boolean = false;
     saved: boolean = false;
     productionOrder: ProductionOrder;
     workingPhase: WorkingPhase = new WorkingPhase();
@@ -236,5 +237,33 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
                     this.isSaving = false;
                     this.httpUtils.errorDialog(error);
                 });
+    }
+
+    delete(): void {
+        const dialogRef = this.httpUtils.confirmDelete(
+            this.translate.instant('WORKINGPHASE.DELETECONFIRM'));
+
+        dialogRef.afterClosed().subscribe(dialogResult => {
+            if (dialogResult) {
+                this.isDeleting = true;
+                console.log(this.workingPhase);
+                this.workingPhaseService
+                    .deleteWorkingPhase(this.workingPhase).subscribe(
+                    (response) => {
+                        this.isDeleting = false;
+                        this.httpUtils.successSnackbar(
+                            this.translate.instant('WORKINGPHASE.DELETED'));
+                        this.router.navigate(
+                            ['productionOrder/' + this.productionOrder.id + '/phases']);
+                    },
+                    (error) => {
+                        this.isDeleting = false;
+                        this.httpUtils.errorDialog(error);
+                    }
+                );
+            }
+        });
+
+
     }
 }
