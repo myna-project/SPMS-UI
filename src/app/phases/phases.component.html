@@ -68,7 +68,7 @@
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
-  <mat-list *ngIf="currentUser && currentUser.isResp" class="mat-list spms-list">
+  <mat-list *ngIf="currentUser && (currentUser.isResp || currentUser.isAdmin)" class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.validation_phases" (click)="toPhase('validationPhase', sf.id)">
       <div class="mat-list-item-content">
         <span>
