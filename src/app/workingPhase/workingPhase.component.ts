@@ -78,6 +78,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate,OnInit {
                             }
                             var nwpu = this.newWorkingPhaseUser();
                             nwpu.workingPhase = this.workingPhase;
+                            nwpu.start_time = Math.floor(this.start_time.getTime()/1000);
                             this.workingPhaseUserService
                                 .createWorkingPhaseUser(nwpu)
                                 .subscribe(
