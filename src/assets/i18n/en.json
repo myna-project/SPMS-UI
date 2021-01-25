@@ -287,6 +287,9 @@
     "USERNAMELENGTH": "Username must be at least 4 characters long"
   },
   "VALIDATIONPHASE": {
+    "DELETE": "Delete validation phase",
+    "DELETECONFIRM": "Are you sure you want to delete this validation phase?",
+    "DELETED": "validation phase deleted!",
     "CHIMNEY_QUANTITY": "Chimney quantity",
     "CYCLON_ENTRY_TEMPERATURE": "Cyclon entry temperature",
     "DENSITY_FINISHED_PRODUCT": "Density finished product",

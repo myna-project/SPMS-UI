@@ -34,6 +34,7 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
 
     saved: boolean = false;
     isSaving: boolean = false;
+    isDeleting: boolean = false;
     isLoading: boolean = true;
     validationPhase: ValidationPhase = new ValidationPhase();
     validationPhaseForm: FormGroup;
@@ -196,6 +197,33 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
                     }
                 );
         }
+    }
+
+    delete(): void {
+        const dialogRef = this.httpUtils.confirmDelete(
+            this.translate.instant('VALIDATIONPHASE.DELETECONFIRM'));
+
+        dialogRef.afterClosed().subscribe(dialogResult => {
+            if (dialogResult) {
+                this.isDeleting = true;
+                console.log(this.validationPhase);
+                this.validationPhaseService
+                    .deleteValidationPhase(this.validationPhase).subscribe(
+                    (response) => {
+                        this.isDeleting = false;
+                        this.httpUtils.successSnackbar(
+                            this.translate.instant('VALIDATIONPHASE.DELETED'));
+                        this.router.navigate(
+                            ['productionOrder/' + this.productionOrder.id + '/phases']);
+                    },
+                    (error) => {
+                        this.isDeleting = false;
+                        this.httpUtils.errorDialog(error);
+                    }
+                );
+            }
+        });
+
     }
 
     get humidity_finished_product() {

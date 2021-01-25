@@ -287,6 +287,9 @@
     "USERNAMELENGTH": "Lo username deve essere di almeno 4 caratteri"
   },
   "VALIDATIONPHASE": {
+    "DELETE": "Elimina validazione impianto",
+    "DELETECONFIRM": "Sei sicuro di voler eliminare questa validazione impianto?",
+    "DELETED": "Validazione impianto eliminata!",
     "CHIMNEY_QUANTITY": "Quantità nel camino",
     "CYCLON_ENTRY_TEMPERATURE": "Temperatura interna del ciclone",
     "DENSITY_FINISHED_PRODUCT": "Densità del prodotto finito",
