@@ -17,10 +17,14 @@
     <mat-list-item class="mat-list-item" *ngFor="let productionorder of filteredProductionOrders">
       <div class="mat-list-item-content">
         <span class="mat-list-item-title">{{productionorder.production_order_date_string}} - {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}})</span>
-	<span *ngIf="productionorder.completed" class="mat-list-item-right-buttons" [ngStyle]="{'color':'green'}">
-	  <i class="material-icons">check</i>
-	</span>
-	<span class="mat-list-item-right-buttons">
+        <span *ngIf="productionorder.completed" class="mat-list-item-right-buttons" [ngStyle]="{'color':'green'}">
+          <i class="material-icons">check</i>
+        </span>
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="goToPhases(productionorder.id)">
+            <mat-icon>settings</mat-icon>
+            {{ 'PRODUCTIONORDER.PHASES' | translate }}
+          </button>
           <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="edit(productionorder.id)">
             <mat-icon>edit</mat-icon>
             {{ 'PRODUCTIONORDER.EDIT' | translate }}

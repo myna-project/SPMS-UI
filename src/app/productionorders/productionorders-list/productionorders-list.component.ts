@@ -24,7 +24,7 @@ export class ProductionOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.productionordersService.getProductionOrders().subscribe(
       (productionorders) => {
-        productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
+        productionorders.sort((a, b) => a.production_order_date > b.production_order_date ? -1 : a.production_order_date < b.production_order_date ? 1 : 0);
         var pos = productionorders;
         this.isLoading = false;
         pos.forEach((po) => {
@@ -47,5 +47,9 @@ export class ProductionOrdersComponent implements OnInit {
 
   edit(id: number): void {
     this.router.navigate(['productionOrder/' + id]);
+  }
+
+  goToPhases(id: number): void {
+    this.router.navigate(['productionOrder/' + id + '/phases']);
   }
 }
