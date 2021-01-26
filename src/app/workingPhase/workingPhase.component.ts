@@ -103,12 +103,14 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
       (response) => {
         this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.MEASURESAVED'));
         response.time_string = this.httpUtils.getLocaleDateTimeString(new Date(response.time * 1000));
-        this.workingPhaseMeasures.push(response);
+        if (this.workingPhaseMeasures)
+          this.workingPhaseMeasures.push(response);
+        else
+          this.workingPhaseMeasures = [response];
         this.clear();
       },
       (error) => {
         this.isSaving = false;
-        console.log(error);
         this.httpUtils.errorDialog(error);
       }
     );

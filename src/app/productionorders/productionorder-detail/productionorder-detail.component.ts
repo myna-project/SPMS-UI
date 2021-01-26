@@ -178,7 +178,6 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
 
   addAdditive(apo: AdditiveProductionOrder): void {
     let patterns = this.httpUtils.getPatterns();
-    console.log('QUI');
     this.productionOrderForm.addControl('additive_' + (this.additivesCounter ? this.additivesCounter.length : 0), new FormControl(apo ? apo.additive : undefined, []));
     this.productionOrderForm.addControl('weight_additive_' + (this.additivesCounter ? this.additivesCounter.length : 0), new FormControl(apo ? this.httpUtils.convertFromNumber(apo.weight_additive) : undefined, [ Validators.pattern(patterns.positiveFloat) ]));
     if (this.additivesCounter && this.additivesCounter.length > 0)
