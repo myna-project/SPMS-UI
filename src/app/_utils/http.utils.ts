@@ -7,21 +7,25 @@ import { Observable, of, throwError } from 'rxjs';
 
 import { User } from '../_models/user';
 
-import { AuthenticationService } from '../_services/authentication.service';
-
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../_utils/confirm-dialog/confirm-dialog.component';
 import { MessageDialogModel, MessageDialogComponent } from '../_utils/message-dialog/message-dialog.component';
+
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpUtils {
 
-  constructor(private authService: AuthenticationService, private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
+  }
+
+  public getAPIEndpoint() {
+    return (environment.sameDomain ? window.location.protocol + '//' + window.location.host + '/' : environment.URL) + environment.contextPath;
   }
 
   public getAdminUrl() {
-    let currentUser = this.authService.getCurrentUser();
+    let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser === null || currentUser === undefined) {
       return '';
     } else {
@@ -95,7 +99,7 @@ export class HttpUtils {
   }
 
   public getLanguage() {
-    let currentUser = this.authService.getCurrentUser();
+    let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser !== null && currentUser !== undefined)
       return currentUser.lang;
   }

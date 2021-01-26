@@ -7,15 +7,17 @@ import { environment } from './../../environments/environment';
 
 import { User } from '../_models/user';
 
+import { HttpUtils } from '../_utils/http.utils';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private httpUtils: HttpUtils, private router: Router) {}
 
   public getCurrentUser(): User {
-      let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
+    let currentUser = <User>JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser === null || currentUser === undefined) {
       return null;
     } else {
@@ -30,12 +32,12 @@ export class AuthenticationService {
       .set('username', username)
       .set('password', password);
 
-    return this.http.post(environment.apiEndPoint + 'authenticate', payload, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' },  observe: 'response' });
+    return this.http.post(this.httpUtils.getAPIEndpoint() + 'authenticate', payload, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' },  observe: 'response' });
   }
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.http.post(environment.apiEndPoint + 'logout', null).pipe().subscribe();
+    this.http.post(this.httpUtils.getAPIEndpoint() + 'logout', null).pipe().subscribe();
     this.router.navigate(['/login']);
   }
 }

@@ -19,32 +19,32 @@ export class MixtureModesService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getMixtureModes(): Observable<MixtureMode[]> {
-    return this.http.get<MixtureMode[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<MixtureMode[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getMixtureMode(id: number | string): Observable<MixtureMode> {
-    return this.http.get<MixtureMode>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<MixtureMode>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createMixtureMode(mixturemode: MixtureMode): Observable<MixtureMode> {
-    return this.http.post<MixtureMode>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, mixturemode).pipe(
+    return this.http.post<MixtureMode>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, mixturemode).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateMixtureMode(mixturemode: MixtureMode): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + mixturemode.id, mixturemode).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + mixturemode.id, mixturemode).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteMixtureMode(mixturemode: MixtureMode | number): Observable<MixtureMode> {
     const id = typeof mixturemode === 'number' ? mixturemode : mixturemode.id;
-    return this.http.delete<MixtureMode>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<MixtureMode>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

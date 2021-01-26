@@ -19,32 +19,32 @@ export class AdditivesService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getAdditives(): Observable<Additive[]> {
-    return this.http.get<Additive[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<Additive[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getAdditive(id: number | string): Observable<Additive> {
-    return this.http.get<Additive>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<Additive>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createAdditive(additive: Additive): Observable<Additive> {
-    return this.http.post<Additive>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, additive).pipe(
+    return this.http.post<Additive>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, additive).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateAdditive(additive: Additive): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + additive.id, additive).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + additive.id, additive).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteAdditive(additive: Additive | number): Observable<Additive> {
     const id = typeof additive === 'number' ? additive : additive.id;
-    return this.http.delete<Additive>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<Additive>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

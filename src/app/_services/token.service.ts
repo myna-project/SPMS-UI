@@ -4,14 +4,16 @@ import { Observable } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
+import { HttpUtils } from '../_utils/http.utils';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getToken(): Observable<HttpResponse<any>> {
-    return this.http.get<Observable<HttpResponse<any>>>(environment.apiEndPoint + 'token', {  observe: 'response' });
+    return this.http.get<Observable<HttpResponse<any>>>(this.httpUtils.getAPIEndpoint() + 'token', {  observe: 'response' });
   }
 }

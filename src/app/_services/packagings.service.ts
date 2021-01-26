@@ -19,32 +19,32 @@ export class PackagingsService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getPackagings(): Observable<Packaging[]> {
-    return this.http.get<Packaging[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<Packaging[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getPackaging(id: number | string): Observable<Packaging> {
-    return this.http.get<Packaging>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<Packaging>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createPackaging(packaging: Packaging): Observable<Packaging> {
-    return this.http.post<Packaging>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, packaging).pipe(
+    return this.http.post<Packaging>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, packaging).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updatePackaging(packaging: Packaging): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + packaging.id, packaging).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + packaging.id, packaging).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deletePackaging(packaging: Packaging | number): Observable<Packaging> {
     const id = typeof packaging === 'number' ? packaging : packaging.id;
-    return this.http.delete<Packaging>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<Packaging>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

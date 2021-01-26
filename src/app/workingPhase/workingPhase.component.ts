@@ -52,9 +52,11 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
                 if (sf) {
                   this.workingPhase = sf;
                   this.workingPhaseMeasures = sf.measures;
-                  this.workingPhaseMeasures.forEach(m => {
-                    m.time_string = this.httpUtils.getLocaleDateTimeString(new Date(m.time * 1000));
-                  });
+                  if (this.workingPhaseMeasures) {
+                    this.workingPhaseMeasures.forEach(m => {
+                      m.time_string = this.httpUtils.getLocaleDateTimeString(new Date(m.time * 1000));
+                    });
+                  }
                   this.isLoading = false;
                 } else {
                   this.router.navigate([this.backRoute]);

@@ -19,32 +19,32 @@ export class ProductionOrdersService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getProductionOrders(): Observable<ProductionOrder[]> {
-    return this.http.get<ProductionOrder[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<ProductionOrder[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getProductionOrder(id: number | string): Observable<ProductionOrder> {
-    return this.http.get<ProductionOrder>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<ProductionOrder>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createProductionOrder(order: ProductionOrder): Observable<ProductionOrder> {
-    return this.http.post<ProductionOrder>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, order).pipe(
+    return this.http.post<ProductionOrder>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, order).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateProductionOrder(order: ProductionOrder): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + order.id, order).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + order.id, order).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteProductionOrder(order: ProductionOrder | number): Observable<ProductionOrder> {
     const id = typeof order === 'number' ? order : order.id;
-    return this.http.delete<ProductionOrder>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<ProductionOrder>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

@@ -19,38 +19,38 @@ export class UsersService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<User[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getUsersByUsername(username: string): Observable<User[]> {
-    return this.http.get<User[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '?username=' + username).pipe(
+    return this.http.get<User[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '?username=' + username).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getUser(id: number | string): Observable<User> {
-    return this.http.get<User>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<User>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, user).pipe(
+    return this.http.post<User>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, user).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + user.id, user).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + user.id, user).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteUser(user: User | number): Observable<User> {
     const id = typeof user === 'number' ? user : user.id;
-    return this.http.delete<User>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<User>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

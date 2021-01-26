@@ -20,31 +20,31 @@ export class ValidationPhaseService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getValidationPhases(id: number | string): Observable<ValidationPhase[]> {
-    return this.http.get<ValidationPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
+    return this.http.get<ValidationPhase[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getValidationPhase(id: number | string, sid: number | string): Observable<ValidationPhase> {
-    return this.http.get<ValidationPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
+    return this.http.get<ValidationPhase>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createValidationPhase(id: number | string, validationPhase: ValidationPhase): Observable<any> {
-    return this.http.post<ValidationPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource, validationPhase).pipe(
+    return this.http.post<ValidationPhase>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource, validationPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateValidationPhase(id: number | string, validationPhase: ValidationPhase): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + validationPhase.id, validationPhase).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + validationPhase.id, validationPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteValidationPhase(id: number | string, validationPhase: ValidationPhase): Observable<ValidationPhase> {
-    return this.http.delete<ValidationPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + validationPhase.id).pipe(
+    return this.http.delete<ValidationPhase>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + validationPhase.id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

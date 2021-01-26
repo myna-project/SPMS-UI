@@ -19,13 +19,13 @@ export class RolesService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<Role[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getRole(id: number | string): Observable<Role> {
-    return this.http.get<Role>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<Role>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

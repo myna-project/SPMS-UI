@@ -19,32 +19,32 @@ export class CustomersService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<Customer[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getCustomer(id: number | string): Observable<Customer> {
-    return this.http.get<Customer>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<Customer>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, customer).pipe(
+    return this.http.post<Customer>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, customer).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateCustomer(customer: Customer): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + customer.id, customer).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + customer.id, customer).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteCustomer(customer: Customer | number): Observable<Customer> {
     const id = typeof customer === 'number' ? customer : customer.id;
-    return this.http.delete<Customer>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<Customer>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

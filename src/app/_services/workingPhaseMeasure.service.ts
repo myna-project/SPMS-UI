@@ -21,31 +21,31 @@ export class WorkingPhaseMeasureService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getWorkingPhaseMeasures(id: number | string, sid: number | string): Observable<WorkingPhaseMeasure[]> {
-    return this.http.get<WorkingPhaseMeasure[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/'  + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource).pipe(
+    return this.http.get<WorkingPhaseMeasure[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/'  + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getWorkingPhaseMeasure(id: number | string, sid: number | string, mid: number | string): Observable<WorkingPhaseMeasure> {
-    return this.http.get<WorkingPhaseMeasure>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource + '/' + mid).pipe(
+    return this.http.get<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource + '/' + mid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<any> {
-    return this.http.post<WorkingPhaseMeasure>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/measures', measure).pipe(
+    return this.http.post<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/measures', measure).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id, measure).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id, measure).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<WorkingPhaseMeasure> {
-    return this.http.delete<WorkingPhaseMeasure>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id).pipe(
+    return this.http.delete<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

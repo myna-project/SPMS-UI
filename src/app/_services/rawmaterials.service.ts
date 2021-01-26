@@ -19,32 +19,32 @@ export class RawMaterialsService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getRawMaterials(): Observable<RawMaterial[]> {
-    return this.http.get<RawMaterial[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
+    return this.http.get<RawMaterial[]>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getRawMaterial(id: number | string): Observable<RawMaterial> {
-    return this.http.get<RawMaterial>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
+    return this.http.get<RawMaterial>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + +id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   createRawMaterial(material: RawMaterial): Observable<RawMaterial> {
-    return this.http.post<RawMaterial>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource, material).pipe(
+    return this.http.post<RawMaterial>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource, material).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   updateRawMaterial(material: RawMaterial): Observable<any> {
-    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + material.id, material).pipe(
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + material.id, material).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   deleteRawMaterial(material: RawMaterial | number): Observable<RawMaterial> {
     const id = typeof material === 'number' ? material : material.id;
-    return this.http.delete<RawMaterial>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
+    return this.http.delete<RawMaterial>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.apiResource + '/' + id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
