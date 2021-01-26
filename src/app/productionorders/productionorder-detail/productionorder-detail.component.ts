@@ -166,8 +166,8 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
       'ddt_date': new FormControl(this.productionOrder.ddt_date ? new Date(this.productionOrder.ddt_date) : undefined, []),
       'ddt_number': new FormControl(this.productionOrder.ddt_number, [])
     });
-    if (this.productionOrder.id && (this.productionOrder.additives.length > 0)) {
-      this.additivesCounter = [];
+    this.additivesCounter = [];
+    if (this.productionOrder.id && this.productionOrder.additives && (this.productionOrder.additives.length > 0)) {
       this.productionOrder.additives.forEach(apo => {
         this.addAdditive(apo);
       });
@@ -178,6 +178,7 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
 
   addAdditive(apo: AdditiveProductionOrder): void {
     let patterns = this.httpUtils.getPatterns();
+    console.log('QUI');
     this.productionOrderForm.addControl('additive_' + (this.additivesCounter ? this.additivesCounter.length : 0), new FormControl(apo ? apo.additive : undefined, []));
     this.productionOrderForm.addControl('weight_additive_' + (this.additivesCounter ? this.additivesCounter.length : 0), new FormControl(apo ? this.httpUtils.convertFromNumber(apo.weight_additive) : undefined, [ Validators.pattern(patterns.positiveFloat) ]));
     if (this.additivesCounter && this.additivesCounter.length > 0)

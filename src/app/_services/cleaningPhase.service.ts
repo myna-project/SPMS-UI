@@ -20,13 +20,13 @@ export class CleaningPhaseService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getCleaningPhases(id: number | string): Observable<CleaningPhase[]> {
-	return this.http.get<CleaningPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
+    return this.http.get<CleaningPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getCleaningPhase(id: number | string, sid: number | string): Observable<CleaningPhase> {
-	return this.http.get<CleaningPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
+    return this.http.get<CleaningPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

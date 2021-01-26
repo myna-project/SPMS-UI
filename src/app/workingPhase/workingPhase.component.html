@@ -11,14 +11,17 @@
   <h4>{{ 'WORKINGPHASE.TITLE' | translate }}</h4>
   <div class="container">
     <div class="wpm-list-container">
-      <h5>{{ 'WORKINGPHASE.FINISHED_PRODUCT' | translate }}</h5>
+      <h5>{{ 'WORKINGPHASE.FINISHEDPRODUCT' | translate }}</h5>
       <mat-list class="mat-list spms-list">
         <mat-list-item class="mat-list-item" *ngFor="let m of workingPhaseMeasures; let i = index">
           <div class="mat-list-item-content">
             <button mat-icon-button (click)="removeMeasure(i)">
               <mat-icon class="error">remove_circle</mat-icon>
             </button>
-            <span class="mat-list-item-title">{{m.time}}: {{m.finished_product_quantity}}</span>
+            <span>
+              <span class="mat-list-item-bold-title">{{m.finished_product_quantity}}</span>
+              ({{m.time_string}})
+            </span>
           </div>
         </mat-list-item>
       </mat-list>
@@ -28,33 +31,33 @@
         <input type="text" class="numpad-screen" [value]="finished_product_quantity" disabled />
         <div class="numpad-keys">
           <div>
-            <button type="button" class="numpad-button" (click) = "getNumber('7')" value="7">7</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('8')" value="8">8</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('9')" value="9">9</button>
+            <button type="button" class="numpad-button" (click)="getNumber('7')" value="7">7</button>
+            <button type="button" class="numpad-button" (click)="getNumber('8')" value="8">8</button>
+            <button type="button" class="numpad-button" (click)="getNumber('9')" value="9">9</button>
           </div>
           <div>
-            <button type="button" class="numpad-button" (click) = "getNumber('4')" value="4">4</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('5')" value="5">5</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('6')" value="6">6</button>
+            <button type="button" class="numpad-button" (click)="getNumber('4')" value="4">4</button>
+            <button type="button" class="numpad-button" (click)="getNumber('5')" value="5">5</button>
+            <button type="button" class="numpad-button" (click)="getNumber('6')" value="6">6</button>
           </div>
           <div>
-            <button type="button" class="numpad-button" (click) = "getNumber('1')" value="1">1</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('2')" value="2">2</button>
-            <button type="button" class="numpad-button" (click) = "getNumber('3')" value="3">3</button>
+            <button type="button" class="numpad-button" (click)="getNumber('1')" value="1">1</button>
+            <button type="button" class="numpad-button" (click)="getNumber('2')" value="2">2</button>
+            <button type="button" class="numpad-button" (click)="getNumber('3')" value="3">3</button>
           </div>
           <div>
-            <button type="button" class="numpad-button" (click) = "getNumber('0')" value="0">0</button>
-            <button type="button" class="numpad-button decimal" (click) = "getDecimal()" value=".">.</button>
-            <button type="button" class="numpad-button all-clear" (click) = "clear()" value="all-clear">C</button>
+            <button type="button" class="numpad-button" (click)="getNumber('0')" value="0">0</button>
+            <button type="button" class="numpad-button decimal" (click)="getDecimal()" value=".">.</button>
+            <button type="button" class="numpad-button all-clear" (click)="clear()" value="all-clear">C</button>
           </div>
           <div>
-            <button type="button" class="confirm numpad-button" (click) = "addMeasure()" value="all-clear">OK</button>
+            <button type="button" class="confirm numpad-button" (click)="addMeasure()" value="all-clear">OK</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="button-row-right">
-    <button type="submit" mat-raised-button color="primary" (click)="saveShift()" [disabled]="isSaving || saved">{{ 'WORKINGPHASE.ENDSHIFT' | translate }}</button>
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="workingPhase.end_time || isSaving">{{ 'WORKINGPHASE.END' | translate }}</button>
   </div>
 </div>

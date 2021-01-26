@@ -61,14 +61,14 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
             var sid = params.get('sid');
             if (sid) {
               if (this.productionOrder.setting_phases) {
-            	let sf = this.productionOrder.setting_phases.filter(phase => (phase.id === +sid))[0];
-            	if (sf) {
-            	  this.settingPhase = sf;
+                let sf = this.productionOrder.setting_phases.filter(phase => (phase.id === +sid))[0];
+                if (sf) {
+                  this.settingPhase = sf;
                   this.createForm();
                   this.isLoading = false;
-            	} else {
-            	  this.router.navigate([this.backRoute]);
-            	}
+                } else {
+                  this.router.navigate([this.backRoute]);
+                }
               } else {
                 this.router.navigate([this.backRoute]);
               }
@@ -128,15 +128,15 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     } else {
       this.settingPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.settingPhaseService.createSettingPhase(this.productionOrder.id, this.settingPhase).subscribe(
-   	    (response) => {
+        (response) => {
           this.isSaving = false;
-   	      this.settingPhase = response;
-   	      this.router.navigate(['productionOrder/' + this.productionOrder.id + '/settingPhases/' + this.settingPhase.id]);
-   	    },
-   	    (error) => {
+          this.settingPhase = response;
+          this.router.navigate(['productionOrder/' + this.productionOrder.id + '/settingPhases/' + this.settingPhase.id]);
+        },
+        (error) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
-   	    }
+        }
       );
     }
   }

@@ -14,66 +14,37 @@ import { HttpUtils } from '../_utils/http.utils';
 })
 export class WorkingPhaseService {
 
-    private poResource: string = 'productionOrders';
-    private phaseResource: string = 'workingPhases';
+  private poResource: string = 'productionOrders';
+  private phaseResource: string = 'workingPhases';
 
-    constructor(private http: HttpClient,
-		private httpUtils: HttpUtils) {}
+  constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
-    getWorkingPhases(id: number | string): Observable<WorkingPhase[]> {
-	return this.http.get<WorkingPhase[]>(
-	    environment.apiEndPoint
-		+ this.httpUtils.getAdminUrl()
-		+ this.poResource + '/'
-		+ id + '/'
-		+ this.phaseResource).pipe(
+  getWorkingPhases(id: number | string): Observable<WorkingPhase[]> {
+    return this.http.get<WorkingPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-    getWorkingPhase(id: number | string, sid: number | string): Observable<WorkingPhase> {
-	return this.http.get<WorkingPhase>(
-	    environment.apiEndPoint
-		+ this.httpUtils.getAdminUrl()
-		+ this.poResource + '/'
-		+ id + '/'
-		+ this.phaseResource + '/'
-		+ sid).pipe(
+  getWorkingPhase(id: number | string, sid: number | string): Observable<WorkingPhase> {
+    return this.http.get<WorkingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  createWorkingPhase(workingPhase: WorkingPhase): Observable<any> {
-      return this.http.post<WorkingPhase>(
-	  environment.apiEndPoint
-	      + this.httpUtils.getAdminUrl()
-	      + this.poResource + '/'
-	      + workingPhase.productionOrder.id + '/'
-	      + this.phaseResource, workingPhase).pipe(
+  createWorkingPhase(id: number | string, workingPhase: WorkingPhase): Observable<any> {
+    return this.http.post<WorkingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource, workingPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  updateWorkingPhase(workingPhase: WorkingPhase): Observable<any> {
-      return this.http.put(
-	  environment.apiEndPoint
-	  + this.httpUtils.getAdminUrl()
-	  + this.poResource + '/'
-	  + workingPhase.productionOrder.id + '/'
-	  + this.phaseResource + '/'
-	      + workingPhase.id, workingPhase).pipe(
+  updateWorkingPhase(id: number | string, workingPhase: WorkingPhase): Observable<any> {
+    return this.http.put(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + workingPhase.id, workingPhase).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  deleteWorkingPhase(workingPhase: WorkingPhase): Observable<WorkingPhase> {
-      return this.http.delete<WorkingPhase>(
-	  environment.apiEndPoint
-	  + this.httpUtils.getAdminUrl()
-	  + this.poResource + '/'
-	  + workingPhase.productionOrder.id + '/'
-	  + this.phaseResource + '/'
-	  + workingPhase.id).pipe(
+  deleteWorkingPhase(id: number | string, workingPhase: WorkingPhase): Observable<WorkingPhase> {
+    return this.http.delete<WorkingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + workingPhase.id).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

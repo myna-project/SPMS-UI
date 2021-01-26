@@ -26,11 +26,11 @@ export class HttpUtils {
       return '';
     } else {
         if(currentUser.isAdmin)
-            return "admin/";
+          return "admin/";
         else if(currentUser.isResp)
-            return "resp/";
+          return "resp/";
         else
-            return "";
+          return "";
     }
   }
 

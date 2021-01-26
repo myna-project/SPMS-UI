@@ -85,23 +85,20 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
             }
             if (this.productionOrder.working_phases) {
               this.productionOrder.working_phases.forEach(sf => {
-            	if (sf.shifts) {
-                  sf.shifts.sort((a, b) => a.start_time < b.start_time ? -1 : a.start_time > b.start_time ? 1 : 0);
-                  sf.start_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.shifts[0].start_time * 1000));
-                  if (sf.shifts[sf.shifts.length - 1].end_time != null) {
-                    sf.end_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.shifts[sf.shifts.length - 1].end_time * 1000));
-                  } else {
-                    sf.end_time_string = this.translate.instant('PHASES.ONGOING');
-                    sf.current = true;
-                    this.canAddPhase = false;
-                  }
-            	}
+                sf.start_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.start_time * 1000));
+                if (sf.end_time != null) {
+                  sf.end_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.end_time * 1000));
+                } else {
+                  sf.end_time_string = this.translate.instant('PHASES.ONGOING');
+                  sf.current = true;
+                  this.canAddPhase = false;
+                }
               });
             }
             if (this.productionOrder.validation_phases) {
               this.productionOrder.validation_phases.forEach(sf => {
                 sf.start_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.start_time * 1000));
-                sf.end_time_string = (sf.end_time != null) ? this.translate.instant('PHASES.ONGOING') : this.httpUtils.getLocaleDateTimeString(new Date(sf.end_time * 1000));
+                sf.end_time_string = (sf.end_time == null) ? this.translate.instant('PHASES.ONGOING') : this.httpUtils.getLocaleDateTimeString(new Date(sf.end_time * 1000));
               });
             }
             this.isLoading = false;
@@ -134,7 +131,6 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
   }
 
   toPhase(type: string, sid: number | string): void {
-	console.log('productionOrder/' + this.productionOrder.id + '/' + type + 's/' + sid);
     this.router.navigate(['productionOrder/' + this.productionOrder.id + '/' + type + 's/' + sid]);
   }
 

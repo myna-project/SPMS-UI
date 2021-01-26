@@ -89,15 +89,15 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
     } else {
       this.systemPreparationPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.systemPreparationPhaseService.createSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
-   	    (response) => {
+        (response) => {
           this.isSaving = false;
-   	      this.systemPreparationPhase = response;
-   	      this.router.navigate(['productionOrder/' + this.productionOrder.id + '/systemPreparationPhase/' + this.systemPreparationPhase.id]);
-   	    },
-   	    (error) => {
+          this.systemPreparationPhase = response;
+          this.router.navigate(['productionOrder/' + this.productionOrder.id + '/systemPreparationPhases/' + this.systemPreparationPhase.id]);
+        },
+        (error) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
-   	    }
+        }
       );
     }
   }

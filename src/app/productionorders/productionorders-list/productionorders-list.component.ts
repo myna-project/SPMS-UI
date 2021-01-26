@@ -27,12 +27,11 @@ export class ProductionOrdersComponent implements OnInit {
         productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
         var pos = productionorders;
         this.isLoading = false;
-	  pos.forEach((po) => {
-	      po.production_order_date_string = this.httpUtils
-		  .getLocaleDateString(po.production_order_date);
-	      this.productionorders.push(po);
-	  });
-	  this.filteredProductionOrders = this.productionorders;
+        pos.forEach((po) => {
+          po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
+          this.productionorders.push(po);
+        });
+        this.filteredProductionOrders = this.productionorders;
       },
       (error) => {
         this.httpUtils.errorDialog(error);
@@ -40,11 +39,11 @@ export class ProductionOrdersComponent implements OnInit {
     );
   }
 
-    search(term: string): void {
-	this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
-	    return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
-	});
-    }
+  search(term: string): void {
+    this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
+      return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+    });
+  }
 
   edit(id: number): void {
     this.router.navigate(['productionOrder/' + id]);

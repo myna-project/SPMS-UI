@@ -92,15 +92,15 @@ export class CleaningPhaseComponent implements ComponentCanDeactivate,OnInit {
     } else {
       this.cleaningPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.cleaningPhaseService.createCleaningPhase(this.productionOrder.id, this.cleaningPhase).subscribe(
-   	    (response) => {
+        (response) => {
           this.isSaving = false;
-   	      this.cleaningPhase = response;
-   	      this.router.navigate(['productionOrder/' + this.productionOrder.id + '/cleaningPhase/' + this.cleaningPhase.id]);
-   	    },
-   	    (error) => {
+          this.cleaningPhase = response;
+          this.router.navigate(['productionOrder/' + this.productionOrder.id + '/cleaningPhases/' + this.cleaningPhase.id]);
+        },
+        (error) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
-   	    }
+        }
       );
     }
   }

@@ -20,13 +20,13 @@ export class SystemPreparationPhaseService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getSystemPreparationPhases(id: number | string): Observable<SystemPreparationPhase[]> {
-	return this.http.get<SystemPreparationPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
+    return this.http.get<SystemPreparationPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getSystemPreparationPhase(id: number | string, sid: number | string): Observable<SystemPreparationPhase> {
-	return this.http.get<SystemPreparationPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
+    return this.http.get<SystemPreparationPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }

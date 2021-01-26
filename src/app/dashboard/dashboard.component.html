@@ -1,7 +1,24 @@
 <div class="main-container">
   <h2>Dashboard</h2>
+  <mat-list class="mat-list spms-list">
+    <mat-list-item class="mat-list-item clickable" *ngFor="let productionorder of productionorders" (click)="start(productionorder.id)">
+      <div class="mat-list-item-content">
+        <span>
+          <span class="mat-list-item-bold-title">{{productionorder.production_order_date_string}} - {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}}):</span><br/>
+          {{productionorder.raw_material.name}}: {{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%<br/>
+          {{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} °C<br/>
+          {{productionorder.packaging.packaging_mode}}<br/>
+          <span class="mat-list-item-bold-title">{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionorder.delivery_date_string}}</span>
+        </span>
+      </div>
+      <span class="mat-list-item-divider">
+        <mat-divider></mat-divider>
+      </span>
+    </mat-list-item>
+  </mat-list>
+<!--
   <mat-nav-list>
-    <mat-list-item *ngFor="let productionorder of filteredProductionOrders" (click)="start(productionorder.id)">
+    <mat-list-item *ngFor="let productionorder of productionorders" (click)="start(productionorder.id)">
       <h3 matLine><b>{{productionorder.production_order_date_string}} - {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}})</b></h3>
       <p matLine>{{productionorder.raw_material.name}}: {{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%</p>
       <p matLine>{{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} C</p>
@@ -9,7 +26,9 @@
       <p matLine><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionorder.delivery_date_string}}</b><p>
       <span class="mat-list-item-divider">
         <mat-divider></mat-divider>
-        </span>
+      </span>
     </mat-list-item>
   </mat-nav-list>
+-->
+
 </div>

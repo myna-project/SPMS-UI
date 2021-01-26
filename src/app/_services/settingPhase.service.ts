@@ -20,13 +20,13 @@ export class SettingPhaseService {
   constructor(private http: HttpClient, private httpUtils: HttpUtils) {}
 
   getSettingPhases(id: number | string): Observable<SettingPhase[]> {
-	return this.http.get<SettingPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
+    return this.http.get<SettingPhase[]>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
   getSettingPhase(id: number | string, sid: number | string): Observable<SettingPhase> {
-	return this.http.get<SettingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
+    return this.http.get<SettingPhase>(environment.apiEndPoint + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
