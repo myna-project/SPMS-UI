@@ -39,4 +39,8 @@ export class DashboardComponent implements OnInit {
   start(id: number): void {
     this.router.navigate(['productionOrder/' + id + '/phases']);
   }
+
+    getOngoingPOs() {
+      return this.productionorders.filter((po) => !po.completed);
+  }
 }
