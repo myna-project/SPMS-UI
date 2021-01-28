@@ -78,7 +78,7 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('validationPhase')">
+    <mat-list-item *ngIf="canAddPhase || this.currentUser.isResp" class="mat-list-item-add-phase clickable" (click)="newPhase('validationPhase')">
       <span class="mat-list-item-underline-title">{{ 'VALIDATIONPHASE.NEW' | translate }}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
