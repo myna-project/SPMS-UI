@@ -18,9 +18,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('settingPhase')">
-      <span class="mat-list-item-underline-title">{{ 'SETTINGPHASE.NEW' | translate }}</span>
-    </mat-list-item>
+    <span *ngIf="canAddPhase" class="button-row-right">
+      <button type="submit" mat-raised-button color="primary" (click)="newPhase('settingPhase')">{{ 'SETTINGPHASE.NEW' | translate }}</button>
+    </span>
+    <mat-list-item><p></p></mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
@@ -33,9 +34,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('systemPreparationPhase')">
-      <span class="mat-list-item-underline-title">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</span>
-    </mat-list-item>
+    <span *ngIf="canAddPhase" class="button-row-right">
+      <button type="submit" mat-raised-button color="primary" (click)="newPhase('systemPreparationPhase')">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</button>
+    </span>
+    <mat-list-item><p></p></mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
@@ -48,9 +50,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('cleaningPhase')">
-      <span class="mat-list-item-underline-title">{{ 'CLEANINGPHASE.NEW' | translate }}</span>
-    </mat-list-item>
+    <span *ngIf="canAddPhase" class="button-row-right">
+      <button type="submit" mat-raised-button color="primary" (click)="newPhase('cleaningPhase')">{{ 'CLEANINGPHASE.NEW' | translate }}</button>
+    </span>
+    <mat-list-item><p></p></mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
   <mat-list class="mat-list spms-list">
@@ -63,9 +66,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase" class="mat-list-item-add-phase clickable" (click)="newPhase('workingPhase')">
-      <span class="mat-list-item-underline-title">{{ 'WORKINGPHASE.NEW' | translate }}</span>
-    </mat-list-item>
+    <span *ngIf="canAddPhase" class="button-row-right">
+      <button type="submit" mat-raised-button color="primary" (click)="newPhase('workingPhase')">{{ 'WORKINGPHASE.NEW' | translate }}</button>
+    </span>
+    <mat-list-item><p></p></mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
   <mat-list *ngIf="currentUser && (currentUser.isResp || currentUser.isAdmin)" class="mat-list spms-list">
@@ -78,9 +82,10 @@
         </span>
       </div>
     </mat-list-item>
-    <mat-list-item *ngIf="canAddPhase || this.currentUser.isResp" class="mat-list-item-add-phase clickable" (click)="newPhase('validationPhase')">
-      <span class="mat-list-item-underline-title">{{ 'VALIDATIONPHASE.NEW' | translate }}</span>
-    </mat-list-item>
+    <span *ngIf="canAddPhase || this.currentUser.isResp" class="button-row-right">
+      <button type="submit" mat-raised-button color="primary" (click)="newPhase('validationPhase')">{{ 'VALIDATIONPHASE.NEW' | translate }}</button>
+    </span>
+    <mat-list-item><p></p></mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
   <div class="button-row-right">
