@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     this.productionordersService.getProductionOrders().subscribe(
       (productionorders) => {
         productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
-        this.productionorders = productionorders;
+        this.productionorders = productionorders.filter((po) => !po.completed);
         this.productionorders.forEach((po) => {
           po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
           po.delivery_date_string = this.httpUtils.getLocaleDateString(po.delivery_date);
@@ -38,9 +38,5 @@ export class DashboardComponent implements OnInit {
 
   start(id: number): void {
     this.router.navigate(['productionOrder/' + id + '/phases']);
-  }
-
-    getOngoingPOs() {
-      return this.productionorders.filter((po) => !po.completed);
   }
 }

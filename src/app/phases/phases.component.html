@@ -18,11 +18,16 @@
         </span>
       </div>
     </mat-list-item>
-    <span *ngIf="canAddPhase" class="button-row-right">
-      <button type="submit" mat-raised-button color="primary" (click)="newPhase('settingPhase')">{{ 'SETTINGPHASE.NEW' | translate }}</button>
-    </span>
-    <mat-list-item><p></p></mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item">
+      <div class="mat-list-item-content">
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="newPhase('settingPhase')">{{ 'SETTINGPHASE.NEW' | translate }}</button>
+        </span>
+        <span class="mat-list-item-divider">
+          <mat-divider></mat-divider>
+        </span>
+      </div>
+    </mat-list-item>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.system_preparation_phases" (click)="toPhase('systemPreparationPhase', sf.id)">
@@ -34,11 +39,16 @@
         </span>
       </div>
     </mat-list-item>
-    <span *ngIf="canAddPhase" class="button-row-right">
-      <button type="submit" mat-raised-button color="primary" (click)="newPhase('systemPreparationPhase')">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</button>
-    </span>
-    <mat-list-item><p></p></mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item">
+      <div class="mat-list-item-content">
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="newPhase('systemPreparationPhase')">{{ 'SYSTEMPREPARATIONPHASE.NEW' | translate }}</button>
+        </span>
+        <span class="mat-list-item-divider">
+          <mat-divider></mat-divider>
+        </span>
+      </div>
+    </mat-list-item>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.cleaning_phases" (click)="toPhase('cleaningPhase', sf.id)">
@@ -50,11 +60,16 @@
         </span>
       </div>
     </mat-list-item>
-    <span *ngIf="canAddPhase" class="button-row-right">
-      <button type="submit" mat-raised-button color="primary" (click)="newPhase('cleaningPhase')">{{ 'CLEANINGPHASE.NEW' | translate }}</button>
-    </span>
-    <mat-list-item><p></p></mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item">
+      <div class="mat-list-item-content">
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="newPhase('cleaningPhase')">{{ 'CLEANINGPHASE.NEW' | translate }}</button>
+        </span>
+        <span class="mat-list-item-divider">
+          <mat-divider></mat-divider>
+        </span>
+      </div>
+    </mat-list-item>
   </mat-list>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.working_phases" (click)="toPhase('workingPhase', sf.id)">
@@ -66,11 +81,16 @@
         </span>
       </div>
     </mat-list-item>
-    <span *ngIf="canAddPhase" class="button-row-right">
-      <button type="submit" mat-raised-button color="primary" (click)="newPhase('workingPhase')">{{ 'WORKINGPHASE.NEW' | translate }}</button>
-    </span>
-    <mat-list-item><p></p></mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-list-item *ngIf="canAddPhase" class="mat-list-item">
+      <div class="mat-list-item-content">
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="newPhase('workingPhase')">{{ 'WORKINGPHASE.NEW' | translate }}</button>
+        </span>
+        <span class="mat-list-item-divider">
+          <mat-divider></mat-divider>
+        </span>
+      </div>
+    </mat-list-item>
   </mat-list>
   <mat-list *ngIf="currentUser && (currentUser.isResp || currentUser.isAdmin)" class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.validation_phases" (click)="toPhase('validationPhase', sf.id)">
@@ -82,11 +102,16 @@
         </span>
       </div>
     </mat-list-item>
-    <span *ngIf="canAddPhase || this.currentUser.isResp" class="button-row-right">
-      <button type="submit" mat-raised-button color="primary" (click)="newPhase('validationPhase')">{{ 'VALIDATIONPHASE.NEW' | translate }}</button>
-    </span>
-    <mat-list-item><p></p></mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-list-item *ngIf="canAddPhase || this.currentUser.isResp" class="mat-list-item">
+      <div class="mat-list-item-content">
+        <span class="mat-list-item-right-buttons">
+          <button mat-stroked-button class="mat-list-item-right-button" color="primary" (click)="newPhase('validationPhase')">{{ 'VALIDATIONPHASE.NEW' | translate }}</button>
+        </span>
+        <span class="mat-list-item-divider">
+          <mat-divider></mat-divider>
+        </span>
+      </div>
+    </mat-list-item>
   </mat-list>
   <div class="button-row-right">
     <button type="submit" mat-raised-button color="primary" (click)="close()">{{ 'PHASES.TERMINATE' | translate }}</button>
