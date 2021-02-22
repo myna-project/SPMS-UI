@@ -21,7 +21,7 @@ export class HttpUtils {
   }
 
   public getAPIEndpoint() {
-    return (environment.sameDomain ? window.location.protocol + '//' + window.location.host + '/' : environment.URL) + environment.contextPath;
+    return (environment.sameDomain ? window.location.protocol + '//' + window.location.hostname + ':' + environment.port + '/' : environment.URL) + environment.contextPath;
   }
 
   public getAdminUrl() {
