@@ -99,7 +99,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
     wpm.workingPhase = this.workingPhase;
     wpm.time = Math.floor(new Date().getTime()/1000);
     wpm.finished_product_quantity = this.httpUtils.convertToNumber(this.finished_product_quantity);
-    this.workingPhaseMeasureService.createWorkingPhaseMeasure(wpm).subscribe(
+    this.workingPhaseMeasureService.createWorkingPhaseMeasure(this.productionOrder.id, this.workingPhase.id, wpm).subscribe(
       (response) => {
         this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.MEASURESAVED'));
         response.time_string = this.httpUtils.getLocaleDateTimeString(new Date(response.time * 1000));
@@ -117,7 +117,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
   }
 
   removeMeasure(i: number) {
-    this.workingPhaseMeasureService.deleteWorkingPhaseMeasure(this.workingPhaseMeasures[i]).subscribe(
+    this.workingPhaseMeasureService.deleteWorkingPhaseMeasure(this.productionOrder.id, this.workingPhase.id, this.workingPhaseMeasures[i].id).subscribe(
       (response) => {
         this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.MEASUREDELETED'));
         this.workingPhaseMeasures.splice(i, 1);

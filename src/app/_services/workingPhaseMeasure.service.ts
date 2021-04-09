@@ -32,20 +32,20 @@ export class WorkingPhaseMeasureService {
     );
   }
 
-  createWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<any> {
-    return this.http.post<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/measures', measure).pipe(
+  createWorkingPhaseMeasure(id: number | string, sid: number | string, measure: WorkingPhaseMeasure): Observable<any> {
+    return this.http.post<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid + '/measures', measure).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  updateWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<any> {
-    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id, measure).pipe(
+  updateWorkingPhaseMeasure(id: number | string, sid: number | string, mid: number | string, measure: WorkingPhaseMeasure): Observable<any> {
+    return this.http.put(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource + '/' + mid, measure).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
 
-  deleteWorkingPhaseMeasure(measure: WorkingPhaseMeasure): Observable<WorkingPhaseMeasure> {
-    return this.http.delete<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + measure.workingPhase.productionOrder.id + '/' + this.phaseResource + '/' + measure.workingPhase.id + '/' + this.measureResource + '/' + measure.id).pipe(
+  deleteWorkingPhaseMeasure(id: number | string, sid: number | string, mid: number | string): Observable<WorkingPhaseMeasure> {
+    return this.http.delete<WorkingPhaseMeasure>(this.httpUtils.getAPIEndpoint() + this.httpUtils.getAdminUrl() + this.poResource + '/' + id + '/' + this.phaseResource + '/' + sid + '/' + this.measureResource + '/' + mid).pipe(
       catchError((err) => { return throwError(err); })
     );
   }
