@@ -57,8 +57,13 @@
   },
   "ERROR": {
     "400": "Richiesta non corretta! Se l'errore persiste contattare l'assistenza",
+    "403": "Impossibile accedere alla risorsa!",
     "404": "Risorsa non trovata!",
     "405": "Operazione non consentita!",
+    "490": "Richiesta ad IEnergy non corretta! Se l'errore persiste contattare l'assistenza",
+    "493": "Impossibile accedere alla risorsa in IEnergy!",
+    "494": "Risorsa non trovata in IEnergy!",
+    "495": "Operazione non consentita in IEnergy!",
     "1001": "Username non disponibile!",
     "1002": "Esiste già un utente per questo indirizzo e-mail!",
     "1004": "La nuova password deve essere diversa da quella vecchia!",

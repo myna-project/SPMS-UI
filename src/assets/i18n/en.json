@@ -57,8 +57,13 @@
   },
   "ERROR": {
     "400": "Bad request! If error persist please contact our assistance",
+    "403": "Cannot access to resource!",
     "404": "Resource not found!",
     "405": "Operation not allowed!",
+    "490": "Bad request to IEnergy! If error persist please contact our assistance",
+    "493": "Cannot access to IEnergy-Da resource!",
+    "494": "IEnergy resource not found!",
+    "495": "IEnergy-Da operation not allowed!",
     "1001": "Username not available!",
     "1002": "An user is already registered for this e-mail address!",
     "1004": "Old and new password must be different!",
