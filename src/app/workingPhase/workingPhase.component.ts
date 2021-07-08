@@ -50,6 +50,8 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
               if (this.productionOrder.working_phases) {
                 let sf = this.productionOrder.working_phases.filter(phase => (phase.id === +sid))[0];
                 if (sf) {
+                  sf.productionOrder = new ProductionOrder();
+                  sf.productionOrder.id = +id;
                   this.workingPhase = sf;
                   this.workingPhaseMeasures = sf.measures;
                   if (this.workingPhaseMeasures) {
