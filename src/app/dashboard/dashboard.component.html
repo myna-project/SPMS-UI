@@ -4,11 +4,12 @@
     <mat-list-item class="mat-list-item clickable" *ngFor="let productionorder of productionorders" (click)="start(productionorder.id)">
       <div class="mat-list-item-content">
         <span>
-          <span class="mat-list-item-bold-title">{{productionorder.production_order_date_string}} - {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}}):</span><br/>
-          {{productionorder.raw_material.name}}: {{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%<br/>
-          {{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} °C<br/>
-          {{productionorder.packaging.packaging_mode}}<br/>
-          <span class="mat-list-item-bold-title">{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionorder.delivery_date_string}}</span>
+          <span class="mat-list-item-bold-title">
+          <span *ngIf="productionorder.delivery_date_string">{{productionorder.production_order_date_string}} - </span><span *ngIf="productionorder.customer">{{productionorder.customer.name}}</span>: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}}):</span><br/>
+          <span *ngIf="productionorder.raw_material">{{productionorder.raw_material.name}}: </span>{{productionorder.weight_raw_material}} Kg - {{productionorder.tons_raw_material}} T - {{productionorder.density_raw_material}}%<br/>
+          <span *ngIf="productionorder.expected_mixture_mode">{{productionorder.expected_mixture_mode.name}}: {{productionorder.expected_mixture_temperature}} °C</span><br/>
+          <span *ngIf="productionorder.packaging">{{productionorder.packaging.packaging_mode}}</span><br/>
+          <span *ngIf="productionorder.delivery_date_string" class="mat-list-item-bold-title">{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionorder.delivery_date_string}}</span>
         </span>
       </div>
       <span class="mat-list-item-divider">

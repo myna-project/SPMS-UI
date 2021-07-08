@@ -28,7 +28,8 @@ export class ProductionOrdersComponent implements OnInit {
         var pos = productionorders;
         this.isLoading = false;
         pos.forEach((po) => {
-          po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
+          if (po.production_order_date)
+            po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
           this.productionorders.push(po);
         });
         this.filteredProductionOrders = this.productionorders;
@@ -41,7 +42,7 @@ export class ProductionOrdersComponent implements OnInit {
 
   search(term: string): void {
     this.filteredProductionOrders = this.productionorders.filter(function(productionorder) {
-      return (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+      return (productionorder.production_order_date && (productionorder.production_order_date.toLowerCase().indexOf(term.toLowerCase()) >= 0)) || (productionorder.customer.name.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_order_code.toLowerCase().indexOf(term.toLowerCase()) >= 0) || (productionorder.production_number_lot.toLowerCase().indexOf(term.toLowerCase()) >= 0);
     });
   }
 

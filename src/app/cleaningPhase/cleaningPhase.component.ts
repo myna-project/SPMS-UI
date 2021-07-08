@@ -49,6 +49,8 @@ export class CleaningPhaseComponent implements ComponentCanDeactivate,OnInit {
               if (this.productionOrder.cleaning_phases) {
                 let sf = this.productionOrder.cleaning_phases.filter(phase => (phase.id === +sid))[0];
                 if (sf) {
+                  sf.productionOrder = new ProductionOrder();
+                  sf.productionOrder.id = +id;
                   this.cleaningPhase = sf;
                   this.isLoading = false;
                 } else {

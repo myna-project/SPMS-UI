@@ -57,12 +57,15 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
         this.productionOrderService.getProductionOrder(id).subscribe(
           (po_response) => {
             this.productionOrder = po_response;
-            this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
+            if (this.productionOrder.delivery_date)
+              this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
             var sid = params.get('sid');
             if (sid) {
               if (this.productionOrder.setting_phases) {
                 let sf = this.productionOrder.setting_phases.filter(phase => (phase.id === +sid))[0];
                 if (sf) {
+                  sf.productionOrder = new ProductionOrder();
+                  sf.productionOrder.id = +id;
                   this.settingPhase = sf;
                   this.createForm();
                   this.isLoading = false;
@@ -100,7 +103,7 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
   }
 
   compareObjects(o1: any, o2: any): boolean {
-      return (o2 != null) && (o1.id === o2.id);
+    return (o2 != null) && (o1.id === o2.id);
   }
 
   getDataFromForm(s: SettingPhase): void {

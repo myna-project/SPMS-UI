@@ -25,8 +25,10 @@ export class DashboardComponent implements OnInit {
         productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
         this.productionorders = productionorders.filter((po) => !po.completed);
         this.productionorders.forEach((po) => {
-          po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
-          po.delivery_date_string = this.httpUtils.getLocaleDateString(po.delivery_date);
+          if (po.production_order_date)
+            po.production_order_date_string = this.httpUtils.getLocaleDateString(po.production_order_date);
+          if (po.delivery_date)
+            po.delivery_date_string = this.httpUtils.getLocaleDateString(po.delivery_date);
         });
         this.isLoading = false;
       },

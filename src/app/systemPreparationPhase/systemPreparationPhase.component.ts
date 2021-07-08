@@ -46,6 +46,8 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
               if (this.productionOrder.system_preparation_phases) {
                 let sf = this.productionOrder.system_preparation_phases.filter(phase => (phase.id === +sid))[0];
                 if (sf) {
+                  sf.productionOrder = new ProductionOrder();
+                  sf.productionOrder.id = +id;
                   this.systemPreparationPhase = sf;
                   this.isLoading = false;
                 } else {

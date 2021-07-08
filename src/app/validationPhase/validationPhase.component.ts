@@ -48,6 +48,8 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
               if (this.productionOrder.validation_phases) {
                 let sf = this.productionOrder.validation_phases.filter(phase => (phase.id === +sid))[0];
                 if (sf) {
+                  sf.productionOrder = new ProductionOrder();
+                  sf.productionOrder.id = +id;
                   this.validationPhase = sf;
                   this.createForm();
                   this.isLoading = false;
@@ -93,13 +95,13 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
     this.validationPhaseForm = new FormGroup({
       'density_finished_product': new FormControl(this.validationPhase.density_finished_product, [ Validators.required ]),
       'humidity_finished_product': new FormControl(this.validationPhase.humidity_finished_product, [ Validators.required ]),
-      'packaging_state': new FormControl(this.validationPhase.packaging_state, [ ]),
-      'sieve_quantity': new FormControl(this.validationPhase.sieve_quantity, [ ]),
-      'chimney_quantity': new FormControl(this.validationPhase.chimney_quantity, [ ]),
-      'tower_entry_temperature': new FormControl(this.validationPhase.tower_entry_temperature, [ ]),
-      'tower_intern_temperature': new FormControl(this.validationPhase.tower_intern_temperature,[ ]),
-      'cyclon_entry_temperature': new FormControl(this.validationPhase.cyclon_entry_temperature, [ ]),
-      'note': new FormControl(this.validationPhase.note,[ ])
+      'packaging_state': new FormControl(this.validationPhase.packaging_state, []),
+      'sieve_quantity': new FormControl(this.validationPhase.sieve_quantity, []),
+      'chimney_quantity': new FormControl(this.validationPhase.chimney_quantity, []),
+      'tower_entry_temperature': new FormControl(this.validationPhase.tower_entry_temperature, []),
+      'tower_intern_temperature': new FormControl(this.validationPhase.tower_intern_temperature,[]),
+      'cyclon_entry_temperature': new FormControl(this.validationPhase.cyclon_entry_temperature, []),
+      'note': new FormControl(this.validationPhase.note,[])
     });
   }
 

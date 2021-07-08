@@ -4,10 +4,10 @@
     <mat-chip disabled routerLink="/productionOrder/{{productionOrder.id}}/phases" routerLinkActive="active">{{ 'PHASES.TITLE' | translate }}</mat-chip>
   </mat-chip-list>
   <h2>{{'PHASES.TITLE' | translate }} - {{'PRODUCTIONORDER.TITLE' | translate }} {{productionOrder.production_order_code}}</h2>
-  <p>{{productionOrder.raw_material.name}}: {{productionOrder.weight_raw_material}} Kg - {{productionOrder.tons_raw_material}} T - {{productionOrder.density_raw_material}}%</p>
-  <p>{{productionOrder.expected_mixture_mode.name}}: {{productionOrder.expected_mixture_temperature}} °C</p>
-  <p>{{productionOrder.packaging.packaging_mode}}</p>
-  <p><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
+  <p *ngIf="productionOrder.raw_material">{{productionOrder.raw_material.name}}: {{productionOrder.weight_raw_material}} Kg - {{productionOrder.tons_raw_material}} T - {{productionOrder.density_raw_material}}%</p>
+  <p><span *ngIf="productionOrder.expected_mixture_mode">{{productionOrder.expected_mixture_mode.name}}: </span>{{productionOrder.expected_mixture_temperature}} °C</p>
+  <p *ngIf="productionOrder.packaging">{{productionOrder.packaging.packaging_mode}}</p>
+  <p *ngIf="productionOrder.delivery_date_string"><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item clickable" *ngFor="let sf of productionOrder.setting_phases" (click)="toPhase('settingPhase', sf.id)">
       <div class="mat-list-item-content" [class.current-phase]="sf.current">

@@ -46,7 +46,8 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
         this.productionOrdersService.getProductionOrder(id).subscribe(
           (po_response) => {
             this.productionOrder = po_response;
-            this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
+            if (this.productionOrder.delivery_date)
+              this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
             if (this.productionOrder.setting_phases) {
               this.productionOrder.setting_phases.forEach(sf => {
                 sf.start_time_string = this.httpUtils.getLocaleDateTimeString(new Date(sf.start_time * 1000));

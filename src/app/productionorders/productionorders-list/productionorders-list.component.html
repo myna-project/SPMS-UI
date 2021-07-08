@@ -16,7 +16,7 @@
   <mat-list class="mat-list spms-list">
     <mat-list-item class="mat-list-item" *ngFor="let productionorder of filteredProductionOrders">
       <div class="mat-list-item-content">
-        <span class="mat-list-item-title">{{productionorder.production_order_date_string}} - {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}})</span>
+        <span class="mat-list-item-title"><span *ngIf="productionorder.delivery_date_string">{{productionorder.production_order_date_string}} - </span> {{productionorder.customer.name}}: {{productionorder.production_order_code}} ({{productionorder.production_number_lot}})</span>
         <span *ngIf="productionorder.completed" class="mat-list-item-right-buttons" [ngStyle]="{'color':'green'}">
           <i class="material-icons">check</i>
         </span>

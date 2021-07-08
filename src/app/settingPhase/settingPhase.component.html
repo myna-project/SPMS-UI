@@ -9,8 +9,8 @@
     </span>
   </mat-chip-list>
   <h2>{{'PRODUCTIONORDER.TITLE' | translate }} {{productionOrder.production_order_code}}</h2>
-  <p>{{productionOrder.raw_material ? productionOrder.raw_material.name : ''}}: {{productionOrder.weight_raw_material}} Kg - {{productionOrder.tons_raw_material}} T - {{productionOrder.density_raw_material}}%</p>
-  <p><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
+  <p><span *ngIf="productionOrder.raw_material">{{productionOrder.raw_material.name}}: </span>{{productionOrder.weight_raw_material}} Kg - {{productionOrder.tons_raw_material}} T - {{productionOrder.density_raw_material}}%</p>
+  <p *ngIf="productionOrder.delivery_date_string"><b>{{ 'PRODUCTIONORDER.DELIVERYDATE' | translate }}: {{productionOrder.delivery_date_string}}</b></p>
   <h4>{{ (settingPhase.id ? 'SETTINGPHASE.ONGOING' : 'SETTINGPHASE.NEW') | translate }}</h4>
   <form class="spms-form" [formGroup]="settingPhaseForm">
     <div class="spms-form-field-group">
@@ -24,7 +24,7 @@
     </div>
     <div class="spms-form-field-group">
       <mat-form-field class="long-form-field">
-        <input matInput type="number" placeholder="{{ ('SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate) + ' (' + productionOrder.expected_mixture_temperature + ') °C' }}" [formControl]="effective_mixture_temperature">
+        <input matInput type="number" placeholder="{{ ('SETTINGPHASE.EFFECTIVE_MIXTURE_TEMPERATURE' | translate) + (productionOrder.expected_mixture_temperature ? ' (' + productionOrder.expected_mixture_temperature + ')' : '') + ' °C' }}" [formControl]="effective_mixture_temperature" required>
         <mat-error *ngIf="effective_mixture_temperature.invalid && (effective_mixture_temperature.dirty || effective_mixture_temperature.touched) && effective_mixture_temperature.errors.required">{{ 'SETTINGPHASE.MISSING_EFFECTIVE_MIXTURE_TEMPERATURE' | translate }}</mat-error>
       </mat-form-field>
     </div>
