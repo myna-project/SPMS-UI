@@ -1,5 +1,5 @@
 {
-  "name": "SPMS-UI",
+  "name": "spms",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",

@@ -3,5 +3,5 @@ export const environment = {
   URL: "http://10.10.10.196:8080/",
   sameDomain: false,
   port: 8080,
-  contextPath: "SPMS/"
+  contextPath: "spms-api/"
 };
