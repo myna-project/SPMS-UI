@@ -3,8 +3,6 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { environment } from './../../environments/environment';
-
 import { User } from '../_models/user';
 
 import { HttpUtils } from '../_utils/http.utils';

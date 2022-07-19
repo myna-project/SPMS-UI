@@ -1,4 +1,3 @@
-import { User } from './user';
 import { WorkingPhase } from './workingPhase';
 
 export class WorkingPhaseMeasure { 

@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { Customer } from '../../_models/customer';
 
@@ -19,17 +18,17 @@ export class CustomersComponent implements OnInit {
   customers: Customer[];
   filteredCustomers: Customer[];
 
-  constructor(private customersService: CustomersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private customersService: CustomersService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.customersService.getCustomers().subscribe(
-      (customers) => {
+      (customers: Customer[]) => {
         customers.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
         this.customers = customers;
         this.filteredCustomers = customers;
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

@@ -10,7 +10,7 @@ import { TokenService } from './../_services/token.service';
 export class CustomHttpInterceptor implements HttpInterceptor {
 
   private token: string;
-  private refreshTokenInProgress = false;
+  private refreshTokenInProgress: boolean = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private authenticationService: AuthenticationService, private tokenService: TokenService) {}
@@ -45,7 +45,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
               return this.tokenService.getToken().pipe(
                 retry(2),
-                switchMap(success => {
+                switchMap((success: any) => {
                   this.refreshTokenSubject.next(success.headers.get('X-CSRF-TOKEN'));
                   this.token = success.headers.get('X-CSRF-TOKEN');
                   return next.handle(this.addAuthenticationToken(req)).pipe(

@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { ProductionOrder } from '../_models/productionorder';
 
@@ -14,14 +13,14 @@ import { HttpUtils } from '../_utils/http.utils';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private productionordersService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
-
   isLoading: boolean = true;
   productionorders: ProductionOrder[] = [];
 
+  constructor(private productionordersService: ProductionOrdersService, private router: Router, private httpUtils: HttpUtils) {}
+
   ngOnInit(): void {
     this.productionordersService.getProductionOrders().subscribe(
-      (productionorders) => {
+      (productionorders: ProductionOrder[]) => {
         productionorders.sort((a, b) => a.production_order_date < b.production_order_date ? -1 : a.production_order_date > b.production_order_date ? 1 : 0);
         this.productionorders = productionorders.filter((po) => !po.completed);
         this.productionorders.forEach((po) => {
@@ -32,7 +31,7 @@ export class DashboardComponent implements OnInit {
         });
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

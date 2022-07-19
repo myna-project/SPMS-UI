@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,17 +31,17 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
   validationPhase: ValidationPhase = new ValidationPhase();
   productionOrder: ProductionOrder = new ProductionOrder();
   validationPhaseForm: FormGroup;
-  backRoute = 'dashboard';
+  backRoute: string = 'dashboard';
 
-  constructor(private productionOrderService: ProductionOrdersService, private validationPhaseService: ValidationPhaseService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private productionOrderService: ProductionOrdersService, private validationPhaseService: ValidationPhaseService, private route: ActivatedRoute, private router: Router, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var id = params.get('id');
       if (id) {
         this.productionOrderService.getProductionOrder(id).subscribe(
-          (po_response) => {
+          (po_response: ProductionOrder) => {
             this.productionOrder = po_response;
             var sid = params.get('sid');
             if (sid) {
@@ -65,9 +65,9 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
               this.isLoading = false;
             }
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -91,7 +91,6 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
   get note() { return this.validationPhaseForm.get('note'); }
 
   createForm() {
-    let patterns = this.httpUtils.getPatterns();
     this.validationPhaseForm = new FormGroup({
       'density_finished_product': new FormControl(this.validationPhase.density_finished_product, [ Validators.required ]),
       'humidity_finished_product': new FormControl(this.validationPhase.humidity_finished_product, [ Validators.required ]),
@@ -123,13 +122,13 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
       this.getDataFromForm(this.validationPhase);
       this.validationPhase.end_time = Math.floor(new Date().getTime()/1000);
       this.validationPhaseService.updateValidationPhase(this.productionOrder.id, this.validationPhase).subscribe(
-        (response) => {
+        (_response: ValidationPhase) => {
           this.isSaving = false;
           this.validationPhaseForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('VALIDATIONPHASE.SAVED'));
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
          }
@@ -137,12 +136,12 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
     } else {
       this.validationPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.validationPhaseService.createValidationPhase(this.productionOrder.id, this.validationPhase).subscribe(
-        (response) => {
+        (response: ValidationPhase) => {
           this.isSaving = false;
           this.validationPhase = response;
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/validationPhases/' + this.validationPhase.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -152,16 +151,16 @@ export class ValidationPhaseComponent implements ComponentCanDeactivate,OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('VALIDATIONPHASE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.validationPhaseService.deleteValidationPhase(this.productionOrder.id, this.validationPhase).subscribe(
-          (response) => {
+          (_response: ValidationPhase) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('VALIDATIONPHASE.DELETED'));
             this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

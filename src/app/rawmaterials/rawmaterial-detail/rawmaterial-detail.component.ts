@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,24 +30,24 @@ export class RawMaterialComponent implements ComponentCanDeactivate, OnInit {
   isDeleting: boolean = false;
   rawMaterial: RawMaterial = new RawMaterial();
   rawMaterialForm: FormGroup;
-  backRoute = 'rawmaterials';
+  backRoute: string = 'rawmaterials';
 
   constructor(private rawMaterialsService: RawMaterialsService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var rawMaterialId = params.get('id');
       if (rawMaterialId) {
         this.rawMaterialsService.getRawMaterial(rawMaterialId).subscribe(
-          (response) => {
+          (response: RawMaterial) => {
             this.rawMaterial = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -71,27 +72,27 @@ export class RawMaterialComponent implements ComponentCanDeactivate, OnInit {
     if (this.rawMaterial.id !== undefined) {
       newRawMaterial.id = this.rawMaterial.id;
       this.rawMaterialsService.updateRawMaterial(newRawMaterial).subscribe(
-        (response) => {
+        (response: RawMaterial) => {
           this.rawMaterial = response;
           this.isSaving = false;
           this.rawMaterialForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('RAWMATERIAL.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.rawMaterialsService.createRawMaterial(newRawMaterial).subscribe(
-        (response) => {
+        (response: RawMaterial) => {
           this.rawMaterial = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('RAWMATERIAL.SAVED'));
           this.rawMaterialForm.markAsUntouched();
           this.router.navigate(['rawmaterial/' + this.rawMaterial.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -101,17 +102,17 @@ export class RawMaterialComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('RAWMATERIAL.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.rawMaterialsService.deleteRawMaterial(this.rawMaterial).subscribe(
-          (response) => {
+          (_response: RawMaterial) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('RAWMATERIAL.DELETED'));
             this.rawMaterialForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,24 +30,24 @@ export class AdditiveComponent implements ComponentCanDeactivate, OnInit {
   isDeleting: boolean = false;
   additive: Additive = new Additive();
   additiveForm: FormGroup;
-  backRoute = 'additives';
+  backRoute: string = 'additives';
 
   constructor(private additivesService: AdditivesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var additiveId = params.get('id');
       if (additiveId) {
         this.additivesService.getAdditive(additiveId).subscribe(
-          (response) => {
+          (response: Additive) => {
             this.additive = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: any) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -71,27 +72,27 @@ export class AdditiveComponent implements ComponentCanDeactivate, OnInit {
     if (this.additive.id !== undefined) {
       newAdditive.id = this.additive.id;
       this.additivesService.updateAdditive(newAdditive).subscribe(
-        (response) => {
+        (response: Additive) => {
           this.additive = response;
           this.isSaving = false;
           this.additiveForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('ADDITIVE.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.additivesService.createAdditive(newAdditive).subscribe(
-        (response) => {
+        (response: Additive) => {
           this.additive = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('ADDITIVE.SAVED'));
           this.additiveForm.markAsUntouched();
           this.router.navigate(['additive/' + this.additive.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -101,17 +102,17 @@ export class AdditiveComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('ADDITIVE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.additivesService.deleteAdditive(this.additive).subscribe(
-          (response) => {
+          (_response: Additive) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('ADDITIVE.DELETED'));
             this.additiveForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

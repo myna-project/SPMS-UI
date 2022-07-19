@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -34,28 +34,28 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
   productionOrder: ProductionOrder = new ProductionOrder();
   settingPhaseForm: FormGroup;
   allMixtureModes: MixtureMode[];
-  backRoute = 'dashboard';
+  backRoute: string = 'dashboard';
 
-  constructor(private settingPhaseService: SettingPhaseService, private productionOrderService: ProductionOrdersService, private mixtureModesService: MixtureModesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private settingPhaseService: SettingPhaseService, private productionOrderService: ProductionOrdersService, private mixtureModesService: MixtureModesService, private route: ActivatedRoute, private router: Router, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
     this.mixtureModesService.getMixtureModes().subscribe(
-      (response) => {
+      (response: MixtureMode[]) => {
         this.allMixtureModes = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
     );
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var id = params.get('id');
       if (id) {
         this.productionOrderService.getProductionOrder(id).subscribe(
-          (po_response) => {
+          (po_response: ProductionOrder) => {
             this.productionOrder = po_response;
             if (this.productionOrder.delivery_date)
               this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
@@ -81,9 +81,9 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
               this.isLoading = false;
             }
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -117,13 +117,13 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
       this.getDataFromForm(this.settingPhase);
       this.settingPhase.end_time = Math.floor(new Date().getTime()/1000);
       this.settingPhaseService.updateSettingPhase(this.productionOrder.id, this.settingPhase).subscribe(
-        (response) => {
+        (_response: SettingPhase) => {
           this.isSaving = false;
           this.settingPhaseForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('SETTINGPHASE.SAVED'));
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -131,12 +131,12 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
     } else {
       this.settingPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.settingPhaseService.createSettingPhase(this.productionOrder.id, this.settingPhase).subscribe(
-        (response) => {
+        (response: SettingPhase) => {
           this.isSaving = false;
           this.settingPhase = response;
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/settingPhases/' + this.settingPhase.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -146,16 +146,16 @@ export class SettingPhaseComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('SETTINGPHASE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.settingPhaseService.deleteSettingPhase(this.productionOrder.id, this.settingPhase).subscribe(
-          (response) => {
+          (_response: SettingPhase) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('SETTINGPHASE.DELETED'));
             this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

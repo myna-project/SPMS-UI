@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { Additive } from '../../_models/additive';
 
@@ -19,17 +18,17 @@ export class AdditivesComponent implements OnInit {
   additives: Additive[];
   filteredAdditives: Additive[];
 
-  constructor(private additivesService: AdditivesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private additivesService: AdditivesService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.additivesService.getAdditives().subscribe(
-      (additives) => {
+      (additives: Additive[]) => {
         additives.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
         this.additives = additives;
         this.filteredAdditives = additives;
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

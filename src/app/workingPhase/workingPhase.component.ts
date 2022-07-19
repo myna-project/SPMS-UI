@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -34,16 +34,16 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
   workingPhase: WorkingPhase = new WorkingPhase();
   workingPhaseMeasures: WorkingPhaseMeasure[] = [];
   finished_product_quantity: string = '0';
-  backRoute = 'dashboard';
+  backRoute: string = 'dashboard';
 
-  constructor(private productionOrderService: ProductionOrdersService, private workingPhaseService: WorkingPhaseService, private workingPhaseMeasureService: WorkingPhaseMeasureService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private productionOrderService: ProductionOrdersService, private workingPhaseService: WorkingPhaseService, private workingPhaseMeasureService: WorkingPhaseMeasureService, private route: ActivatedRoute, private router: Router, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var id = params.get('id');
       if (id) {
         this.productionOrderService.getProductionOrder(id).subscribe(
-          (po_response) => {
+          (po_response: ProductionOrder) => {
             this.productionOrder = po_response;
             var sid = params.get('sid');
             if (sid) {
@@ -72,9 +72,9 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
               this.isLoading = false;
             }
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -102,7 +102,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
     wpm.time = Math.floor(new Date().getTime()/1000);
     wpm.finished_product_quantity = this.httpUtils.convertToNumber(this.finished_product_quantity);
     this.workingPhaseMeasureService.createWorkingPhaseMeasure(this.productionOrder.id, this.workingPhase.id, wpm).subscribe(
-      (response) => {
+      (response: WorkingPhaseMeasure) => {
         this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.MEASURESAVED'));
         response.time_string = this.httpUtils.getLocaleDateTimeString(new Date(response.time * 1000));
         if (this.workingPhaseMeasures)
@@ -111,7 +111,7 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
           this.workingPhaseMeasures = [response];
         this.clear();
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.isSaving = false;
         this.httpUtils.errorDialog(error);
       }
@@ -120,11 +120,11 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
 
   removeMeasure(i: number) {
     this.workingPhaseMeasureService.deleteWorkingPhaseMeasure(this.productionOrder.id, this.workingPhase.id, this.workingPhaseMeasures[i].id).subscribe(
-      (response) => {
+      (_response: WorkingPhaseMeasure) => {
         this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.MEASUREDELETED'));
         this.workingPhaseMeasures.splice(i, 1);
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );
@@ -135,12 +135,12 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
     if (this.workingPhase.id) {
       this.workingPhase.end_time = Math.floor(new Date().getTime()/1000);
       this.workingPhaseService.updateWorkingPhase(this.productionOrder.id, this.workingPhase).subscribe(
-        (response) => {
+        (_response: WorkingPhase) => {
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.SAVED'));
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -148,12 +148,12 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
     } else {
       this.workingPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.workingPhaseService.createWorkingPhase(this.productionOrder.id, this.workingPhase).subscribe(
-        (response) => {
+        (response: WorkingPhase) => {
           this.isSaving = false;
           this.workingPhase = response;
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/workingPhases/' + this.workingPhase.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -163,16 +163,16 @@ export class WorkingPhaseComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('WORKINGPHASE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.workingPhaseService.deleteWorkingPhase(this.productionOrder.id, this.workingPhase).subscribe(
-          (response) => {
+          (_response: WorkingPhase) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('WORKINGPHASE.DELETED'));
             this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

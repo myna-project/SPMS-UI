@@ -1,11 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { DOCUMENT } from "@angular/common";
-import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
 import { DateAdapter } from '@angular/material/core';
 import { MatSidenavContent } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { User } from './_models/user';
@@ -25,17 +24,14 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('content') content: MatSidenavContent;
 
   isReturnToTopShow: boolean;
-  topPosToStartShowing = 100;
+  topPosToStartShowing: number = 100;
   style: string = 'purple';
   mobileQuery: MediaQueryList;
   opened: boolean;
-  langName: {[key: string]: string} = {
-    en: 'English',
-    it: 'Italiano'
-  };
+  langName: {[ key: string ]: string } = { en: 'English', it: 'Italiano' };
   selectedLang: string;
   currentUser: User;
-  user_avatar;
+  user_avatar: any;
 
   @HostListener('window:scroll')
   checkScroll() {
@@ -44,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  constructor(private dateAdapter: DateAdapter<any>, private ngxMatDateAdapter: NgxMatDateAdapter<any>, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher, private sanitizer: DomSanitizer, private httpUtils: HttpUtils, public translate: TranslateService) {
+  constructor(private dateAdapter: DateAdapter<any>, private ngxMatDateAdapter: NgxMatDateAdapter<any>, private router: Router, private authService: AuthenticationService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher, private sanitizer: DomSanitizer, private httpUtils: HttpUtils, public translate: TranslateService) {
     translate.addLangs(['en', 'it']);
 
     const browserLang = translate.getBrowserLang();
@@ -52,9 +48,9 @@ export class AppComponent implements OnInit, OnDestroy {
     translate.use(this.selectedLang);
     this.dateAdapter.setLocale(this.selectedLang);
     this.ngxMatDateAdapter.setLocale(this.selectedLang);
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   ngOnInit() {
@@ -74,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   closeSideNav() {
@@ -110,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logout() {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('USER.CONFIRMLOGOUT'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.snav.close();
         this.authService.logout();
@@ -123,7 +119,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  onActivate(event) {
+  onActivate(_event: any) {
     this.currentUser = this.authService.getCurrentUser();
     if (this.currentUser === null) {
       this.router.navigate(['/login']);

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -46,24 +47,24 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
   allMixtureModes: MixtureMode[];
   allPackagings: Packaging[];
   allRawMaterials: RawMaterial[];
-  backRoute = 'productionOrders';
+  backRoute: string = 'productionOrders';
 
   constructor(private productionOrdersService: ProductionOrdersService, private additivesService: AdditivesService, private customersService: CustomersService, private mixtureModesService: MixtureModesService, private packagingsService: PackagingsService, private rawMaterialsService: RawMaterialsService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var productionOrderId = params.get('id');
       if (productionOrderId) {
         this.productionOrdersService.getProductionOrder(productionOrderId).subscribe(
-          (response) => {
+          (response: ProductionOrder) => {
             this.productionOrder = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -73,56 +74,56 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
       }
     });
     this.additivesService.getAdditives().subscribe(
-      (response) => {
+      (response: Additive[]) => {
         this.allAdditives = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
     );
     this.customersService.getCustomers().subscribe(
-      (response) => {
+      (response: Customer[]) => {
         this.allCustomers = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
     );
     this.mixtureModesService.getMixtureModes().subscribe(
-      (response) => {
+      (response: MixtureMode[]) => {
         this.allMixtureModes = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
     );
     this.packagingsService.getPackagings().subscribe(
-      (response) => {
+      (response: Packaging[]) => {
         this.allPackagings = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
     );
     this.rawMaterialsService.getRawMaterials().subscribe(
-      (response) => {
+      (response: RawMaterial[]) => {
         this.allRawMaterials = response;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
@@ -233,27 +234,27 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
     if (this.productionOrder.id !== undefined) {
       newProductionOrder.id = this.productionOrder.id;
       this.productionOrdersService.updateProductionOrder(newProductionOrder).subscribe(
-        (response) => {
+        (response: ProductionOrder) => {
           this.productionOrder = response;
           this.isSaving = false;
           this.productionOrderForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('PRODUCTIONORDER.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.productionOrdersService.createProductionOrder(newProductionOrder).subscribe(
-        (response) => {
+        (response: ProductionOrder) => {
           this.productionOrder = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('PRODUCTIONORDER.SAVED'));
           this.productionOrderForm.markAsUntouched();
           this.router.navigate(['productionOrder/' + this.productionOrder.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -263,17 +264,17 @@ export class ProductionOrderComponent implements ComponentCanDeactivate, OnInit 
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('PRODUCTIONORDER.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.productionOrdersService.deleteProductionOrder(this.productionOrder).subscribe(
-          (response) => {
+          (_response: ProductionOrder) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('PRODUCTIONORDER.DELETED'));
             this.productionOrderForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

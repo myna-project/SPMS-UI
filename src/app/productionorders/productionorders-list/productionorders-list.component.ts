@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { ProductionOrder } from '../../_models/productionorder';
 
@@ -19,11 +18,11 @@ export class ProductionOrdersComponent implements OnInit {
   productionorders: ProductionOrder[] = [];
   filteredProductionOrders: ProductionOrder[];
 
-  constructor(private productionordersService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private productionordersService: ProductionOrdersService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.productionordersService.getProductionOrders().subscribe(
-      (productionorders) => {
+      (productionorders: ProductionOrder[]) => {
         productionorders.sort((a, b) => a.production_order_date > b.production_order_date ? -1 : a.production_order_date < b.production_order_date ? 1 : 0);
         var pos = productionorders;
         this.isLoading = false;
@@ -34,7 +33,7 @@ export class ProductionOrdersComponent implements OnInit {
         });
         this.filteredProductionOrders = this.productionorders;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

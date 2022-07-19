@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { MixtureMode } from '../../_models/mixturemode';
 
@@ -19,17 +18,17 @@ export class MixtureModesComponent implements OnInit {
   mixtureModes: MixtureMode[];
   filteredMixtureModes: MixtureMode[];
 
-  constructor(private mixtureModesService: MixtureModesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private mixtureModesService: MixtureModesService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.mixtureModesService.getMixtureModes().subscribe(
-      (mixtureModes) => {
+      (mixtureModes: MixtureMode[]) => {
         mixtureModes.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
         this.mixtureModes = mixtureModes;
         this.filteredMixtureModes = mixtureModes;
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

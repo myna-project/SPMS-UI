@@ -4,17 +4,16 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { User } from '../_models/user';
 
 import { AuthenticationService } from '../_services/authentication.service';
-import { UsersService } from '../_services/users.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RespAuthGuard implements CanActivate {
 
-  constructor(private router: Router, private userService: UsersService, private authService: AuthenticationService) {}
+  constructor(private router: Router, private authService: AuthenticationService) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let currentUser = this.authService.getCurrentUser();
+  canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
+    let currentUser: User = this.authService.getCurrentUser();
     if (currentUser === null)
       this.router.navigate(['/login']);
 

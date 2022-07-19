@@ -3,7 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of, throwError } from 'rxjs';
 
 import { User } from '../_models/user';
 
@@ -29,9 +28,9 @@ export class HttpUtils {
     if (currentUser === null || currentUser === undefined) {
       return '';
     } else {
-        if(currentUser.isAdmin)
+        if (currentUser.isAdmin)
           return "admin/";
-        else if(currentUser.isResp)
+        else if (currentUser.isResp)
           return "resp/";
         else
           return "";

@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { Packaging } from '../../_models/packaging';
 
@@ -19,17 +18,17 @@ export class PackagingsComponent implements OnInit {
   packagings: Packaging[];
   filteredPackagings: Packaging[];
 
-  constructor(private packagingsService: PackagingsService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private packagingsService: PackagingsService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.packagingsService.getPackagings().subscribe(
-      (packagings) => {
+      (packagings: Packaging[]) => {
         packagings.sort((a, b) => a.packaging_mode < b.packaging_mode ? -1 : a.packaging_mode > b.packaging_mode ? 1 : 0);
         this.packagings = packagings;
         this.filteredPackagings = packagings;
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );

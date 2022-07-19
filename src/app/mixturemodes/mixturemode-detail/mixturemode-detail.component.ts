@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,24 +30,24 @@ export class MixtureModeComponent implements ComponentCanDeactivate, OnInit {
   isDeleting: boolean = false;
   mixtureMode: MixtureMode = new MixtureMode();
   mixtureModeForm: FormGroup;
-  backRoute = 'mixturemodes';
+  backRoute: string = 'mixturemodes';
 
   constructor(private mixtureModesService: MixtureModesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var mixtureModeId = params.get('id');
       if (mixtureModeId) {
         this.mixtureModesService.getMixtureMode(mixtureModeId).subscribe(
-          (response) => {
+          (response: MixtureMode) => {
             this.mixtureMode = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -71,27 +72,27 @@ export class MixtureModeComponent implements ComponentCanDeactivate, OnInit {
     if (this.mixtureMode.id !== undefined) {
       newMixtureMode.id = this.mixtureMode.id;
       this.mixtureModesService.updateMixtureMode(newMixtureMode).subscribe(
-        (response) => {
+        (response: MixtureMode) => {
           this.mixtureMode = response;
           this.isSaving = false;
           this.mixtureModeForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('MIXTUREMODE.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.mixtureModesService.createMixtureMode(newMixtureMode).subscribe(
-        (response) => {
+        (response: MixtureMode) => {
           this.mixtureMode = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('MIXTUREMODE.SAVED'));
           this.mixtureModeForm.markAsUntouched();
           this.router.navigate(['mixturemode/' + this.mixtureMode.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -101,17 +102,17 @@ export class MixtureModeComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('MIXTUREMODE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.mixtureModesService.deleteMixtureMode(this.mixtureMode).subscribe(
-          (response) => {
+          (_response: MixtureMode) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('MIXTUREMODE.DELETED'));
             this.mixtureModeForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

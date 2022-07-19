@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { environment } from './../../environments/environment';
-
 import { CleaningPhase } from '../_models/cleaningPhase';
 
 import { HttpUtils } from '../_utils/http.utils';

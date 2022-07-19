@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -29,16 +29,16 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
   isDeleting: boolean = false;
   systemPreparationPhase: SystemPreparationPhase = new SystemPreparationPhase();
   productionOrder: ProductionOrder = new ProductionOrder();
-  backRoute = 'dashboard';
+  backRoute: string = 'dashboard';
 
-  constructor(private systemPreparationPhaseService: SystemPreparationPhaseService, private productionOrderService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private systemPreparationPhaseService: SystemPreparationPhaseService, private productionOrderService: ProductionOrdersService, private route: ActivatedRoute, private router: Router, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var id = params.get('id');
       if (id) {
         this.productionOrderService.getProductionOrder(id).subscribe(
-          (po_response) => {
+          (po_response: ProductionOrder) => {
             this.productionOrder = po_response;
             this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
             var sid = params.get('sid');
@@ -62,9 +62,9 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
               this.isLoading = false;
             }
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -78,12 +78,12 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
     if (this.systemPreparationPhase.id) {
       this.systemPreparationPhase.end_time = Math.floor(new Date().getTime()/1000);
       this.systemPreparationPhaseService.updateSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
-        (response) => {
+        (_response: SystemPreparationPhase) => {
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('SYSTEMPREPARATIONPHASE.SAVED'));
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -91,12 +91,12 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
     } else {
       this.systemPreparationPhase.start_time = Math.floor(new Date().getTime()/1000);
       this.systemPreparationPhaseService.createSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
-        (response) => {
+        (response: SystemPreparationPhase) => {
           this.isSaving = false;
           this.systemPreparationPhase = response;
           this.router.navigate(['productionOrder/' + this.productionOrder.id + '/systemPreparationPhases/' + this.systemPreparationPhase.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -106,16 +106,16 @@ export class SystemPreparationPhaseComponent implements ComponentCanDeactivate,O
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('SYSTEMPREPARATIONPHASE.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.systemPreparationPhaseService.deleteSystemPreparationPhase(this.productionOrder.id, this.systemPreparationPhase).subscribe(
-          (response) => {
+          (_response: SystemPreparationPhase) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('SYSTEMPREPARATIONPHASE.DELETED'));
             this.router.navigate(['productionOrder/' + this.productionOrder.id + '/phases']);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

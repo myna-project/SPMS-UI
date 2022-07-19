@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,24 +30,24 @@ export class PackagingComponent implements ComponentCanDeactivate, OnInit {
   isDeleting: boolean = false;
   packaging: Packaging = new Packaging();
   packagingForm: FormGroup;
-  backRoute = 'packagings';
+  backRoute: string = 'packagings';
 
   constructor(private packagingsService: PackagingsService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var packagingId = params.get('id');
       if (packagingId) {
         this.packagingsService.getPackaging(packagingId).subscribe(
-          (response) => {
+          (response: Packaging) => {
             this.packaging = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -71,27 +72,27 @@ export class PackagingComponent implements ComponentCanDeactivate, OnInit {
     if (this.packaging.id !== undefined) {
       newPackaging.id = this.packaging.id;
       this.packagingsService.updatePackaging(newPackaging).subscribe(
-        (response) => {
+        (response: Packaging) => {
           this.packaging = response;
           this.isSaving = false;
           this.packagingForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('PACKAGING.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.packagingsService.createPackaging(newPackaging).subscribe(
-        (response) => {
+        (response: Packaging) => {
           this.packaging = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('PACKAGING.SAVED'));
           this.packagingForm.markAsUntouched();
           this.router.navigate(['packaging/' + this.packaging.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -101,17 +102,17 @@ export class PackagingComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('PACKAGING.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.packagingsService.deletePackaging(this.packaging).subscribe(
-          (response) => {
+          (_response: Packaging) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('PACKAGING.DELETED'));
             this.packagingForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

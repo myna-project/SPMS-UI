@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,27 +30,27 @@ export class UserComponent implements ComponentCanDeactivate, OnInit {
   isLoading: boolean = true;
   isSaving: boolean = false;
   isDeleting: boolean = false;
-  allRoles : Role[];
-  user : User = new User();
+  allRoles: Role[];
+  user: User = new User();
   userForm: FormGroup;
-  backRoute = 'users';
+  backRoute: string = 'users';
 
   constructor(private usersService: UsersService, private rolesService: RolesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var userId = params.get('id');
       if (userId) {
         this.usersService.getUser(userId).subscribe(
-          (response) => {
+          (response: User) => {
             this.user = response;
             this.createForm();
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -59,12 +60,12 @@ export class UserComponent implements ComponentCanDeactivate, OnInit {
       }
     });
     this.rolesService.getRoles().subscribe(
-      (resp) => {
+      (resp: Role[]) => {
         this.allRoles = resp;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }
@@ -97,27 +98,27 @@ export class UserComponent implements ComponentCanDeactivate, OnInit {
     if (this.user.id !== undefined) {
       newUser.id = this.user.id;
       this.usersService.updateUser(newUser).subscribe(
-        (response) => {
+        (response: User) => {
           this.user = response;
           this.isSaving = false;
           this.userForm.markAsUntouched();
           this.httpUtils.successSnackbar(this.translate.instant('USER.SAVED'));
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
       );
     } else {
       this.usersService.createUser(newUser).subscribe(
-        (response) => {
+        (response: User) => {
           this.user = response;
           this.isSaving = false;
           this.httpUtils.successSnackbar(this.translate.instant('USER.SAVED'));
           this.userForm.markAsUntouched();
           this.router.navigate(['user/' + this.user.id]);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           this.isSaving = false;
           this.httpUtils.errorDialog(error);
         }
@@ -127,17 +128,17 @@ export class UserComponent implements ComponentCanDeactivate, OnInit {
 
   delete(): void {
     const dialogRef = this.httpUtils.confirmDelete(this.translate.instant('USER.DELETECONFIRM'));
-    dialogRef.afterClosed().subscribe(dialogResult => {
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.isDeleting = true;
         this.usersService.deleteUser(this.user).subscribe(
-          (response) => {
+          (_response: User) => {
             this.isDeleting = false;
             this.httpUtils.successSnackbar(this.translate.instant('USER.DELETED'));
             this.userForm.markAsUntouched();
             this.router.navigate([this.backRoute]);
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.isDeleting = false;
             this.httpUtils.errorDialog(error);
           }

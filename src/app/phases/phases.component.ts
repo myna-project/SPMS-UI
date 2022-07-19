@@ -1,18 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { ComponentCanDeactivate } from '../_guards/pending-changes.guard';
 
-import { CleaningPhase } from '../_models/cleaningPhase'
 import { ProductionOrder } from '../_models/productionorder';
-import { SettingPhase } from '../_models/settingPhase'
-import { SystemPreparationPhase } from '../_models/systemPreparationPhase'
 import { User } from '../_models/user';
-import { ValidationPhase } from '../_models/validationPhase'
-import { WorkingPhase } from '../_models/workingPhase'
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { ProductionOrdersService } from '../_services/productionorders.service';
@@ -34,17 +29,17 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
   currentUser: User;
   productionOrder: ProductionOrder;
   canAddPhase: boolean = true;
-  backRoute = 'dashboard';
+  backRoute: string = 'dashboard';
 
-  constructor(private productionOrdersService: ProductionOrdersService, private authService: AuthenticationService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private productionOrdersService: ProductionOrdersService, private authService: AuthenticationService, private route: ActivatedRoute, private router: Router, private httpUtils: HttpUtils, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: any) => {
       var id = params.get('id');
       if (id) {
         this.productionOrdersService.getProductionOrder(id).subscribe(
-          (po_response) => {
+          (po_response: ProductionOrder) => {
             this.productionOrder = po_response;
             if (this.productionOrder.delivery_date)
               this.productionOrder.delivery_date_string = this.httpUtils.getLocaleDateString(this.productionOrder.delivery_date);
@@ -104,9 +99,9 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
             }
             this.isLoading = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             const dialogRef = this.httpUtils.errorDialog(error);
-            dialogRef.afterClosed().subscribe(value => {
+            dialogRef.afterClosed().subscribe((_value: any) => {
               this.router.navigate([this.backRoute]);
             });
           }
@@ -118,13 +113,13 @@ export class PhasesComponent implements ComponentCanDeactivate,OnInit {
   close(): void {
     this.productionOrder.completed = true;
     this.productionOrdersService.updateProductionOrder(this.productionOrder).subscribe(
-      (response) => {
+      (_response: ProductionOrder) => {
         this.httpUtils.successSnackbar(this.translate.instant('PHASES.CLOSED'));
         this.router.navigate([this.backRoute]);
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         const dialogRef = this.httpUtils.errorDialog(error);
-        dialogRef.afterClosed().subscribe(value => {
+        dialogRef.afterClosed().subscribe((_value: any) => {
           this.router.navigate([this.backRoute]);
         });
       }

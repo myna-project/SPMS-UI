@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { Role } from '../../_models/role';
 import { User } from '../../_models/user';
@@ -20,27 +19,27 @@ export class UsersComponent implements OnInit {
   isLoading: boolean = true;
   users: User[];
   filteredUsers: User[];
-  roles : Role[];
+  roles: Role[];
 
-  constructor(private usersService: UsersService, private rolesService: RolesService, private route: ActivatedRoute, private router: Router, private location: Location, private httpUtils: HttpUtils, private translate: TranslateService) {}
+  constructor(private usersService: UsersService, private rolesService: RolesService, private router: Router, private httpUtils: HttpUtils) {}
 
   ngOnInit(): void {
     this.usersService.getUsers().subscribe(
-      (users) => {
+      (users: User[]) => {
         users.sort((a, b) => a.surname < b.surname ? -1 : a.surname > b.surname ? 1 : (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
         this.users = users;
         this.filteredUsers = users;
         this.isLoading = false;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );
     this.rolesService.getRoles().subscribe(
-      (roles) => {
+      (roles: Role[]) => {
         this.roles = roles;
       },
-      (error) => {
+      (error: HttpErrorResponse) => {
         this.httpUtils.errorDialog(error);
       }
     );
